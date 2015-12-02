@@ -16,11 +16,6 @@ namespace DeBrabander.DAL
         {
         }
 
-        //static Context()
-        //{
-        //    DbConfiguration.SetConfiguration(new MySql.Data.Entity.MySqlEFConfiguration());
-        //}
-
         public DbSet<User> Users { get; set; }
         public DbSet<Customer> Customers { get; set; }
 

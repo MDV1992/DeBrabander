@@ -13,7 +13,7 @@ namespace DeBrabander.Models
             public string Login { get; set; }
             public string Password { get; set; }
 
-            public int rights { get; set; }
+            public int Rights { get; set; }
         
     }
 }

@@ -11,15 +11,6 @@ namespace DeBrabander.DAL
     {
         protected override void Seed(Context context)
         {
-            var user = new List<User>
-            {
-                new User { Login = "Tom", Password = "123", rights = 1 }
-            };
-
-            var klant = new List<Customer>
-            {
-                new Customer { LastName = "brunson", FirstName = "Tom" }
-            };
         }
     }
 }

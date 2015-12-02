@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Welkom</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
@@ -17,10 +17,58 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("De Brabander", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Login", "Index", "Home")</li>
+                    @* dropdown menu voor klanten *@
+                    <li class="dropdown">
+                        <a href="#" dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">Klanten</a>
+                        <ul class="dropdown-menu" role="menu" id="myTab">
+                            <li role="presentation">
+                                <a href="@Url.Action("Index", "Customers")">Overzicht Klanten</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="@Url.Action("Create", "Customers")">Nieuwe Klant Aanmaken</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @* Dropdown voor offertes *@
+                    <li class="dropdown">
+                        <a href="#" dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">Offertes</a>
+                        <ul class="dropdown-menu" role="menu" id="myTab">
+                            <li role="presentation">
+                                <a href="@Url.Action("Index", "Propositions")">Overzicht Offertes</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="@Url.Action("Create", "Propositions")">Nieuwe Offerte Aanmaken</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @* Dropdown voor facturen *@
+                    <li class="dropdown">
+                        <a href="#" dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">Facturen</a>
+                        <ul class="dropdown-menu" role="menu" id="myTab">
+                            <li role="presentation">
+                                <a href="@Url.Action("Index", "Invoices")">Overzicht Facturen</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @* Dropdown voor artikels *@
+                    <li class="dropdown">
+                        <a href="#" dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">Artikelen</a>
+                        <ul class="dropdown-menu" role="menu" id="myTab">
+                            <li role="presentation">
+                                <a href="@Url.Action("Index", "Customers")">Overzicht Artikelen</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Instellingen", "Index", "Settings")</li>
                 </ul>
             </div>
         </div>
