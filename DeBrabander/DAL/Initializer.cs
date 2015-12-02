@@ -7,13 +7,18 @@ using DeBrabander.Models;
 
 namespace DeBrabander.DAL
 {
-    public class Initializer : System.Data.Entity.DropCreateDatabaseAlways<Context>
+    public class Initializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<Context>
     {
         protected override void Seed(Context context)
         {
             var user = new List<User>
             {
                 new User { Login = "Tom", Password = "123", rights = 1 }
+            };
+
+            var klant = new List<Customer>
+            {
+                new Customer { naam = "brunson", voornaam = "Tom" }
             };
         }
     }
