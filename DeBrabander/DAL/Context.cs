@@ -22,7 +22,9 @@ namespace DeBrabander.DAL
         //}
 
         public DbSet<User> Users { get; set; }
-        public IDbSet<Customer> Customers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

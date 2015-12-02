@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DeBrabander.Models.Customer>
+﻿@model IEnumerable<DeBrabander.Models.Product>
 
 @{
     ViewBag.Title = "Index";
@@ -12,10 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.ProductName)
         </th>
         <th></th>
     </tr>
@@ -23,10 +20,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
+            @Html.DisplayFor(modelItem => item.ProductName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

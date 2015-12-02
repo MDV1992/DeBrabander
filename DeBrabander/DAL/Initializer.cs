@@ -18,7 +18,7 @@ namespace DeBrabander.DAL
 
             var klant = new List<Customer>
             {
-                new Customer { naam = "brunson", voornaam = "Tom" }
+                new Customer { LastName = "brunson", FirstName = "Tom" }
             };
         }
     }
