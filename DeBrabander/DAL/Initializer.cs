@@ -7,7 +7,7 @@ using DeBrabander.Models;
 
 namespace DeBrabander.DAL
 {
-    public class Initializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<Context>
+    public class Initializer : System.Data.Entity.DropCreateDatabaseAlways<Context>
     {
         protected override void Seed(Context context)
         {

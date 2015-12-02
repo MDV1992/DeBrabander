@@ -8,13 +8,17 @@ using DeBrabander.Models;
 
 namespace DeBrabander.DAL
 {
-    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+    
 
     public class Context : DbContext
     {
         public Context() : base("Context")
         {
+        }
 
+        static Context()
+        {
+            DbConfiguration.SetConfiguration(new MySql.Data.Entity.MySqlEFConfiguration());            
         }
 
         public DbSet<User> Users { get; set; }
