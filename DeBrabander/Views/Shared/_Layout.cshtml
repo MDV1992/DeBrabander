@@ -21,7 +21,19 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Login", "Index", "Home")</li>
+                    @* Dropdown voor login *@
+                    <li class="dropdown">
+                        <a href="#" dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">Login</a>
+                        <ul class="dropdown-menu" role="menu" id="myTab">
+                            <li role="presentation">
+                                <a href="@Url.Action("Login", "UserAccount")">Aanmelden</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="@Url.Action("Register", "UserAccount")">Nieuwe Gebruiker Aanmaken</a>
+                            </li>
+                        </ul>
+                    </li>
                     @* dropdown menu voor klanten *@
                     <li class="dropdown">
                         <a href="#" dropdown-toggle" data-toggle="dropdown" role="button"

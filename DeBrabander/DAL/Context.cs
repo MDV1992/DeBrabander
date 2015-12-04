@@ -16,7 +16,7 @@ namespace DeBrabander.DAL
         {
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserAccount> Users { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
         public DbSet<Product> Products { get; set; }

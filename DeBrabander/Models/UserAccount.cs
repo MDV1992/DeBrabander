@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DeBrabander.Models
 {
-	public class User
+	public class UserAccount
 	{
             [Key]
             public int UserID { get; set; }
