@@ -30,6 +30,7 @@ namespace DeBrabander.Controllers
                 using (Context db = new Context())
                 {
                     account.Password = SecurityUtil.hashPassword(account.Password);
+                    account.ConfirmPassword = SecurityUtil.hashPassword(account.ConfirmPassword);
                     db.UserAccounts.Add(account);
                     db.SaveChanges();
                 }
@@ -50,8 +51,8 @@ namespace DeBrabander.Controllers
         {
             using (Context db = new Context())
             {
-                var usr = db.UserAccounts.Where(u => u.Username == user.Username && u.Password == SecurityUtil.hashPassword(user.Password)).FirstOrDefault();
-                if (usr != null)
+                var usr = db.UserAccounts.Where(u => u.Username == user.Username).FirstOrDefault();
+                if (usr != null && usr.Password == SecurityUtil.hashPassword(user.Password))
                 {
                     Session["UserID"] = usr.UserID.ToString();
                     Session["Gebruikersnaam"] = usr.Username.ToString();

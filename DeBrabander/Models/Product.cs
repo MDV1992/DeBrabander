@@ -9,7 +9,7 @@ namespace DeBrabander.Models
     public class Product
     {
         [Key]
-        public int ID { get; set; }
+        public int ProductID { get; set; }
         public string ProductName { get; set; }
         
     }

@@ -12,7 +12,7 @@ namespace DeBrabander.Utils
         public static string hashPassword(string password)
         {
             var hashed = Crypto.Hash(password, "sha256");
-            return password;
+            return hashed;
         }
     }
 }
