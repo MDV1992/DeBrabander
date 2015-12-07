@@ -5,13 +5,22 @@ using System.Web;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity;
 using DeBrabander.Models;
+using MySql.Data.MySqlClient;
+using MySql.Data.Entity;
 
 namespace DeBrabander.DAL
 {
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class Context : DbContext
     {
         public Context() : base("DefaultConnection")
         {
+            Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
+        }
+
+        static Context()
+        {
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
         }
 
         public DbSet<UserAccount> UserAccounts { get; set; }
