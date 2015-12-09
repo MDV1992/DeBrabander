@@ -34,7 +34,7 @@ namespace DeBrabander.Models
             [DisplayName("Bevestig je wachtwoord")]
             [Compare("Password", ErrorMessage ="Gelieve je wachtwoord te bevestigen")]
             [DataType(DataType.Password)]
-            [NotMapped]
+            [NotMapped] //Zorgt ervoor dat deze kolom niet aangemaakt wordt in de tabel.
             public string ConfirmPassword { get; set; }
             public int Rights { get; set; }
         
