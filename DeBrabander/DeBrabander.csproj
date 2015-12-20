@@ -131,6 +131,7 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\QuotationsController.cs" />
     <Compile Include="Controllers\UserAccountController.cs" />
     <Compile Include="DAL\Context.cs" />
     <Compile Include="DAL\Initializer.cs" />
@@ -139,6 +140,7 @@
     </Compile>
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Quotation.cs" />
     <Compile Include="Models\UserAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\CustomAuthorizeAttribute.cs" />
@@ -164,6 +166,11 @@
     <Content Include="Views\UserAccount\Login.cshtml" />
     <Content Include="Views\UserAccount\LoggedIn.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Quotations\Create.cshtml" />
+    <Content Include="Views\Quotations\Delete.cshtml" />
+    <Content Include="Views\Quotations\Details.cshtml" />
+    <Content Include="Views\Quotations\Edit.cshtml" />
+    <Content Include="Views\Quotations\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

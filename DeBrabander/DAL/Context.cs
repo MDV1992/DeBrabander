@@ -10,7 +10,7 @@ using MySql.Data.Entity;
 
 namespace DeBrabander.DAL
 {
-    [DbConfigurationType(typeof(MySqlEFConfiguration))]
+    //[DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class Context : DbContext
     {
         public Context() : base("DefaultConnection")
@@ -25,17 +25,13 @@ namespace DeBrabander.DAL
 
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<Customer> Customers { get; set; }
-
         public DbSet<Product> Products { get; set; }
+        public DbSet<Quotation> Quotations { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //Tabelnamen worden nu niet meer in meervouden gezet.
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
-
-
-
-
     }
 }
