@@ -8,9 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
+using DeBrabander.Utils;
 
 namespace DeBrabander.Controllers
 {
+    
     public class CustomersController : Controller
     {
         private Context db = new Context();
@@ -37,6 +39,7 @@ namespace DeBrabander.Controllers
         }
 
         // GET: Customers/Create
+        [CustomAuthorize(UserAccount.Roles.SuperAdmin, UserAccount.Roles.Admin)]
         public ActionResult Create()
         {
             return View();

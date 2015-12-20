@@ -63,10 +63,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Rights, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Rights, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Rights, "", new { @class = "text-danger" })
+                @Html.EnumDropDownListFor(model => model.Role, new { @class = "form-control" })
             </div>
         </div>
 
