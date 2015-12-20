@@ -16,7 +16,6 @@ namespace DeBrabander.Models
         [DisplayName("Naam")]
         public string LastName { get; set; }
         [DisplayName("Voornaam")]
-        public string FirstName { get; set; }
-
+        public string FirstName { get; set; }        
     }
 }

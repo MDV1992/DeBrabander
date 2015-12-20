@@ -39,6 +39,7 @@ namespace DeBrabander.Controllers
         // GET: Quotations/Create
         public ActionResult Create()
         {
+            ViewBag.CustomerNumbers = new SelectList(db.Customers, "CustomerID");
             return View();
         }
 

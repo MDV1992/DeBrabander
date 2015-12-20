@@ -171,6 +171,7 @@
     <Content Include="Views\Quotations\Details.cshtml" />
     <Content Include="Views\Quotations\Edit.cshtml" />
     <Content Include="Views\Quotations\Index.cshtml" />
+    <Content Include="Views\UserAccount\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

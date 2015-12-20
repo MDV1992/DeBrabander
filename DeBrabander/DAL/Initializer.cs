@@ -12,9 +12,9 @@ namespace DeBrabander.DAL
     {
         protected override void Seed(Context context)
         {
-           // context.Customers.Add(new Customer { LastName = "Gersis", FirstName = "Glenn" });
-           // context.Customers.Add(new Customer { LastName = "Brunson", FirstName = "Tom" });
-           // context.Customers.Add(new Customer { LastName = "DVS", FirstName = "Maarten" });
+            //context.Customers.Add(new Customer { LastName = "Gersis", FirstName = "Glenn" });
+            //context.Customers.Add(new Customer { LastName = "Brunson", FirstName = "Tom" });
+            //context.Customers.Add(new Customer { LastName = "DVS", FirstName = "Maarten" });
             base.Seed(context);
         }
     }

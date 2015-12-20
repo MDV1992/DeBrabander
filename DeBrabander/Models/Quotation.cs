@@ -14,7 +14,8 @@ namespace DeBrabander.Models
         public DateTime ExpirationDate { get; set; }
         public string Annotation { get; set; }
         public bool Active { get; set; }
-        public List<Customer> Customers {get; set;}
 
+        public int CustomerID { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }

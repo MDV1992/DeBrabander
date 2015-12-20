@@ -10,7 +10,8 @@ using MySql.Data.Entity;
 
 namespace DeBrabander.DAL
 {
-    //[DbConfigurationType(typeof(MySqlEFConfiguration))]
+    // Indien het scaffolding niet lukt http://stackoverflow.com/questions/12546545/unable-to-retrieve-metadata
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class Context : DbContext
     {
         public Context() : base("DefaultConnection")
