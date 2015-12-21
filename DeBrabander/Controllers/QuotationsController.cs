@@ -39,7 +39,7 @@ namespace DeBrabander.Controllers
         // GET: Quotations/Create
         public ActionResult Create()
         {
-            ViewBag.CustomerNumbers = new SelectList(db.Customers, "CustomerID");
+            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FullName");
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "QuotationID,QuotationNumber,TotalPrice,Date,ExpirationDate,Annotation,Active")] Quotation quotation)
+        public ActionResult Create([Bind(Include = "QuotationID,QuotationNumber,TotalPrice,Date,ExpirationDate,Annotation,Active, CustomerID")] Quotation quotation)
         {
             if (ModelState.IsValid)
             {
@@ -56,7 +56,6 @@ namespace DeBrabander.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(quotation);
         }
 

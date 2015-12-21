@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -16,6 +17,14 @@ namespace DeBrabander.Models
         [DisplayName("Naam")]
         public string LastName { get; set; }
         [DisplayName("Voornaam")]
-        public string FirstName { get; set; }        
+        public string FirstName { get; set; }
+        [NotMapped]
+        public string FullName
+        {
+            get
+            {
+                return LastName + " " + FirstName;
+            }
+        }
     }
 }

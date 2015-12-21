@@ -29,13 +29,13 @@
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
         <td>
-            <a href="@Url.Action("Edit", "Customers", new { id = item.CustomerID })" class="btn btn-default">
+            <a href="@Url.Action("Edit", "Customers", new { id = item.CustomerID })" class="btn btn-primary">
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
             </a>
-            <a href="@Url.Action("Details", "Customers", new { id = item.CustomerID })" class="btn btn-default">
+            <a href="@Url.Action("Details", "Customers", new { id = item.CustomerID })" class="btn btn-info">
                 <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
             </a>
-            <a href="@Url.Action("Delete", "Customers", new { id = item.CustomerID })" class="btn btn-default">
+            <a href="@Url.Action("Delete", "Customers", new { id = item.CustomerID })" class="btn btn-danger">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </a> |
             <a href="@Url.Action("Create", "Quotations", new { id = item.CustomerID })">Offerte toevoegen</a>
