@@ -16,8 +16,13 @@ namespace DeBrabander.Controllers
         private Context db = new Context();
 
         // GET: Quotations
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
+            var quotations = from q in db.Quotations select q;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                quotations = quotations.Where(q => q.QuotationNumber.ToString().Contains(searchString));
+            }
             return View(db.Quotations.ToList());
         }
 
@@ -71,6 +76,7 @@ namespace DeBrabander.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FullName");
             return View(quotation);
         }
 
@@ -79,7 +85,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "QuotationID,QuotationNumber,TotalPrice,Date,ExpirationDate,Annotation,Active")] Quotation quotation)
+        public ActionResult Edit([Bind(Include = "QuotationID,QuotationNumber,TotalPrice,Date,ExpirationDate,Annotation,Active, CustomerID")] Quotation quotation)
         {
             if (ModelState.IsValid)
             {
