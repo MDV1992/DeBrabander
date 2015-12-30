@@ -11,113 +11,107 @@ using DeBrabander.Models;
 
 namespace DeBrabander.Controllers
 {
-    public class QuotationsController : Controller
+    public class VATsController : Controller
     {
         private Context db = new Context();
 
-        // GET: Quotations
-        public ActionResult Index(string searchString)
+        // GET: VATs
+        public ActionResult Index()
         {
-            var quotations = from q in db.Quotations select q;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                quotations = quotations.Where(q => q.QuotationNumber.ToString().Contains(searchString));
-            }
-            return View(db.Quotations.ToList());
+            return View(db.VATs.ToList());
         }
 
-        // GET: Quotations/Details/5
+        // GET: VATs/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Quotation quotation = db.Quotations.Find(id);
-            if (quotation == null)
+            VAT vAT = db.VATs.Find(id);
+            if (vAT == null)
             {
                 return HttpNotFound();
             }
-            return View(quotation);
+            return View(vAT);
         }
 
-        // GET: Quotations/Create
+        // GET: VATs/Create
         public ActionResult Create()
         {
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "LastName");
             return View();
         }
 
-        // POST: Quotations/Create
+        // POST: VATs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "QuotationID,QuotationNumber,TotalPrice,Date,ExpirationDate,Annotation,Active, CustomerId")] Quotation quotation)
+        public ActionResult Create([Bind(Include = "VATPercId,VATValue")] VAT vAT)
         {
             if (ModelState.IsValid)
             {
-                db.Quotations.Add(quotation);
+                db.VATs.Add(vAT);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(quotation);
+
+            return View(vAT);
         }
 
-        // GET: Quotations/Edit/5
+        // GET: VATs/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Quotation quotation = db.Quotations.Find(id);
-            if (quotation == null)
+            VAT vAT = db.VATs.Find(id);
+            if (vAT == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "FullName");
-            return View(quotation);
+            return View(vAT);
         }
 
-        // POST: Quotations/Edit/5
+        // POST: VATs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "QuotationID,QuotationNumber,TotalPrice,Date,ExpirationDate,Annotation,Active, CustomerId")] Quotation quotation)
+        public ActionResult Edit([Bind(Include = "VATPercId,VATValue")] VAT vAT)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(quotation).State = EntityState.Modified;
+                db.Entry(vAT).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(quotation);
+            return View(vAT);
         }
 
-        // GET: Quotations/Delete/5
+        // GET: VATs/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Quotation quotation = db.Quotations.Find(id);
-            if (quotation == null)
+            VAT vAT = db.VATs.Find(id);
+            if (vAT == null)
             {
                 return HttpNotFound();
             }
-            return View(quotation);
+            return View(vAT);
         }
 
-        // POST: Quotations/Delete/5
+        // POST: VATs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Quotation quotation = db.Quotations.Find(id);
-            db.Quotations.Remove(quotation);
+            VAT vAT = db.VATs.Find(id);
+            db.VATs.Remove(vAT);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

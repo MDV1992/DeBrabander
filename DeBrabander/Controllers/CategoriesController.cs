@@ -11,113 +11,107 @@ using DeBrabander.Models;
 
 namespace DeBrabander.Controllers
 {
-    public class QuotationsController : Controller
+    public class CategoriesController : Controller
     {
         private Context db = new Context();
 
-        // GET: Quotations
-        public ActionResult Index(string searchString)
+        // GET: Categories
+        public ActionResult Index()
         {
-            var quotations = from q in db.Quotations select q;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                quotations = quotations.Where(q => q.QuotationNumber.ToString().Contains(searchString));
-            }
-            return View(db.Quotations.ToList());
+            return View(db.Categories.ToList());
         }
 
-        // GET: Quotations/Details/5
+        // GET: Categories/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Quotation quotation = db.Quotations.Find(id);
-            if (quotation == null)
+            Category category = db.Categories.Find(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(quotation);
+            return View(category);
         }
 
-        // GET: Quotations/Create
+        // GET: Categories/Create
         public ActionResult Create()
         {
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "LastName");
             return View();
         }
 
-        // POST: Quotations/Create
+        // POST: Categories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "QuotationID,QuotationNumber,TotalPrice,Date,ExpirationDate,Annotation,Active, CustomerId")] Quotation quotation)
+        public ActionResult Create([Bind(Include = "CategoryId,CategoryName")] Category category)
         {
             if (ModelState.IsValid)
             {
-                db.Quotations.Add(quotation);
+                db.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(quotation);
+
+            return View(category);
         }
 
-        // GET: Quotations/Edit/5
+        // GET: Categories/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Quotation quotation = db.Quotations.Find(id);
-            if (quotation == null)
+            Category category = db.Categories.Find(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "FullName");
-            return View(quotation);
+            return View(category);
         }
 
-        // POST: Quotations/Edit/5
+        // POST: Categories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "QuotationID,QuotationNumber,TotalPrice,Date,ExpirationDate,Annotation,Active, CustomerId")] Quotation quotation)
+        public ActionResult Edit([Bind(Include = "CategoryId,CategoryName")] Category category)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(quotation).State = EntityState.Modified;
+                db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(quotation);
+            return View(category);
         }
 
-        // GET: Quotations/Delete/5
+        // GET: Categories/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Quotation quotation = db.Quotations.Find(id);
-            if (quotation == null)
+            Category category = db.Categories.Find(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(quotation);
+            return View(category);
         }
 
-        // POST: Quotations/Delete/5
+        // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Quotation quotation = db.Quotations.Find(id);
-            db.Quotations.Remove(quotation);
+            Category category = db.Categories.Find(id);
+            db.Categories.Remove(category);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

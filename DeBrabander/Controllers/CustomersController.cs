@@ -8,11 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
-using DeBrabander.Utils;
 
 namespace DeBrabander.Controllers
 {
-    
     public class CustomersController : Controller
     {
         private Context db = new Context();
@@ -39,7 +37,6 @@ namespace DeBrabander.Controllers
         }
 
         // GET: Customers/Create
-        //[CustomAuthorize(UserAccount.Roles.SuperAdmin, UserAccount.Roles.Admin)]
         public ActionResult Create()
         {
             return View();
@@ -50,7 +47,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,LastName,FirstName")] Customer customer)
+        public ActionResult Create([Bind(Include = "CustomerId,LastName,FirstName,CompanyName,Phone,CellPhone,Email,VATNumber,AccountNumber,Annotation,ContactName,ContactEmail,ContactCellPhone,CreationDate,Type,TAXLiability")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +79,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,LastName,FirstName")] Customer customer)
+        public ActionResult Edit([Bind(Include = "CustomerId,LastName,FirstName,CompanyName,Phone,CellPhone,Email,VATNumber,AccountNumber,Annotation,ContactName,ContactEmail,ContactCellPhone,CreationDate,Type,TAXLiability")] Customer customer)
         {
             if (ModelState.IsValid)
             {

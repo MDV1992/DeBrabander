@@ -5,12 +5,15 @@ using System.Web;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity;
 using DeBrabander.Models;
+
 using MySql.Data.MySqlClient;
 using MySql.Data.Entity;
 
 namespace DeBrabander.DAL
 {
     // Indien het scaffolding niet lukt http://stackoverflow.com/questions/12546545/unable-to-retrieve-metadata
+    // verander in web.config   "MySql.Data.MySqlClient" in "System.Data.SqlClient"  en nadien terug zetten
+
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class Context : DbContext
     {
@@ -26,6 +29,8 @@ namespace DeBrabander.DAL
 
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Address> Addresses { get; set;}
+        public DbSet<PostalCode> PostalCodes { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Quotation> Quotations { get; set; }
 
@@ -34,5 +39,9 @@ namespace DeBrabander.DAL
             //Tabelnamen worden nu niet meer in meervouden gezet.
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+        public System.Data.Entity.DbSet<DeBrabander.Models.VAT> VATs { get; set; }
+
+        public System.Data.Entity.DbSet<DeBrabander.Models.Category> Categories { get; set; }
     }
 }

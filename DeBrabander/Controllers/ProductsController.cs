@@ -47,7 +47,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ProductName")] Product product)
+        public ActionResult Create([Bind(Include = "ProductId,ProductName,ProductCode,Remark,Description,PriceExVAT,Reprobel,bebat,Recupel,Auvibel,PurchasePrice,Brand,CategoryId,VATPercId,Stock,EAN")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ProductName")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductId,ProductName,ProductCode,Remark,Description,PriceExVAT,Reprobel,bebat,Recupel,Auvibel,PurchasePrice,Brand,CategoryId,VATPercId,Stock,EAN")] Product product)
         {
             if (ModelState.IsValid)
             {

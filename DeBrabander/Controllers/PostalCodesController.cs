@@ -11,113 +11,107 @@ using DeBrabander.Models;
 
 namespace DeBrabander.Controllers
 {
-    public class QuotationsController : Controller
+    public class PostalCodesController : Controller
     {
         private Context db = new Context();
 
-        // GET: Quotations
-        public ActionResult Index(string searchString)
+        // GET: PostalCodes
+        public ActionResult Index()
         {
-            var quotations = from q in db.Quotations select q;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                quotations = quotations.Where(q => q.QuotationNumber.ToString().Contains(searchString));
-            }
-            return View(db.Quotations.ToList());
+            return View(db.PostalCodes.ToList());
         }
 
-        // GET: Quotations/Details/5
+        // GET: PostalCodes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Quotation quotation = db.Quotations.Find(id);
-            if (quotation == null)
+            PostalCode postalCode = db.PostalCodes.Find(id);
+            if (postalCode == null)
             {
                 return HttpNotFound();
             }
-            return View(quotation);
+            return View(postalCode);
         }
 
-        // GET: Quotations/Create
+        // GET: PostalCodes/Create
         public ActionResult Create()
         {
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "LastName");
             return View();
         }
 
-        // POST: Quotations/Create
+        // POST: PostalCodes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "QuotationID,QuotationNumber,TotalPrice,Date,ExpirationDate,Annotation,Active, CustomerId")] Quotation quotation)
+        public ActionResult Create([Bind(Include = "PostalCodeId,PostalCodeNumber,Town")] PostalCode postalCode)
         {
             if (ModelState.IsValid)
             {
-                db.Quotations.Add(quotation);
+                db.PostalCodes.Add(postalCode);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(quotation);
+
+            return View(postalCode);
         }
 
-        // GET: Quotations/Edit/5
+        // GET: PostalCodes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Quotation quotation = db.Quotations.Find(id);
-            if (quotation == null)
+            PostalCode postalCode = db.PostalCodes.Find(id);
+            if (postalCode == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "FullName");
-            return View(quotation);
+            return View(postalCode);
         }
 
-        // POST: Quotations/Edit/5
+        // POST: PostalCodes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "QuotationID,QuotationNumber,TotalPrice,Date,ExpirationDate,Annotation,Active, CustomerId")] Quotation quotation)
+        public ActionResult Edit([Bind(Include = "PostalCodeId,PostalCodeNumber,Town")] PostalCode postalCode)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(quotation).State = EntityState.Modified;
+                db.Entry(postalCode).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(quotation);
+            return View(postalCode);
         }
 
-        // GET: Quotations/Delete/5
+        // GET: PostalCodes/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Quotation quotation = db.Quotations.Find(id);
-            if (quotation == null)
+            PostalCode postalCode = db.PostalCodes.Find(id);
+            if (postalCode == null)
             {
                 return HttpNotFound();
             }
-            return View(quotation);
+            return View(postalCode);
         }
 
-        // POST: Quotations/Delete/5
+        // POST: PostalCodes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Quotation quotation = db.Quotations.Find(id);
-            db.Quotations.Remove(quotation);
+            PostalCode postalCode = db.PostalCodes.Find(id);
+            db.PostalCodes.Remove(postalCode);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
