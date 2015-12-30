@@ -14,7 +14,7 @@ namespace DeBrabander.DAL
     // Indien het scaffolding niet lukt http://stackoverflow.com/questions/12546545/unable-to-retrieve-metadata
     // verander in web.config   "MySql.Data.MySqlClient" in "System.Data.SqlClient"  en nadien terug zetten
 
-    [DbConfigurationType(typeof(MySqlEFConfiguration))]
+   [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class Context : DbContext
     {
         public Context() : base("DefaultConnection")

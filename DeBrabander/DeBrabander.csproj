@@ -57,10 +57,10 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\..\..\Desktop\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data.Entity.EF6">
-      <HintPath>..\..\..\..\..\Desktop\MySql.Data.Entity.EF6.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\MySql.Data.Entity.EF6.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />

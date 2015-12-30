@@ -57,7 +57,31 @@ namespace DeBrabander.DAL
             }
 
             context.SaveChanges();
+            var VATs = new List<VAT>
+            {
+                new VAT {VATValue= 0, VATPercId = 1 },
+                new VAT {VATValue= 6, VATPercId = 2 },
+                new VAT {VATValue= 12, VATPercId = 3 },
+                new VAT {VATValue= 21, VATPercId= 4 }
+            };
+            foreach (var temp in VATs)
+            {
+                context.VATs.Add(temp);
+            }
+            context.SaveChanges();
 
+            var Categories = new List<Category>
+            {
+                new Category { CategoryName="Dakpannen", CategoryId = 1 },
+                new Category { CategoryName="Vijzen", CategoryId = 2 },
+                new Category { CategoryName="Roofing", CategoryId = 3 },
+                new Category { CategoryName="Hout", CategoryId = 4 }
+            };
+            foreach (var temp in Categories)
+            {
+                context.Categories.Add(temp);
+            }
+            context.SaveChanges();
         }
     }
 }
