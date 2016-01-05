@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
+using DeBrabander.ViewModels.Customers;
 
 namespace DeBrabander.Controllers
 {
@@ -33,7 +34,20 @@ namespace DeBrabander.Controllers
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            int AId = customer.AddressId;
+            Address Address = db.Addresses.Find(AId);
+            int? PId = Address.PostalCodeId;
+            PostalCode PostalCode = db.PostalCodes.Find(PId);
+
+            CustomerDetailsViewModel cdvm = new CustomerDetailsViewModel();
+
+            cdvm.FirstName = customer.FirstName;
+            cdvm.LastName = customer.LastName;
+            cdvm.StreetName = Address.StreetName;
+            cdvm.StreetNumber = Address.StreetNumber;
+            cdvm.PostalCodeNumber = PostalCode.PostalCodeNumber;
+            cdvm.Town = PostalCode.Town;
+            return View(cdvm);
         }
 
         // GET: Customers/Create
