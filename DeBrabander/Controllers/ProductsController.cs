@@ -19,7 +19,36 @@ namespace DeBrabander.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            return View(db.Products.ToList());
+            List<ProductIndexViewModel> productVMList = new List<ProductIndexViewModel>();
+            List<Product> products = new List<Product>(db.Products.ToList());
+            
+            foreach (var prod in products)
+            {
+                ProductIndexViewModel pivm = new ProductIndexViewModel();
+                pivm.ProductId = prod.ProductId;
+                pivm.ProductName = prod.ProductName;
+                pivm.ProductCode = prod.ProductCode;
+                pivm.Remark = prod.Remark;
+                pivm.Description = prod.Description;
+                pivm.PriceExVAT = prod.PriceExVAT;
+                pivm.Reprobel = prod.Reprobel;
+                pivm.Bebat = prod.Bebat;
+                pivm.Recupel = prod.Recupel;
+                pivm.Auvibel = prod.Auvibel;
+                pivm.PurchasePrice = prod.PurchasePrice;
+                pivm.Brand = prod.Brand;
+                Category cat = db.Categories.Find(prod.CategoryId);
+                VAT vat = db.VATs.Find(prod.VATPercId);
+                pivm.CategoryName = cat.CategoryName;
+                pivm.VATValue = vat.VATValue;
+                pivm.Stock = prod.Stock;
+                pivm.EAN = prod.EAN;
+                pivm.StockControl = prod.StockControl;
+                productVMList.Add(pivm);
+            }
+
+
+            return View(productVMList);
         }
 
         // GET: Products/Details/5

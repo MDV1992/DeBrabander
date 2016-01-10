@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DeBrabander.Models.Product>
+﻿@*@model DeBrabander.ViewModels.Products.ProductDetailsViewModel*@
+@model IEnumerable<DeBrabander.ViewModels.Products.ProductIndexViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -45,10 +46,10 @@
             @Html.DisplayNameFor(model => model.Brand)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            @Html.DisplayNameFor(model => model.CategoryName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VATPercId)
+            @Html.DisplayNameFor(model => model.VATValue)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Stock)
@@ -95,10 +96,10 @@
             @Html.DisplayFor(modelItem => item.Brand)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CategoryId)
+            @Html.DisplayFor(modelItem => item.CategoryName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VATPercId)
+            @Html.DisplayFor(modelItem => item.VATValue)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Stock)
