@@ -155,6 +155,7 @@
     <Compile Include="Utils\SecurityUtil.cs" />
     <Compile Include="ViewModels\Customers\CustomerCreateViewModel.cs" />
     <Compile Include="ViewModels\Customers\CustomerDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Customers\CustomerEditViewModel.cs" />
     <Compile Include="ViewModels\Customers\CustomerIndexViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductDetailsViewModel.cs" />
   </ItemGroup>

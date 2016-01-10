@@ -61,8 +61,7 @@ namespace DeBrabander.Controllers
             CustomerDetailsViewModel cdvm = new CustomerDetailsViewModel();
 
             cdvm.FirstName = customer.FirstName;
-            cdvm.LastName = customer.LastName;
-            cdvm.StreetName = address.StreetName;
+            cdvm.LastName = customer.LastName;            
             cdvm.CompanyName = customer.CompanyName;
             cdvm.AccountNumber = customer.AccountNumber;
             cdvm.Annotation = customer.Annotation;
@@ -79,11 +78,11 @@ namespace DeBrabander.Controllers
             cdvm.CustomerId = customer.CustomerId;
 
             cdvm.AddressId = customer.AddressId;
-            cdvm.StreetNumber = address.StreetNumber;
+            cdvm.StreetName = address.StreetName;
             cdvm.StreetNumber = address.StreetNumber;
             cdvm.Box = address.Box;
-            cdvm.PostalCodeId = address.PostalCodeId;
 
+            cdvm.PostalCodeId = address.PostalCodeId;
             cdvm.PostalCodeNumber = postalCode.PostalCodeNumber;
             cdvm.Town = postalCode.Town;
             return View(cdvm);
