@@ -7,7 +7,7 @@ using System.Web;
 
 namespace DeBrabander.ViewModels.Customers
 {
-    public class CustomerDetailsViewModel
+    public class CustomerIndexViewModel
     {
         public int CustomerId { get; set; }
         // [DisplayName] zorgt ervoor dat het aangegeven argument 
@@ -56,7 +56,7 @@ namespace DeBrabander.ViewModels.Customers
         public string ContactCellPhone { get; set; }
 
         [DisplayName("Creatie Datum")]
-        public DateTime CreationDate { get; set; }
+        public string CreationDate { get; set; }
 
         [DisplayName("Type")]
         public string Type { get; set; }

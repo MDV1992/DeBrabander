@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DeBrabander.Models.Customer>
+﻿@*@model IEnumerable<DeBrabander.Models.Customer> *@
+@model IEnumerable<DeBrabander.ViewModels.Customers.CustomerIndexViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -19,6 +20,12 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StreetName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Town)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CompanyName)
@@ -46,6 +53,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
+        <th>
+            @Html.DisplayFor(modelitem => item.StreetName)
+        </th>
+        <th>
+            @Html.DisplayFor(modelitem => item.Town)
+        </th>
         <td>
             @Html.DisplayFor(modelItem => item.CompanyName)
         </td>

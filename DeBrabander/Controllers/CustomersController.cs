@@ -19,7 +19,27 @@ namespace DeBrabander.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            List<CustomerIndexViewModel> custumorVMList = new List<CustomerIndexViewModel>();
+            List<Customer> customers = new List<Customer>(db.Customers.ToList());
+            foreach (var item in customers)
+            {
+                CustomerIndexViewModel civm = new CustomerIndexViewModel();
+                civm.FirstName = item.FirstName;
+                civm.LastName = item.LastName;
+                civm.CustomerId = item.CustomerId;
+                civm.ContactCellPhone = item.CellPhone;
+                civm.Email = item.Email;
+                civm.CompanyName = item.CompanyName;
+                civm.VATNumber = item.VATNumber;
+                Address Address = db.Addresses.Find(item.AddressId);
+                PostalCode PostalCode = db.PostalCodes.Find(Address.PostalCodeId);
+                civm.StreetName = Address.StreetName;
+                civm.StreetNumber = Address.StreetNumber;
+                civm.Town = PostalCode.Town;
+                custumorVMList.Add(civm);
+            }
+
+            return View(custumorVMList);
         }
 
         // GET: Customers/Details/5
@@ -34,19 +54,38 @@ namespace DeBrabander.Controllers
             {
                 return HttpNotFound();
             }
-            int AId = customer.AddressId;
-            Address Address = db.Addresses.Find(AId);
-            int? PId = Address.PostalCodeId;
-            PostalCode PostalCode = db.PostalCodes.Find(PId);
+            
+            Address address = db.Addresses.Find(customer.AddressId);
+            PostalCode postalCode = db.PostalCodes.Find(address.PostalCodeId);
 
             CustomerDetailsViewModel cdvm = new CustomerDetailsViewModel();
 
             cdvm.FirstName = customer.FirstName;
             cdvm.LastName = customer.LastName;
-            cdvm.StreetName = Address.StreetName;
-            cdvm.StreetNumber = Address.StreetNumber;
-            cdvm.PostalCodeNumber = PostalCode.PostalCodeNumber;
-            cdvm.Town = PostalCode.Town;
+            cdvm.StreetName = address.StreetName;
+            cdvm.CompanyName = customer.CompanyName;
+            cdvm.AccountNumber = customer.AccountNumber;
+            cdvm.Annotation = customer.Annotation;
+            cdvm.CellPhone = customer.CellPhone;
+            cdvm.ContactCellPhone = customer.ContactCellPhone;
+            cdvm.ContactEmail = customer.ContactEmail;
+            cdvm.ContactName = customer.ContactName;
+            cdvm.CreationDate = customer.CreationDate;
+            cdvm.Email = customer.Email;
+            cdvm.Phone = customer.Phone;
+            cdvm.TAXLiability = customer.TAXLiability;
+            cdvm.Type = customer.Type;
+            cdvm.VATNumber = customer.VATNumber;
+            cdvm.CustomerId = customer.CustomerId;
+
+            cdvm.AddressId = customer.AddressId;
+            cdvm.StreetNumber = address.StreetNumber;
+            cdvm.StreetNumber = address.StreetNumber;
+            cdvm.Box = address.Box;
+            cdvm.PostalCodeId = address.PostalCodeId;
+
+            cdvm.PostalCodeNumber = postalCode.PostalCodeNumber;
+            cdvm.Town = postalCode.Town;
             return View(cdvm);
         }
 
