@@ -71,13 +71,33 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductId,ProductName,ProductCode,Remark,Description,PriceExVAT,Reprobel,bebat,Recupel,Auvibel,PurchasePrice,Brand,CategoryId,VATPercId,Stock,EAN")] Product product)
+        public ActionResult Create([Bind(Include = "ProductId,ProductName,ProductCode,Remark,Description,PriceExVAT,Reprobel,Bebat,Recupel,Auvibel,PurchasePrice,Brand,CategoryId,VATPercId,Stock,EAN")] ProductCreateViewModel product)
         {
+
             if (ModelState.IsValid)
             {
-                db.Products.Add(product);
+                Product prod = new Product();
+                prod.ProductName = product.ProductName;
+                prod.ProductCode = product.ProductCode;
+                prod.Remark = product.Remark;
+                prod.Description = product.Description;
+                prod.PriceExVAT = product.PriceExVAT;
+                prod.Reprobel = product.Reprobel;
+                prod.Bebat = product.Bebat;
+                prod.Recupel = product.Recupel;
+                prod.Auvibel = product.Auvibel;
+                prod.PurchasePrice = product.PurchasePrice;
+                prod.Brand = product.Brand;
+                prod.CategoryId = product.CategoryId;
+                prod.VATPercId = product.VATPercId;
+                prod.Stock = product.Stock;
+                prod.EAN = product.EAN;
+
+                db.Products.Add(prod);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+
+
             }
 
             return View(product);
