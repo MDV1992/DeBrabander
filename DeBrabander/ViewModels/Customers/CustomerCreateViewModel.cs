@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
-using DeBrabander.ViewModels.Customers;
 
-namespace DeBrabander.Models
+namespace DeBrabander.ViewModels.Customers
 {
-    public class Customer
+    public class CustomerCreateViewModel
     {
-        [Key]
         public int CustomerId { get; set; }
         // [DisplayName] zorgt ervoor dat het aangegeven argument 
         // wordt weergegeven in de view ipv property naam
@@ -31,7 +28,7 @@ namespace DeBrabander.Models
         [DisplayName("Bedrijfsnaam")]
         public string CompanyName { get; set; }
 
-        [DisplayName ("Telefoon")]
+        [DisplayName("Telefoon")]
         public string Phone { get; set; }
 
         [DisplayName("GSM")]
@@ -59,7 +56,7 @@ namespace DeBrabander.Models
         public string ContactCellPhone { get; set; }
 
         [DisplayName("Creatie Datum")]
-        public DateTime CreationDate { get; set; }
+        public string CreationDate { get; set; }
 
         [DisplayName("Type")]
         public string Type { get; set; }
@@ -67,11 +64,25 @@ namespace DeBrabander.Models
         [DisplayName("BTW Plichtig")]
         public string TAXLiability { get; set; }
 
+        [DisplayName("Adres ID")]
         public int AddressId { get; set; }
 
+        [DisplayName("Straatnaam")]
+        public string StreetName { get; set; }
 
-        public Address Address { get; set; }
+        [DisplayName("Huisnummer")]
+        public int StreetNumber { get; set; }
 
-        
+        [DisplayName("Busnummer")]
+        public int Box { get; set; }
+
+        [DisplayName("Postcode Id")]
+        public int PostalCodeId { get; set; }
+
+        [DisplayName("Postcode")]
+        public int PostalCodeNumber { get; set; }
+
+        [DisplayName("Gemeente")]
+        public string Town { get; set; }
     }
 }

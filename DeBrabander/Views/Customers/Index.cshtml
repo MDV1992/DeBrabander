@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.LastName)
         </th>
         <th>
@@ -19,9 +22,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CompanyName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CellPhone)
@@ -32,35 +32,14 @@
         <th>
             @Html.DisplayNameFor(model => model.VATNumber)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AccountNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Annotation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ContactName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ContactEmail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ContactCellPhone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TAXLiability)
-        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomerId)
+        </td>        
         <td>
             @Html.DisplayFor(modelItem => item.LastName)
         </td>
@@ -71,9 +50,6 @@
             @Html.DisplayFor(modelItem => item.CompanyName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.CellPhone)
         </td>
         <td>
@@ -81,30 +57,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.VATNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccountNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Annotation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContactName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContactEmail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContactCellPhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TAXLiability)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CustomerId }) |

@@ -53,6 +53,8 @@ namespace DeBrabander.Controllers
         // GET: Customers/Create
         public ActionResult Create()
         {
+            
+            ViewBag.PostalCodesId = new SelectList(db.PostalCodes, "PostalCodeId", "Town");
             return View();
         }
 
@@ -61,11 +63,42 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerId,LastName,FirstName,CompanyName,Phone,CellPhone,Email,VATNumber,AccountNumber,Annotation,ContactName,ContactEmail,ContactCellPhone,CreationDate,Type,TAXLiability")] Customer customer)
+        public ActionResult Create([Bind(Include = "CustomerId,LastName,FirstName,CompanyName,Phone,CellPhone,Email,VATNumber,AccountNumber,Annotation,ContactName,ContactEmail,ContactCellPhone,CreationDate,Type,TAXLiability, StreetName, StreetNumber, Box, PostalCodeId, AddressId, PostalCodeNumber,Town")] CustomerCreateViewModel customer)
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
+                Address address = new Address();
+                Customer cus = new Customer();
+
+                //tijdelijk tot postcodes erin zitten
+
+                address.PostalCodeId = 1;
+                address.StreetName = customer.StreetName;
+                address.StreetNumber = customer.StreetNumber;
+                address.Box = customer.Box;
+
+                db.Addresses.Add(address);
+
+
+                // is er een mogelijkheid om onderstaande code (custumer create view model -> customer) in een apparte BLL te doen ?
+                cus.LastName = customer.LastName;
+                cus.FirstName = customer.FirstName;
+                cus.CompanyName = customer.CompanyName;
+                cus.AddressId = address.AddressId;
+                cus.AccountNumber = customer.AccountNumber;
+                cus.Annotation = customer.Annotation;
+                cus.CellPhone = customer.CellPhone;
+                cus.ContactCellPhone = customer.ContactCellPhone;
+                cus.ContactEmail = customer.ContactEmail;
+                cus.ContactName = customer.ContactName;
+                cus.CreationDate = DateTime.Now;
+                cus.Email = customer.Email;
+                cus.Phone = customer.Phone;
+                cus.TAXLiability = customer.TAXLiability;
+                cus.Type = customer.Type;
+                cus.VATNumber = customer.VATNumber;   
+
+                db.Customers.Add(cus);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
