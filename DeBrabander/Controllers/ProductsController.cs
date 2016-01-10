@@ -35,9 +35,9 @@ namespace DeBrabander.Controllers
                 return HttpNotFound();
             }
             int CId = product.CategoryId;
-            Category category = db.Categories.Find(id);
+            Category category = db.Categories.Find(CId);
             int VId = product.VATPercId;
-            VAT vat = db.VATs.Find(id);
+            VAT vat = db.VATs.Find(VId);
 
             ProductDetailsViewModel pdvm = new ProductDetailsViewModel();
             pdvm.ProductName = product.ProductName;

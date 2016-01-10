@@ -33,6 +33,8 @@ namespace DeBrabander.DAL
         public DbSet<PostalCode> PostalCodes { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Quotation> Quotations { get; set; }
+        public DbSet<DeBrabander.Models.VAT> VATs { get; set; }
+        public DbSet<DeBrabander.Models.Category> Categories { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -40,8 +42,6 @@ namespace DeBrabander.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        public System.Data.Entity.DbSet<DeBrabander.Models.VAT> VATs { get; set; }
-
-        public System.Data.Entity.DbSet<DeBrabander.Models.Category> Categories { get; set; }
+        
     }
 }
