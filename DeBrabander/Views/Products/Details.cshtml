@@ -1,4 +1,4 @@
-﻿@model DeBrabander.Models.Product
+﻿@model DeBrabander.ViewModels.Products.ProductDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -59,11 +59,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.bebat)
+            @Html.DisplayNameFor(model => model.Bebat)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.bebat)
+            @Html.DisplayFor(model => model.Bebat)
         </dd>
 
         <dt>
@@ -99,19 +99,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            @Html.DisplayNameFor(model => model.CategoryName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CategoryId)
+            @Html.DisplayFor(model => model.CategoryName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.VATPercId)
+            @Html.DisplayNameFor(model => model.VATValue)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.VATPercId)
+            @Html.DisplayFor(model => model.VATValue)
         </dd>
 
         <dt>

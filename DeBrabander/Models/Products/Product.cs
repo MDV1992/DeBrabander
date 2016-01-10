@@ -24,7 +24,7 @@ namespace DeBrabander.Models
         [DisplayName("Reprobel")]
         public double Reprobel { get; set; }
         [DisplayName("BebatT")]
-        public double bebat { get; set; }
+        public double Bebat { get; set; }
         [DisplayName("Recupel")]
         public double Recupel { get; set; }
         [DisplayName("Auvibel")]
