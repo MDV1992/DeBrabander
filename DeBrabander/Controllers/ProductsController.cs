@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
+using DeBrabander.ViewModels.Products;
 
 namespace DeBrabander.Controllers
 {
@@ -33,7 +34,30 @@ namespace DeBrabander.Controllers
             {
                 return HttpNotFound();
             }
-            return View(product);
+            int CId = product.CategoryId;
+            Category category = db.Categories.Find(id);
+            int VId = product.VATPercId;
+            VAT vat = db.VATs.Find(id);
+
+            ProductDetailsViewModel pdvm = new ProductDetailsViewModel();
+            pdvm.ProductName = product.ProductName;
+            pdvm.ProductCode = product.ProductCode;
+            pdvm.Remark = product.Remark;
+            pdvm.Description = product.Description;
+            pdvm.PriceExVAT = product.PriceExVAT;
+            pdvm.Reprobel = product.Reprobel;
+            pdvm.Bebat = product.Bebat;
+            pdvm.Recupel = product.Recupel;
+            pdvm.Auvibel = product.Auvibel;
+            pdvm.PurchasePrice = product.PurchasePrice;
+            pdvm.Brand = product.Brand;
+            pdvm.CategoryName = category.CategoryName;
+            pdvm.VATValue = vat.VATValue;
+            pdvm.Stock = product.Stock;
+            pdvm.EAN = product.EAN;
+            pdvm.StockControl = product.StockControl;
+
+            return View(pdvm);
         }
 
         // GET: Products/Create
