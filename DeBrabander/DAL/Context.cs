@@ -14,7 +14,7 @@ namespace DeBrabander.DAL
     // Indien het scaffolding niet lukt http://stackoverflow.com/questions/12546545/unable-to-retrieve-metadata
     // verander in web.config   "MySql.Data.MySqlClient" in "System.Data.SqlClient"  en nadien terug zetten
 
-   [DbConfigurationType(typeof(MySqlEFConfiguration))]
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class Context : DbContext
     {
         public Context() : base("DefaultConnection")
@@ -33,8 +33,9 @@ namespace DeBrabander.DAL
         public DbSet<PostalCode> PostalCodes { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Quotation> Quotations { get; set; }
-        public DbSet<DeBrabander.Models.VAT> VATs { get; set; }
-        public DbSet<DeBrabander.Models.Category> Categories { get; set; }
+        public DbSet<VAT> VATs { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<QuotationDetail> QuotationDetails { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
