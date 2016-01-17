@@ -9,7 +9,7 @@ namespace DeBrabander.Models
 {
     public class Quotation
     {
-        public int QuotationID { get; set; }
+        public int QuotationId { get; set; }
         [DisplayName("Offerte nummer")]
         public int QuotationNumber { get; set; }
         [DisplayFormat(DataFormatString = "{0:C}")]

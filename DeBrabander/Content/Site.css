@@ -16,3 +16,11 @@ textarea {
     max-width: 280px;
 }
 
+.quotation{
+    display:block;
+}
+
+.quotation-detail{
+    display: none;
+}
+
