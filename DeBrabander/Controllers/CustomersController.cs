@@ -24,18 +24,13 @@ namespace DeBrabander.Controllers
             foreach (var item in customers)
             {
                 CustomerIndexViewModel civm = new CustomerIndexViewModel();
-                civm.FirstName = item.FirstName;
-                civm.LastName = item.LastName;
-                civm.CustomerId = item.CustomerId;
-                civm.ContactCellPhone = item.CellPhone;
-                civm.Email = item.Email;
-                civm.CompanyName = item.CompanyName;
-                civm.VATNumber = item.VATNumber;
                 Address Address = db.Addresses.Find(item.AddressId);
                 PostalCode PostalCode = db.PostalCodes.Find(Address.PostalCodeId);
-                civm.StreetName = Address.StreetName;
-                civm.StreetNumber = Address.StreetNumber;
-                civm.Town = PostalCode.Town;
+
+                civm.customer = item;
+                civm.address = Address;
+                civm.postalcode = PostalCode;
+
                 custumorVMList.Add(civm);
             }
 
@@ -49,42 +44,20 @@ namespace DeBrabander.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            Customer cus = db.Customers.Find(id);
+            if (cus == null)
             {
                 return HttpNotFound();
             }
             
-            Address address = db.Addresses.Find(customer.AddressId);
-            PostalCode postalCode = db.PostalCodes.Find(address.PostalCodeId);
+            Address add = db.Addresses.Find(cus.AddressId);
+            PostalCode pos = db.PostalCodes.Find(add.PostalCodeId);
 
             CustomerDetailsViewModel cdvm = new CustomerDetailsViewModel();
+            cdvm.customer = cus;
+            cdvm.address = add;
+            cdvm.postalcode = pos;
 
-            cdvm.FirstName = customer.FirstName;
-            cdvm.LastName = customer.LastName;            
-            cdvm.CompanyName = customer.CompanyName;
-            cdvm.AccountNumber = customer.AccountNumber;
-            cdvm.Annotation = customer.Annotation;
-            cdvm.CellPhone = customer.CellPhone;
-            cdvm.ContactCellPhone = customer.ContactCellPhone;
-            cdvm.ContactEmail = customer.ContactEmail;
-            cdvm.ContactName = customer.ContactName;
-            cdvm.CreationDate = customer.CreationDate;
-            cdvm.Email = customer.Email;
-            cdvm.Phone = customer.Phone;
-            cdvm.TAXLiability = customer.TAXLiability;
-            cdvm.Type = customer.Type;
-            cdvm.VATNumber = customer.VATNumber;
-            cdvm.CustomerId = customer.CustomerId;
-
-            cdvm.AddressId = customer.AddressId;
-            cdvm.StreetName = address.StreetName;
-            cdvm.StreetNumber = address.StreetNumber;
-            cdvm.Box = address.Box;
-
-            cdvm.PostalCodeId = address.PostalCodeId;
-            cdvm.PostalCodeNumber = postalCode.PostalCodeNumber;
-            cdvm.Town = postalCode.Town;
             return View(cdvm);
         }
 
@@ -101,47 +74,53 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerId,LastName,FirstName,CompanyName,Phone,CellPhone,Email,VATNumber,AccountNumber,Annotation,ContactName,ContactEmail,ContactCellPhone,CreationDate,Type,TAXLiability, StreetName, StreetNumber, Box, PostalCodeId, AddressId, PostalCodeNumber,Town")] CustomerCreateViewModel customer)
+        public ActionResult Create([Bind(Include = "CustomerId,LastName,FirstName,CompanyName,Phone,CellPhone,Email,VATNumber,AccountNumber,Annotation,ContactName,ContactEmail,ContactCellPhone,CreationDate,Type,TAXLiability, StreetName, StreetNumber, Box, PostalCodeId, AddressId, PostalCodeNumber,Town")] CustomerCreateViewModel ccvm)
         {
             if (ModelState.IsValid)
             {
-                Address address = new Address();
+                Address add = new Address();
                 Customer cus = new Customer();
 
                 //tijdelijk tot postcodes erin zitten
 
-                address.PostalCodeId = 1;
-                address.StreetName = customer.StreetName;
-                address.StreetNumber = customer.StreetNumber;
-                address.Box = customer.Box;
+                add.PostalCodeId = 1;
+                add.StreetName = ccvm.address.StreetName;
+                add.StreetNumber = ccvm.address.StreetNumber;
+                add.Box = ccvm.address.Box;
 
-                db.Addresses.Add(address);
+                db.Addresses.Add(add);
 
 
                 // is er een mogelijkheid om onderstaande code (custumer create view model -> customer) in een apparte BLL te doen ?
-                cus.LastName = customer.LastName;
-                cus.FirstName = customer.FirstName;
-                cus.CompanyName = customer.CompanyName;
-                cus.AddressId = address.AddressId;
-                cus.AccountNumber = customer.AccountNumber;
-                cus.Annotation = customer.Annotation;
-                cus.CellPhone = customer.CellPhone;
-                cus.ContactCellPhone = customer.ContactCellPhone;
-                cus.ContactEmail = customer.ContactEmail;
-                cus.ContactName = customer.ContactName;
+                //testcode met customer object
+                //cus = ccvm.customer;
+                //cus.FirstName = ccvm.customer.FirstName;
+
+
+                cus.FirstName = ccvm.FirstName;
+                cus.LastName = ccvm.LastName;
+                cus.FirstName = ccvm.FirstName;
+                cus.CompanyName = ccvm.CompanyName;
+                cus.AddressId = ccvm.AddressId;
+                cus.AccountNumber = ccvm.AccountNumber;
+                cus.Annotation = ccvm.Annotation;
+                cus.CellPhone = ccvm.CellPhone;
+                cus.ContactCellPhone = ccvm.ContactCellPhone;
+                cus.ContactEmail = ccvm.ContactEmail;
+                cus.ContactName = ccvm.ContactName;
                 cus.CreationDate = DateTime.Now;
-                cus.Email = customer.Email;
-                cus.Phone = customer.Phone;
-                cus.TAXLiability = customer.TAXLiability;
-                cus.Type = customer.Type;
-                cus.VATNumber = customer.VATNumber;   
+                cus.Email = ccvm.Email;
+                cus.Phone = ccvm.Phone;
+                cus.TAXLiability = ccvm.TAXLiability;
+                cus.Type = ccvm.Type;
+                cus.VATNumber = ccvm.VATNumber;
 
                 db.Customers.Add(cus);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(customer);
+            return View(ccvm);
         }
 
         // GET: Customers/Edit/5

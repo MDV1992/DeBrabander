@@ -1,4 +1,4 @@
-﻿@*@model IEnumerable<DeBrabander.Models.Customer> *@
+﻿
 @model IEnumerable<DeBrabander.ViewModels.Customers.CustomerIndexViewModel>
 
 @{
@@ -13,31 +13,31 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CustomerId)
+            @Html.DisplayNameFor(model => model.customer.CustomerId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.customer.LastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.customer.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StreetName)
+            @Html.DisplayNameFor(model => model.address.StreetName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Town)
+            @Html.DisplayNameFor(model => model.postalcode.Town)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CompanyName)
+            @Html.DisplayNameFor(model => model.customer.CompanyName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CellPhone)
+            @Html.DisplayNameFor(model => model.customer.CellPhone)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.customer.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VATNumber)
+            @Html.DisplayNameFor(model => model.customer.VATNumber)
         </th>
         <th></th>
     </tr>
@@ -45,36 +45,36 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CustomerId)
+            @Html.DisplayFor(modelItem => item.customer.CustomerId)
         </td>        
         <td>
-            @Html.DisplayFor(modelItem => item.LastName)
+            @Html.DisplayFor(modelItem => item.customer.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
+            @Html.DisplayFor(modelItem => item.customer.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelitem => item.StreetName)
+            @Html.DisplayFor(modelitem => item.address.StreetName)
         </td>
         <td>
-            @Html.DisplayFor(modelitem => item.Town)
+            @Html.DisplayFor(modelitem => item.postalcode.Town)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CompanyName)
+            @Html.DisplayFor(modelItem => item.customer.CompanyName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CellPhone)
+            @Html.DisplayFor(modelItem => item.customer.CellPhone)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
+            @Html.DisplayFor(modelItem => item.customer.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VATNumber)
+            @Html.DisplayFor(modelItem => item.customer.VATNumber)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CustomerId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.customer.CustomerId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.customer.CustomerId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.customer.CustomerId })
         </td>
     </tr>
 }

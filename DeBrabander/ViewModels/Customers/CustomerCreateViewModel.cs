@@ -4,11 +4,12 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using DeBrabander.Models;
 
 namespace DeBrabander.ViewModels.Customers
 {
-    public class CustomerCreateViewModel
-    {
+    public class CustomerCreateViewModel    {
+
         public int CustomerId { get; set; }
         // [DisplayName] zorgt ervoor dat het aangegeven argument 
         // wordt weergegeven in de view ipv property naam
@@ -84,5 +85,9 @@ namespace DeBrabander.ViewModels.Customers
 
         [DisplayName("Gemeente")]
         public string Town { get; set; }
-    }
+
+        public Customer customer = new Customer();
+        public Address address = new Address();
+        public PostalCode postalcode = new PostalCode();
+}
 }
