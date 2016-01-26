@@ -45,10 +45,12 @@ namespace DeBrabander.Controllers
                 pivm.EAN = prod.EAN;
                 pivm.StockControl = prod.StockControl;
                 productVMList.Add(pivm);
+                
             }
 
-
+           
             return View(productVMList);
+
         }
 
         // GET: Products/Details/5
@@ -92,6 +94,10 @@ namespace DeBrabander.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
+           
+            ViewBag.VATPercList= new SelectList(db.VATs, "VATPercId", "VATValue"); 
+            ViewBag.CategorySelect = new SelectList(db.Categories, "CategoryId", "CategoryName");
+          
             return View();
         }
 
@@ -144,6 +150,9 @@ namespace DeBrabander.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.VATPercList = new SelectList(db.VATs, "VATPercId", "VATValue");
+            ViewBag.CategorySelect = new SelectList(db.Categories, "CategoryId", "CategoryName");
             return View(product);
         }
 

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
-
+using System.Web.Mvc;
 
 namespace DeBrabander.ViewModels.Products
 {
@@ -35,6 +35,7 @@ namespace DeBrabander.ViewModels.Products
         public string Brand { get; set; }
         [DisplayName("Categorie")]
         public int CategoryId { get; set; }
+       
         [DisplayName("BTW %")]
         public int VATPercId { get; set; }
         [DisplayName("Voorraad")]
@@ -47,5 +48,7 @@ namespace DeBrabander.ViewModels.Products
         public string CategoryName { get; set; }
         [DisplayName("BTW Percentage")]
         public double VATValue { get; set; }
+        
+        
     }
 }

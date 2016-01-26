@@ -48,7 +48,8 @@ namespace DeBrabander.Models
 
         public Category Category { get; set; }
 
-        public VAT VAT { get; set; }
+        public virtual VAT VAT { get; set; }
+        
 
 
 
