@@ -14,7 +14,7 @@ namespace DeBrabander.Models
         public int QuotationNumber { get; set; }
         [DisplayFormat(DataFormatString = "{0:C}")]
         [DisplayName("Totaal prijs")]
-        public int TotalPrice { get; set; }
+        public double TotalPrice { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}")]
         [DisplayName("Aangemaakt op")]
         public DateTime Date { get; set; }

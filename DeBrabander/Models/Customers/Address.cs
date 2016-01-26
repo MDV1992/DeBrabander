@@ -25,6 +25,7 @@ namespace DeBrabander.Models
         [DisplayName("PostCodeId")]
         public int PostalCodeId { get; set; }
 
-        public PostalCode PostalCode;
+        public PostalCode PostalCode { get; set; }
+  
     }
 }
