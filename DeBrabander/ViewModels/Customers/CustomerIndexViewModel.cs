@@ -10,7 +10,6 @@ namespace DeBrabander.ViewModels.Customers
 {
     public class CustomerIndexViewModel
     {
-        
 
         public Customer customer = new Customer();
         public Address address = new Address();
