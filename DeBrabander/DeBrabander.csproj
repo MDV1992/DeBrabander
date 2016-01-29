@@ -146,6 +146,7 @@
     </Compile>
     <Compile Include="Models\Customers\Address.cs" />
     <Compile Include="Models\Customers\Customer.cs" />
+    <Compile Include="Models\Customers\CustomerDeliveryAddress.cs" />
     <Compile Include="Models\Customers\PostalCode.cs" />
     <Compile Include="Models\Products\Category.cs" />
     <Compile Include="Models\Products\Product.cs" />

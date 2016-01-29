@@ -12,6 +12,7 @@ using DeBrabander.ViewModels.Products;
 
 namespace DeBrabander.Controllers
 {
+
     public class ProductsController : Controller
     {
         private Context db = new Context();

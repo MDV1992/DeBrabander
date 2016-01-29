@@ -22,10 +22,10 @@
             @Html.DisplayNameFor(model => model.customer.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.address.StreetName)
+            @Html.DisplayNameFor(model => model.customer.Address.StreetName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.postalcode.Town)
+            @Html.DisplayNameFor(model => model.customer.Address.PostalCode.Town)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.customer.CompanyName)
@@ -54,10 +54,10 @@
             @Html.DisplayFor(modelItem => item.customer.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelitem => item.address.StreetName)
+            @Html.DisplayFor(modelitem => item.customer.Address.StreetName)
         </td>
         <td>
-            @Html.DisplayFor(modelitem => item.postalcode.Town)
+            @Html.DisplayFor(modelitem => item.customer.Address.PostalCode.Town)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.customer.CompanyName)

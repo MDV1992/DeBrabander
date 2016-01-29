@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
-using DeBrabander.ViewModels.Customers;
+
 
 namespace DeBrabander.Models
 {
@@ -67,10 +65,10 @@ namespace DeBrabander.Models
         [DisplayName("BTW Plichtig")]
         public string TAXLiability { get; set; }
 
-        public int AddressId { get; set; }
-
-
-        public Address Address { get; set; }
+        
+        public virtual Address Address { get; set; }
+        
+        public virtual List<CustomerDeliveryAddress> CustomerDeliveryAddress { get; set; }
 
         
     }

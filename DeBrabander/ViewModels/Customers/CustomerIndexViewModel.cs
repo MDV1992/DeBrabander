@@ -12,7 +12,5 @@ namespace DeBrabander.ViewModels.Customers
     {
 
         public Customer customer = new Customer();
-        public Address address = new Address();
-        public PostalCode postalcode = new PostalCode();
     }
 }

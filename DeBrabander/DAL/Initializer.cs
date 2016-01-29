@@ -17,44 +17,40 @@ namespace DeBrabander.DAL
             //context.Customers.Add(new Customer { LastName = "DVS", FirstName = "Maarten" });
             //base.Seed(context);
 
-            var PostalCodes = new List<PostalCode>
-            {
-                new PostalCode {PostalCodeNumber = 2900, Town="Schoten" },
-                new PostalCode {PostalCodeNumber= 2170, Town="Merksem" },
-                new PostalCode {PostalCodeNumber = 2930 , Town="Brasschaat" }
-            };
 
-            foreach (var temp in PostalCodes)
-            {
-                context.PostalCodes.Add(temp);
-            }
+            PostalCode postel1 = new PostalCode { PostalCodeNumber = 2900, Town = "Schoten" };
+            PostalCode postel2 = new PostalCode { PostalCodeNumber = 2170, Town = "Merksem" };
+            PostalCode postel3 = new PostalCode { PostalCodeNumber = 2930, Town = "Brasschaat" };
 
-            context.SaveChanges();
 
-            var Addresses = new List<Address>
-            {
-                new Address { StreetName ="Boekweitstraat", StreetNumber=74 , PostalCodeId=1  },
-                new Address { StreetName="Bredabaan", StreetNumber= 813, PostalCodeId=2 }
-            };
-
-            foreach (var temp in Addresses)
-            {
-                context.Addresses.Add(temp);
-            }
-
-            context.SaveChanges();
+            Address add1 = new Address { StreetName = "Boekweitstraat", StreetNumber = 74, PostalCode = postel1 };
+            Address add2 = new Address { StreetName = "Bredabaan", StreetNumber = 813, PostalCode = postel2 };
 
             var Customers = new List<Customer>
             {
-                new Customer { FirstName="Tom", LastName="Brunson", AddressId = 1 },
-                new Customer { FirstName="Maarten", LastName="DeVleesSchouwer", AddressId = 2 },
-                new Customer { FirstName="Glenn", LastName="Gersis", AddressId = 1 }
+                new Customer { FirstName="Tom", LastName="Brunson", Address = add1 },
+                new Customer { FirstName="Maarten", LastName="DeVleesSchouwer", Address = add1 },
+                new Customer { FirstName="Glenn", LastName="Gersis", Address = add2 }
             };
 
             foreach (var temp in Customers)
             {
                 context.Customers.Add(temp);
             }
+            context.SaveChanges();
+
+            var CustomerDeliveryAddress = new List<CustomerDeliveryAddress>
+            {
+                new CustomerDeliveryAddress { DeliveryAddressInfo="Werf1", CustomerId = 1, AddressId = 1 },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf2", CustomerId = 1, AddressId = 2 }
+            };
+
+            foreach (var temp in CustomerDeliveryAddress)
+            {
+                context.CustomerDeliveryAddresses.Add(temp);
+            }
+
+
 
             context.SaveChanges();
             var VATs = new List<VAT>

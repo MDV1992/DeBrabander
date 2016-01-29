@@ -37,6 +37,8 @@ namespace DeBrabander.DAL
         public DbSet<Category> Categories { get; set; }
         public DbSet<QuotationDetail> QuotationDetails { get; set; }
 
+        public DbSet<CustomerDeliveryAddress> CustomerDeliveryAddresses { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //Tabelnamen worden nu niet meer in meervouden gezet.

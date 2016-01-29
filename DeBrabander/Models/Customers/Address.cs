@@ -22,10 +22,7 @@ namespace DeBrabander.Models
         [DisplayName("Busnummer")]
         public int Box { get; set; }
 
-        [DisplayName("PostCodeId")]
-        public int PostalCodeId { get; set; }
-
-        public PostalCode PostalCode { get; set; }
+        public virtual PostalCode PostalCode { get; set; }
   
     }
 }
