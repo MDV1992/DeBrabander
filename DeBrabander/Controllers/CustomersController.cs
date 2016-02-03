@@ -12,7 +12,7 @@ using DeBrabander.ViewModels.Customers;
 
 namespace DeBrabander.Controllers
 {
-    public class CustomerBinder : IModelBinder
+    public class CustomerBinderCreate : IModelBinder
     {
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
@@ -51,6 +51,51 @@ namespace DeBrabander.Controllers
             
         }
     }
+
+    public class CustomerBinderEdit : IModelBinder
+    {
+        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        {
+            HttpContextBase objContext = controllerContext.HttpContext;
+
+
+            CustomerEditViewModel obj = new CustomerEditViewModel();
+            obj.customer.Address = new Address();
+            obj.customer.Address.PostalCode = new PostalCode();
+            obj.customer.CustomerDeliveryAddress = new List<CustomerDeliveryAddress>();
+            obj.customer.LastName = objContext.Request.Form["customer.LastName"];
+            obj.customer.FirstName = objContext.Request.Form["customer.FirstName"];
+            obj.customer.CompanyName = objContext.Request.Form["customer.CompanyName"];
+            obj.customer.Phone = objContext.Request.Form["customer.Phone"];
+            obj.customer.CellPhone = objContext.Request.Form["customer.CellPhone"];
+            obj.customer.Email = objContext.Request.Form["customer.Email"];
+            obj.customer.VATNumber = objContext.Request.Form["customer.VATNumber"];
+            obj.customer.AccountNumber = objContext.Request.Form["customer.AccountNumber"];
+            obj.customer.Annotation = objContext.Request.Form["customer.Annotation"];
+            obj.customer.ContactName = objContext.Request.Form["customer.ContactName"];
+            obj.customer.ContactEmail = objContext.Request.Form["customer.ContactEmail"];
+            obj.customer.ContactCellPhone = objContext.Request.Form["customer.ContactCellPhone"];
+            obj.customer.CreationDate = DateTime.Now;
+            obj.customer.Type = objContext.Request.Form["customer.Type"];
+            obj.customer.TAXLiability = objContext.Request.Form["customer.TAXLiability"];
+
+            obj.customer.Address.StreetName = objContext.Request.Form["customer.Address.StreetName"];
+            obj.customer.Address.StreetNumber = int.Parse(objContext.Request.Form["customer.Address.StreetNumber"]);
+            obj.customer.Address.Box = int.Parse(objContext.Request.Form["customer.Address.Box"]);
+
+            //moet er nog uit
+            obj.customer.Address.PostalCode.PostalCodeId = 1;
+            obj.customer.Address.PostalCode.PostalCodeNumber = 2900;
+            obj.customer.Address.PostalCode.Town = "Schoten";
+
+
+            return obj;
+
+        }
+    }
+
+
+
     public class CustomersController : Controller
     {
         private Context db = new Context();
@@ -104,7 +149,7 @@ namespace DeBrabander.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public ActionResult Create([Bind(Include = "CustomerId,LastName,FirstName,CompanyName,Phone,CellPhone,Email,VATNumber,AccountNumber,Annotation,ContactName,ContactEmail,ContactCellPhone,CreationDate,Type,TAXLiability, StreetName, StreetNumber, Box, PostalCodeId, AddressId, PostalCodeNumber,Town")] CustomerCreateViewModel ccvm)
-        public ActionResult Create([ModelBinder(typeof(CustomerBinder))] CustomerCreateViewModel ccvm)
+        public ActionResult Create([ModelBinder(typeof(CustomerBinderCreate))] CustomerCreateViewModel ccvm)
         {
             if (ModelState.IsValid)
             {
@@ -139,11 +184,21 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CustomerId,LastName,FirstName,CompanyName,Phone,CellPhone,Email,VATNumber,AccountNumber,Annotation,ContactName,ContactEmail,ContactCellPhone,CreationDate,Type,TAXLiability, Address.StreetName, StreetNumber, Box")] Customer customer)
+        public ActionResult Edit([ModelBinder(typeof(CustomerBinderEdit))] CustomerEditViewModel customer)
         {
+            
             if (ModelState.IsValid)
             {
-                db.Entry(customer).State = EntityState.Modified;
+                Customer cus = new Customer();                
+                //cus.Address = new Address();
+                //cus.Address.PostalCode = new PostalCode();
+                //cus.CustomerDeliveryAddress = new List<CustomerDeliveryAddress>();
+                cus = customer.customer;
+                UpdateModel(cus, "Customer");
+                //UpdateModel(cus.Address, "Address");
+
+                db.Entry(cus).State = EntityState.Modified;
+                //db.Entry(cus.Address).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
