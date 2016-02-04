@@ -13,17 +13,33 @@ namespace DeBrabander.Models
         public int QuotationDetailId { get; set; }
         [DisplayName("Aantal")]
         public int Quantity { get; set; }
-        public int QuotationId { get; set; }
-        public virtual Quotation Quotation { get; set; }
-        public Product Product { get; set; }
+
         public int ProductId { get; set; }
+        [DisplayName("Product Naam")]
+        public string ProductName { get; set; }
+        [DisplayName("Productcode")]
+        public string ProductCode { get; set; }
+
+        [DisplayName("Omschrijving")]
         public string Description { get; set; }
-        public double Total { get; set; }
-        public void CalculateTotal()
-        {
-            Total = Product.PriceExVAT * Quantity;
-            Quotation.TotalPrice = Quotation.QuotationDetail.Sum(x => x.Total);
-        }
+        [DisplayName("Prijs exclusief BTW")]
+        public double PriceExVAT { get; set; }
+        [DisplayName("Reprobel")]
+        public double Reprobel { get; set; }
+        [DisplayName("BebatT")]
+        public double Bebat { get; set; }
+        [DisplayName("Recupel")]
+        public double Recupel { get; set; }
+        [DisplayName("Auvibel")]
+        public double Auvibel { get; set; }
+        [DisplayName("Merk")]
+        public string Brand { get; set; }
+        [DisplayName("Categorie")]
+        public int CategoryId { get; set; }
+        [DisplayName("BTW %")]
+        public int VATPercId { get; set; }
+       
+
 
     }
 }

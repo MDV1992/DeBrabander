@@ -68,7 +68,7 @@ namespace DeBrabander.Models
         
         public virtual Address Address { get; set; }
         
-        public virtual List<CustomerDeliveryAddress> CustomerDeliveryAddress { get; set; }
+        //public virtual List<CustomerDeliveryAddress> CustomerDeliveryAddress { get; set; }
 
         
     }

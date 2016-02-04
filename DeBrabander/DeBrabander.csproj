@@ -165,7 +165,7 @@
     <Compile Include="ViewModels\Products\ProductDetailsViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductEditViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductIndexViewModel.cs" />
-    <Compile Include="ViewModels\QuotationDetails\QuotationDetailsCreateViewModel.cs" />
+    <Compile Include="ViewModels\Quotations\QuotationCreateViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
