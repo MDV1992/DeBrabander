@@ -45,6 +45,7 @@ namespace DeBrabander.Controllers
         public ActionResult Create()
         {
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "LastName");
+
             return View();
         }
 

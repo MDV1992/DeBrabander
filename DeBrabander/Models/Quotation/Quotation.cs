@@ -25,7 +25,7 @@ namespace DeBrabander.Models
         public string Annotation { get; set; }
         [DisplayName("Actief")]
         public bool Active { get; set; }
-        public int CustomerId { get; set; }
+        //public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
         public List<QuotationDetail> QuotationDetail { get; set; }
     }

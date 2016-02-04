@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeBrabander.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -49,6 +50,6 @@ namespace DeBrabander.ViewModels.Products
         [DisplayName("BTW Percentage")]
         public double VATValue { get; set; }
         
-        
+        public Product product { get; set; }
     }
 }

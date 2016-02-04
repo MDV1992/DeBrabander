@@ -75,10 +75,12 @@ namespace DeBrabander.Controllers
             obj.customer.ContactName = objContext.Request.Form["customer.ContactName"];
             obj.customer.ContactEmail = objContext.Request.Form["customer.ContactEmail"];
             obj.customer.ContactCellPhone = objContext.Request.Form["customer.ContactCellPhone"];
-            obj.customer.CreationDate = DateTime.Now;
+            
+            
             obj.customer.Type = objContext.Request.Form["customer.Type"];
             obj.customer.TAXLiability = objContext.Request.Form["customer.TAXLiability"];
 
+            obj.customer.Address.AddressId = int.Parse(objContext.Request.Form["customer.Address.AddressId"]);
             obj.customer.Address.StreetName = objContext.Request.Form["customer.Address.StreetName"];
             obj.customer.Address.StreetNumber = int.Parse(objContext.Request.Form["customer.Address.StreetNumber"]);
             obj.customer.Address.Box = int.Parse(objContext.Request.Form["customer.Address.Box"]);
@@ -189,15 +191,19 @@ namespace DeBrabander.Controllers
             
             if (ModelState.IsValid)
             {
-                Customer cus = new Customer();                
-                //cus.Address = new Address();
-                //cus.Address.PostalCode = new PostalCode();
-                //cus.CustomerDeliveryAddress = new List<CustomerDeliveryAddress>();
+                Customer cus = new Customer();
+                //Address add = new Address();                
+                cus.Address = new Address();
+                cus.Address.PostalCode = new PostalCode();
+                cus.CustomerDeliveryAddress = new List<CustomerDeliveryAddress>();
                 cus = customer.customer;
+                //add = customer.customer.Address;
                 UpdateModel(cus, "Customer");
+                //UpdateModel(add, "Address");
                 //UpdateModel(cus.Address, "Address");
 
                 db.Entry(cus).State = EntityState.Modified;
+                db.Entry(cus.Address).State = EntityState.Modified;
                 //db.Entry(cus.Address).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
