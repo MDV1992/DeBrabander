@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
+using DeBrabander.ViewModels.Categories;
 
 namespace DeBrabander.Controllers
 {
@@ -18,7 +19,17 @@ namespace DeBrabander.Controllers
         // GET: Categories
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            List<CategoryIndexViewModel> categoryVMList = new List<CategoryIndexViewModel>();
+            List<Category> categories = new List<Category>(db.Categories.ToList());
+
+            foreach (var cat in categories)
+            {
+                CategoryIndexViewModel civm = new CategoryIndexViewModel();
+                civm.CategoryId = cat.CategoryId;
+                civm.CategoryName = cat.CategoryName;
+                categoryVMList.Add(civm);
+            }
+            return View(categoryVMList);
         }
 
         // GET: Categories/Details/5
@@ -33,7 +44,13 @@ namespace DeBrabander.Controllers
             {
                 return HttpNotFound();
             }
-            return View(category);
+
+            CategoryDetailsViewModel cdvm = new CategoryDetailsViewModel();
+            cdvm.CategoryId = category.CategoryId;
+            cdvm.CategoryName = category.CategoryName;
+            
+
+            return View(cdvm);
         }
 
         // GET: Categories/Create
@@ -47,11 +64,14 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryId,CategoryName")] Category category)
+        public ActionResult Create([Bind(Include = "CategoryId,CategoryName")] CategoryCreateViewModel category)
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
+                Category cat = new Category();
+                cat.CategoryName = category.CategoryName;
+
+                db.Categories.Add(cat);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -67,11 +87,15 @@ namespace DeBrabander.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Category category = db.Categories.Find(id);
+            CategoryEditViewModel cevm = new CategoryEditViewModel();
+            cevm.CategoryId = category.CategoryId;
+            cevm.CategoryName = category.CategoryName;
+
             if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(cevm);
         }
 
         // POST: Categories/Edit/5
@@ -79,11 +103,15 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryId,CategoryName")] Category category)
+        public ActionResult Edit([Bind(Include = "CategoryId,CategoryName")] CategoryEditViewModel category)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
+                Category cat = new Category();
+                cat.CategoryId = category.CategoryId;
+                cat.CategoryName = category.CategoryName;
+
+                db.Entry(cat).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -22,7 +22,7 @@ namespace DeBrabander.ViewModels.Products
             public double PriceExVAT { get; set; }
             [DisplayName("Reprobel")]
             public double Reprobel { get; set; }
-            [DisplayName("BebatT")]
+            [DisplayName("Bebat")]
             public double Bebat { get; set; }
             [DisplayName("Recupel")]
             public double Recupel { get; set; }
