@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DeBrabander.Models.Products.VAT>
+﻿@model IEnumerable<DeBrabander.ViewModels.VATs.VatIndexViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -24,7 +24,6 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.VATPercId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.VATPercId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.VATPercId })
         </td>
     </tr>

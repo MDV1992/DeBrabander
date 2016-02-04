@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
+using DeBrabander.ViewModels.VATs;
 
 namespace DeBrabander.Controllers
 {
@@ -18,7 +19,17 @@ namespace DeBrabander.Controllers
         // GET: VATs
         public ActionResult Index()
         {
-            return View(db.VATs.ToList());
+            List<VatIndexViewModel> VATVMList = new List<VatIndexViewModel>();
+            List<VAT> vats = new List<VAT>(db.VATs.ToList());
+
+            foreach (var vat in vats)
+            {
+                VatIndexViewModel vivm = new VatIndexViewModel();
+                vivm.VATPercId = vat.VATPercId;
+                vivm.VATValue = vat.VATValue;
+                VATVMList.Add(vivm);
+            }
+            return View(VATVMList);
         }
 
         // GET: VATs/Details/5
@@ -33,7 +44,11 @@ namespace DeBrabander.Controllers
             {
                 return HttpNotFound();
             }
-            return View(vAT);
+            VatDetailsViewModel vdvm = new VatDetailsViewModel();
+            vdvm.VATPercId = vAT.VATPercId;
+            vdvm.VATValue = vAT.VATValue;
+
+            return View(vdvm);
         }
 
         // GET: VATs/Create
@@ -47,16 +62,19 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "VATPercId,VATValue")] VAT vAT)
+        public ActionResult Create([Bind(Include = "VATPercId,VATValue")] VatCreateViewModel vatcvm)
         {
             if (ModelState.IsValid)
             {
-                db.VATs.Add(vAT);
+                VAT vat = new VAT();
+                vat.VATValue = vatcvm.VATValue;
+
+                db.VATs.Add(vat);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(vAT);
+            return View(vatcvm);
         }
 
         // GET: VATs/Edit/5
@@ -67,11 +85,15 @@ namespace DeBrabander.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             VAT vAT = db.VATs.Find(id);
+            VatEditViewModel vevm = new VatEditViewModel();
+            vevm.VATPercId = vAT.VATPercId;
+            vevm.VATValue = vAT.VATValue;
+
             if (vAT == null)
             {
                 return HttpNotFound();
             }
-            return View(vAT);
+            return View(vevm);
         }
 
         // POST: VATs/Edit/5
@@ -79,15 +101,20 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "VATPercId,VATValue")] VAT vAT)
+        public ActionResult Edit([Bind(Include = "VATPercId,VATValue")] VatCreateViewModel vatcvm)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(vAT).State = EntityState.Modified;
+                VAT vat = new VAT();
+                vat.VATPercId = vatcvm.VATPercId;
+                vat.VATValue = vatcvm.VATValue;
+
+
+                db.Entry(vat).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(vAT);
+            return View(vatcvm);
         }
 
         // GET: VATs/Delete/5
