@@ -20,7 +20,9 @@ namespace DeBrabander.Models.Company
         public string VatNumber { get; set; }
         public string Iban { get; set; }
         public string BIC { get; set; }
-        public byte LogoLink { get; set; }
+        public string LogoLink { get; set; }
+
+        public Company company { get; set; }
 
 
     }
