@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using DeBrabander.DAL;
@@ -14,7 +15,7 @@ namespace DeBrabander.Controllers
 {
     public class QuotationBinderCreate : IModelBinder
     {
-        private Context db2 = new Context();
+        //private Context db2 = new Context();
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             HttpContextBase objContext = controllerContext.HttpContext;
@@ -61,6 +62,21 @@ namespace DeBrabander.Controllers
 
             return obj;
 
+        }
+    }
+
+
+    //ActionNameSelectorAttribute
+    public class SubmitButton : ActionNameSelectorAttribute
+    {
+        public  string Name { get; set; }
+        public override bool IsValidName(ControllerContext controllerContext, string actionName, MethodInfo methodInfo)
+        {
+            var value = controllerContext.Controller.ValueProvider.GetValue(Name);
+            if (value == null) {
+                return false;
+            }
+            return true;
         }
     }
 
@@ -126,6 +142,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SubmitButton(Name="Create")]
         public ActionResult Create([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm)
         {
             if (ModelState.IsValid)
@@ -141,6 +158,34 @@ namespace DeBrabander.Controllers
                 quotation.customerDeliveryAddress = new CustomerDeliveryAddress();
                 
                 quotation = qcvm.quotation;
+
+                db.Quotations.Add(quotation);
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(qcvm);
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        [SubmitButton(Name = "AddProducts")]
+        public ActionResult CreateAndAddProducts([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm)
+        {
+            if (ModelState.IsValid)
+            {
+                Quotation quotation = new Quotation();
+                Customer cus = new Customer();
+
+                cus = db.Customers.Find(qcvm.quotation.Customer.CustomerId);
+
+                quotation.Customer = new Customer();
+                quotation.Customer = cus;
+
+                quotation.customerDeliveryAddress = new CustomerDeliveryAddress();
+
+                quotation = qcvm.quotation;
+                
 
                 db.Quotations.Add(quotation);
 
