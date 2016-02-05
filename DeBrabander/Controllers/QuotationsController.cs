@@ -26,7 +26,7 @@ namespace DeBrabander.Controllers
             obj.quotation.Customer = new Customer();
             int tempid = int.Parse(objContext.Request.Form["quotation.Customer.CustomerId"]);
             obj.quotation.Customer.CustomerId = tempid;
-            obj.quotation.Active = bool.Parse(objContext.Request.Form[""]);
+            obj.quotation.Active = bool.Parse(objContext.Request.Form.GetValues("quotation.Active")[0]);
             obj.quotation.Annotation = objContext.Request.Form["quotation.Annotation"];
             obj.quotation.Date = DateTime.Parse(objContext.Request.Form["quotation.Date"]);
             obj.quotation.ExpirationDate = DateTime.Parse(objContext.Request.Form["quotation.ExpirationDate"]);
@@ -126,7 +126,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm)
+        public ActionResult Create([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm,  )
         {
             if (ModelState.IsValid)
             {
@@ -142,10 +142,8 @@ namespace DeBrabander.Controllers
                 
                 quotation = qcvm.quotation;
 
-                //UpdateModel(quotation, "Quotation");
                 db.Quotations.Add(quotation);
-                //db.Entry(quotation).State = EntityState.Modified;
-                //db.Entry(quotation.Customer).State = EntityState.Modified;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
