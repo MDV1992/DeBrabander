@@ -71,11 +71,19 @@
 
         @TempData["testing"];
 
-        <div class="form-group">
+        <div>
+           <form action ="Create" method=post >
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" name ="Create" class="btn btn-default" />
             </div>
+            </form>
+            <form action ="CreateAndAddProducts" method=post >
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add Products" name="CreateAndAddProducts" class="btn btn-default" />
+            </div>
+            </form>
         </div>
+        
     </div>
 }
 

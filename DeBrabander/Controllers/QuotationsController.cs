@@ -126,7 +126,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm,  )
+        public ActionResult Create([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm  )
         {
             if (ModelState.IsValid)
             {
@@ -149,6 +149,38 @@ namespace DeBrabander.Controllers
             }
             return View(qcvm);
         }
+
+
+        // POST: Quotations/CreateAndAddProducts
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateAndAddProducts([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm)
+        {
+            if (ModelState.IsValid)
+            {
+                Quotation quotation = new Quotation();
+                Customer cus = new Customer();
+
+                cus = db.Customers.Find(qcvm.quotation.Customer.CustomerId);
+
+                quotation.Customer = new Customer();
+                quotation.Customer = cus;
+
+                quotation.customerDeliveryAddress = new CustomerDeliveryAddress();
+
+                quotation = qcvm.quotation;
+
+                db.Quotations.Add(quotation);
+
+                db.SaveChanges();
+                return RedirectToAction("AddProducts");
+            }
+            return View(qcvm);
+        }
+
+
 
         // GET: Quotations/Edit/5
         public ActionResult Edit(int? id)

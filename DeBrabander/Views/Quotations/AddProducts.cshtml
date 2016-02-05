@@ -1,0 +1,21 @@
+﻿@model DeBrabander.Models.Quotation
+
+@{
+    ViewBag.Title = "AddProducts";
+}
+
+<h2>Add Products</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Quotation</h4>
+    </div>
+        
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
