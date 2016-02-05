@@ -22,7 +22,7 @@ namespace DeBrabander.Controllers
             CustomerCreateViewModel obj = new CustomerCreateViewModel();
             obj.customer.Address = new Address();
             obj.customer.Address.PostalCode = new PostalCode();
-            obj.customer.CustomerDeliveryAddress = new List<CustomerDeliveryAddress>();
+            //obj.customer.CustomerDeliveryAddress = new List<CustomerDeliveryAddress>();
             obj.customer.LastName = objContext.Request.Form["customer.LastName"];
             obj.customer.FirstName = objContext.Request.Form["customer.FirstName"];
             obj.customer.CompanyName = objContext.Request.Form["customer.CompanyName"];
@@ -62,7 +62,7 @@ namespace DeBrabander.Controllers
             CustomerEditViewModel obj = new CustomerEditViewModel();
             obj.customer.Address = new Address();
             obj.customer.Address.PostalCode = new PostalCode();
-            obj.customer.CustomerDeliveryAddress = new List<CustomerDeliveryAddress>();
+            //obj.customer.CustomerDeliveryAddress = new List<CustomerDeliveryAddress>();
             obj.customer.LastName = objContext.Request.Form["customer.LastName"];
             obj.customer.FirstName = objContext.Request.Form["customer.FirstName"];
             obj.customer.CompanyName = objContext.Request.Form["customer.CompanyName"];
@@ -192,19 +192,17 @@ namespace DeBrabander.Controllers
             if (ModelState.IsValid)
             {
                 Customer cus = new Customer();
-                //Address add = new Address();                
+                
                 cus.Address = new Address();
                 cus.Address.PostalCode = new PostalCode();
-                cus.CustomerDeliveryAddress = new List<CustomerDeliveryAddress>();
+                
                 cus = customer.customer;
-                //add = customer.customer.Address;
+                
                 UpdateModel(cus, "Customer");
-                //UpdateModel(add, "Address");
-                //UpdateModel(cus.Address, "Address");
 
                 db.Entry(cus).State = EntityState.Modified;
                 db.Entry(cus.Address).State = EntityState.Modified;
-                //db.Entry(cus.Address).State = EntityState.Modified;
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

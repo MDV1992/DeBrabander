@@ -8,9 +8,62 @@ using System.Web;
 using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
+using DeBrabander.ViewModels.Quotations;
 
 namespace DeBrabander.Controllers
 {
+    public class QuotationBinderCreate : IModelBinder
+    {
+        private Context db2 = new Context();
+        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        {
+            HttpContextBase objContext = controllerContext.HttpContext;
+
+
+
+            
+            QuotationCreateViewModel obj = new QuotationCreateViewModel();
+            obj.quotation.Customer = new Customer();
+            int tempid = int.Parse(objContext.Request.Form["quotation.Customer.CustomerId"]);
+            obj.quotation.Customer.CustomerId = tempid;
+            obj.quotation.Active = bool.Parse(objContext.Request.Form[""]);
+            obj.quotation.Annotation = objContext.Request.Form["quotation.Annotation"];
+            obj.quotation.Date = DateTime.Parse(objContext.Request.Form["quotation.Date"]);
+            obj.quotation.ExpirationDate = DateTime.Parse(objContext.Request.Form["quotation.ExpirationDate"]);
+            obj.quotation.QuotationNumber = int.Parse(objContext.Request.Form["quotation.QuotationNumber"]);
+            
+
+
+
+            //obj.customer.LastName = objContext.Request.Form["customer.LastName"];
+            //obj.customer.FirstName = objContext.Request.Form["customer.FirstName"];
+            //obj.customer.CompanyName = objContext.Request.Form["customer.CompanyName"];
+            //obj.customer.Phone = objContext.Request.Form["customer.Phone"];
+            //obj.customer.CellPhone = objContext.Request.Form["customer.CellPhone"];
+            //obj.customer.Email = objContext.Request.Form["customer.Email"];
+            //obj.customer.VATNumber = objContext.Request.Form["customer.VATNumber"];
+            //obj.customer.AccountNumber = objContext.Request.Form["customer.AccountNumber"];
+            //obj.customer.Annotation = objContext.Request.Form["customer.Annotation"];
+            //obj.customer.ContactName = objContext.Request.Form["customer.ContactName"];
+            //obj.customer.ContactEmail = objContext.Request.Form["customer.ContactEmail"];
+            //obj.customer.ContactCellPhone = objContext.Request.Form["customer.ContactCellPhone"];
+            //obj.customer.CreationDate = DateTime.Now;
+            //obj.customer.Type = objContext.Request.Form["customer.Type"];
+            //obj.customer.TAXLiability = objContext.Request.Form["customer.TAXLiability"];
+
+            //obj.customer.Address.StreetName = objContext.Request.Form["customer.Address.StreetName"];
+            //obj.customer.Address.StreetNumber = int.Parse(objContext.Request.Form["customer.Address.StreetNumber"]);
+            //obj.customer.Address.Box = int.Parse(objContext.Request.Form["customer.Address.Box"]);
+
+            //moet er nog uit
+            //obj.customer.Address.PostalCode.PostalCodeId = 1;
+
+
+            return obj;
+
+        }
+    }
+
     public class QuotationsController : Controller
     {
         private Context db = new Context();
@@ -45,8 +98,27 @@ namespace DeBrabander.Controllers
         public ActionResult Create()
         {
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "LastName");
+            Quotation quotation = new Quotation();
+            //db.Quotations.Add(quotation);
+            //db.SaveChanges();
+            //quotation.QuotationNumber = quotation.QuotationId;
+            
 
-            return View();
+            quotation.QuotationNumber = 1;
+            quotation.Active = true;
+            quotation.Date = DateTime.Now;
+            quotation.ExpirationDate = quotation.Date.AddMonths(1);
+            TempData["testing"] = 25;
+
+            //db.SaveChanges();
+            
+            QuotationCreateViewModel qcvm = new QuotationCreateViewModel();
+            qcvm.quotation = quotation;
+            
+            
+            
+            
+            return View(qcvm);
         }
 
         // POST: Quotations/Create
@@ -54,15 +126,30 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "QuotationID,QuotationNumber,TotalPrice,Date,ExpirationDate,Annotation,Active, CustomerId")] Quotation quotation)
+        public ActionResult Create([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm)
         {
             if (ModelState.IsValid)
             {
+                Quotation quotation = new Quotation();
+                Customer cus = new Customer();
+                
+                cus = db.Customers.Find(qcvm.quotation.Customer.CustomerId);
+
+                quotation.Customer = new Customer();
+                quotation.Customer = cus;
+
+                quotation.customerDeliveryAddress = new CustomerDeliveryAddress();
+                
+                quotation = qcvm.quotation;
+
+                //UpdateModel(quotation, "Quotation");
                 db.Quotations.Add(quotation);
+                //db.Entry(quotation).State = EntityState.Modified;
+                //db.Entry(quotation.Customer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(quotation);
+            return View(qcvm);
         }
 
         // GET: Quotations/Edit/5

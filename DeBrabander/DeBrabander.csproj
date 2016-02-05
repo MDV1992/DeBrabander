@@ -172,7 +172,7 @@
     <Compile Include="ViewModels\Products\ProductDetailsViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductEditViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductIndexViewModel.cs" />
-    <Compile Include="ViewModels\QuotationDetails\QuotationDetailsCreateViewModel.cs" />
+    <Compile Include="ViewModels\Quotations\QuotationCreateViewModel.cs" />
     <Compile Include="ViewModels\Vats\VatCreateViewModel.cs" />
     <Compile Include="ViewModels\Vats\VatDetailsViewModel.cs" />
     <Compile Include="ViewModels\Vats\VatEditViewModel.cs" />
