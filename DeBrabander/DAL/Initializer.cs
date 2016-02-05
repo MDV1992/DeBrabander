@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.Entity;
 using DeBrabander.Models;
 using System.Data.Entity.Infrastructure;
+using DeBrabander.Models.Company;
 
 namespace DeBrabander.DAL
 {
@@ -90,7 +91,29 @@ namespace DeBrabander.DAL
                 context.Products.Add(temp);
             }
             context.SaveChanges();
+
+
+
+            Company comp = new Company();
+            comp.CompanyId = 1;
+            comp.CompanyName = "De Brabander";
+            comp.Street = "Ruggeveldlaan 12";
+            comp.District = "Deurne";
+            comp.Postalcode = "2100";
+            comp.Email = "Joe@doe.com";
+            comp.Country = "België";
+            comp.VatNumber = "BE874598852";
+            comp.Iban = "BE6585146633";
+            comp.BIC = "KREDBEBB";
+            comp.Phone = "03/325 55 88";
+            comp.Mobile = "0497/ 22 55 99";
+            comp.LogoLink = "@Dit is een link";
+            context.Companies.Add(comp);
+
+
         }
+
+
 
     }
 }
