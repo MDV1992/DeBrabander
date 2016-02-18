@@ -162,6 +162,7 @@ namespace DeBrabander.Controllers
                 db.Quotations.Add(quotation);
 
                 db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             return View(qcvm);
@@ -190,7 +191,7 @@ namespace DeBrabander.Controllers
                 db.Quotations.Add(quotation);
 
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return View("AddProducts",qcvm);
             }
             return View(qcvm);
         }
