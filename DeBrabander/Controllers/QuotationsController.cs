@@ -115,18 +115,12 @@ namespace DeBrabander.Controllers
         {
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "LastName");
             Quotation quotation = new Quotation();
-            //db.Quotations.Add(quotation);
-            //db.SaveChanges();
-            //quotation.QuotationNumber = quotation.QuotationId;
             
-
             quotation.QuotationNumber = 1;
             quotation.Active = true;
             quotation.Date = DateTime.Now;
             quotation.ExpirationDate = quotation.Date.AddMonths(1);
-            TempData["testing"] = 25;
-
-            //db.SaveChanges();
+                     
             
             QuotationCreateViewModel qcvm = new QuotationCreateViewModel();
             qcvm.quotation = quotation;
@@ -169,7 +163,7 @@ namespace DeBrabander.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         [SubmitButton(Name = "AddProducts")]
         public ActionResult CreateAndAddProducts([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm)
         {
@@ -191,10 +185,41 @@ namespace DeBrabander.Controllers
                 db.Quotations.Add(quotation);
 
                 db.SaveChanges();
-                return View("AddProducts",qcvm);
+                int id = quotation.QuotationId;
+                TempData["id"] = id;
+                return RedirectToAction("AddProducts");
+                
             }
             return View(qcvm);
         }
+
+
+        public ActionResult AddProducts(int? id)
+        {
+            
+            ViewBag.ProductsID = new SelectList(db.Products, "ProductId", "ProductName");
+            Quotation quotation = new Quotation();            
+            QuotationEditViewModel qevm = new QuotationEditViewModel();
+            id =(int)TempData["id"];
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            quotation = db.Quotations.Find(id);
+            if (quotation == null)
+            {
+                return HttpNotFound();
+            }
+            qevm.quotation = quotation;
+
+
+
+            return View("AddProducts",qevm);
+        }
+
+
+
 
         // GET: Quotations/Edit/5
         public ActionResult Edit(int? id)
