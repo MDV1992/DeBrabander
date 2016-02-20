@@ -196,11 +196,14 @@ namespace DeBrabander.Controllers
 
         public ActionResult AddProducts(int? id)
         {
-            
-            ViewBag.ProductsID = new SelectList(db.Products, "ProductId", "ProductName");
+            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "LastName");
+            ViewBag.ProductID = new SelectList(db.Products, "ProductId", "ProductName");
             Quotation quotation = new Quotation();            
             QuotationEditViewModel qevm = new QuotationEditViewModel();
-            id =(int)TempData["id"];
+            if (id == null)
+            {
+                id = (int)TempData["id"];
+            }
 
             if (id == null)
             {

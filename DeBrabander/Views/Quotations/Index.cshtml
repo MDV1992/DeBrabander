@@ -74,6 +74,9 @@
             <a href="@Url.Action("Delete", "Quotations", new { id = item.QuotationId })" class="btn btn-danger">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </a>
+            <a href="@Url.Action("AddProducts", "Quotations", new { id = item.QuotationId })" class="btn btn-danger">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </a>
             <a href="@Url.Action("Create", "QuotationDetails", new { id = item.QuotationId })" class="btn btn-success">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </a>
