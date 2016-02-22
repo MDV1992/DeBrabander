@@ -148,6 +148,8 @@ namespace DeBrabander.Controllers
 
                 quotation.Customer = new Customer();
                 quotation.Customer = cus;
+                quotation.Customer.FirstName = cus.FirstName;
+                quotation.Customer.LastName = cus.LastName;
 
                 quotation.customerDeliveryAddress = new CustomerDeliveryAddress();
                 
@@ -196,7 +198,6 @@ namespace DeBrabander.Controllers
 
         public ActionResult AddProducts(int? id)
         {
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "LastName");
             ViewBag.ProductID = new SelectList(db.Products, "ProductId", "ProductName");
             Quotation quotation = new Quotation();            
             QuotationEditViewModel qevm = new QuotationEditViewModel();
