@@ -107,7 +107,7 @@ namespace DeBrabander.DAL
             comp.BIC = "KREDBEBB";
             comp.Phone = "03/325 55 88";
             comp.Mobile = "0497/ 22 55 99";
-            comp.LogoLink = "@Dit is een link";
+            
             context.Companies.Add(comp);
 
 

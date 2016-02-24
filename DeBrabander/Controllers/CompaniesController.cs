@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models.Company;
+using System.IO;
 
 namespace DeBrabander.Controllers
 {
@@ -41,9 +42,9 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CompanyId,CompanyName,Street, PostalCode, District,Phone,Mobile,Email,Country,VatNumber,Iban,BIC,LogoLink")] Company company)
+        public ActionResult Edit([Bind(Include = "CompanyId,CompanyName,Street, PostalCode, District,Phone,Mobile,Email,Country,VatNumber,Iban,BIC,Logo")] Company company)
         {
-            if (ModelState.IsValid)
+                if (ModelState.IsValid)
             {
                 db.Entry(company).State = EntityState.Modified;
                 db.SaveChanges();
@@ -51,6 +52,7 @@ namespace DeBrabander.Controllers
             }
             return View(company);
         }
+
 
     }
 }

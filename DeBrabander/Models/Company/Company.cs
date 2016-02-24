@@ -34,9 +34,11 @@ namespace DeBrabander.Models.Company
         [DisplayName("BIC")]
         public string BIC { get; set; }
         [DisplayName("Logo")]
-        public string LogoLink { get; set; }
+        public byte Logo { get; set; }
       
         public Company company { get; set; }
+
+        }
 
 
     }
