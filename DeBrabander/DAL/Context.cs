@@ -32,7 +32,7 @@ namespace DeBrabander.DAL
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Address> Addresses { get; set;}
-        public DbSet<PostalCode> PostalCodes { get; set; }
+        
         public DbSet<Product> Products { get; set; }
         public DbSet<Quotation> Quotations { get; set; }
         public DbSet<VAT> VATs { get; set; }

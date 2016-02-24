@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using DeBrabander.DAL;
@@ -14,7 +15,7 @@ namespace DeBrabander.Controllers
 {
     public class QuotationBinderCreate : IModelBinder
     {
-        private Context db2 = new Context();
+        //private Context db2 = new Context();
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             HttpContextBase objContext = controllerContext.HttpContext;
@@ -23,9 +24,9 @@ namespace DeBrabander.Controllers
 
             
             QuotationCreateViewModel obj = new QuotationCreateViewModel();
-            obj.quotation.Customer = new Customer();
-            int tempid = int.Parse(objContext.Request.Form["quotation.Customer.CustomerId"]);
-            obj.quotation.Customer.CustomerId = tempid;
+            
+            int tempid = int.Parse(objContext.Request.Form["quotation.CustomerId"]);
+            obj.quotation.CustomerId = tempid;
             obj.quotation.Active = bool.Parse(objContext.Request.Form.GetValues("quotation.Active")[0]);
             obj.quotation.Annotation = objContext.Request.Form["quotation.Annotation"];
             obj.quotation.Date = DateTime.Parse(objContext.Request.Form["quotation.Date"]);
@@ -64,6 +65,21 @@ namespace DeBrabander.Controllers
         }
     }
 
+
+    //ActionNameSelectorAttribute
+    public class SubmitButton : ActionNameSelectorAttribute
+    {
+        public  string Name { get; set; }
+        public override bool IsValidName(ControllerContext controllerContext, string actionName, MethodInfo methodInfo)
+        {
+            var value = controllerContext.Controller.ValueProvider.GetValue(Name);
+            if (value == null) {
+                return false;
+            }
+            return true;
+        }
+    }
+
     public class QuotationsController : Controller
     {
         private Context db = new Context();
@@ -99,18 +115,12 @@ namespace DeBrabander.Controllers
         {
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "LastName");
             Quotation quotation = new Quotation();
-            //db.Quotations.Add(quotation);
-            //db.SaveChanges();
-            //quotation.QuotationNumber = quotation.QuotationId;
             
-
             quotation.QuotationNumber = 1;
             quotation.Active = true;
             quotation.Date = DateTime.Now;
             quotation.ExpirationDate = quotation.Date.AddMonths(1);
-            TempData["testing"] = 25;
-
-            //db.SaveChanges();
+                     
             
             QuotationCreateViewModel qcvm = new QuotationCreateViewModel();
             qcvm.quotation = quotation;
@@ -126,6 +136,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SubmitButton(Name="Create")]
         public ActionResult Create([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm)
         {
             if (ModelState.IsValid)
@@ -133,10 +144,12 @@ namespace DeBrabander.Controllers
                 Quotation quotation = new Quotation();
                 Customer cus = new Customer();
                 
-                cus = db.Customers.Find(qcvm.quotation.Customer.CustomerId);
+                cus = db.Customers.Find(qcvm.quotation.CustomerId);
 
-                quotation.Customer = new Customer();
-                quotation.Customer = cus;
+                
+                
+                qcvm.quotation.FirstName = cus.FirstName;
+                qcvm.quotation.LastName = cus.LastName;
 
                 quotation.customerDeliveryAddress = new CustomerDeliveryAddress();
                 
@@ -145,10 +158,74 @@ namespace DeBrabander.Controllers
                 db.Quotations.Add(quotation);
 
                 db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             return View(qcvm);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [SubmitButton(Name = "AddProducts")]
+        public ActionResult CreateAndAddProducts([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm)
+        {
+            if (ModelState.IsValid)
+            {
+                Quotation quotation = new Quotation();
+                Customer cus = new Customer();
+
+                cus = db.Customers.Find(qcvm.quotation.CustomerId);
+
+                qcvm.quotation.FirstName = cus.FirstName;
+                qcvm.quotation.LastName = cus.LastName;
+
+                quotation.customerDeliveryAddress = new CustomerDeliveryAddress();
+
+                quotation = qcvm.quotation;
+                
+
+                db.Quotations.Add(quotation);
+
+                db.SaveChanges();
+                int id = quotation.QuotationId;
+                TempData["id"] = id;
+                return RedirectToAction("AddProducts");
+                
+            }
+            return View(qcvm);
+        }
+
+
+        public ActionResult AddProducts(int? id)
+        {
+            List<Product> productList = db.Products.ToList();
+            ViewBag.ProductID = new SelectList(db.Products, "ProductId", "ProductName");
+            ViewBag.Products = productList;
+            Quotation quotation = new Quotation();            
+            QuotationEditViewModel qevm = new QuotationEditViewModel();
+            if (id == null)
+            {
+                id = (int)TempData["id"];
+            }
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            quotation = db.Quotations.Find(id);
+            if (quotation == null)
+            {
+                return HttpNotFound();
+            }
+            qevm.quotation = quotation;
+
+
+
+            return View("AddProducts",qevm);
+        }
+
+
+
 
         // GET: Quotations/Edit/5
         public ActionResult Edit(int? id)

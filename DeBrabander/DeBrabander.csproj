@@ -135,7 +135,6 @@
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PostalCodesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\QuotationDetailsController.cs" />
     <Compile Include="Controllers\QuotationsController.cs" />
@@ -151,7 +150,6 @@
     <Compile Include="Models\Customers\Address.cs" />
     <Compile Include="Models\Customers\Customer.cs" />
     <Compile Include="Models\Customers\CustomerDeliveryAddress.cs" />
-    <Compile Include="Models\Customers\PostalCode.cs" />
     <Compile Include="Models\Products\Category.cs" />
     <Compile Include="Models\Products\Product.cs" />
     <Compile Include="Models\Products\VAT.cs" />
@@ -174,6 +172,7 @@
     <Compile Include="ViewModels\Products\ProductEditViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductIndexViewModel.cs" />
     <Compile Include="ViewModels\Quotations\QuotationCreateViewModel.cs" />
+    <Compile Include="ViewModels\Quotations\QuotationEditViewModel.cs" />
     <Compile Include="ViewModels\Vats\VatCreateViewModel.cs" />
     <Compile Include="ViewModels\Vats\VatDetailsViewModel.cs" />
     <Compile Include="ViewModels\Vats\VatEditViewModel.cs" />
@@ -231,6 +230,7 @@
     <Content Include="Views\QuotationDetails\Index.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Quotations\AddProducts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

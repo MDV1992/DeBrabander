@@ -62,26 +62,20 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.quotation.Customer.CustomerId, "Klant", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.quotation.CustomerId, "Klant", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.quotation.Customer.CustomerId, (SelectList)ViewBag.CustomerID)
-                @Html.ValidationMessageFor(model => model.quotation.Customer.CustomerId, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.quotation.CustomerId, (SelectList)ViewBag.CustomerID)
+                @Html.ValidationMessageFor(model => model.quotation.CustomerId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        @TempData["testing"];
+        
 
-        <div>
-           <form action ="Create" method=post >
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" name ="Create" class="btn btn-default" />
+                <input type="submit" value="Create" name="Create" class="btn btn-default" />
+                <input type="submit" value="AddProducts" name="AddProducts" class="btn btn-default" />
             </div>
-            </form>
-            <form action ="CreateAndAddProducts" method=post >
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Add Products" name="CreateAndAddProducts" class="btn btn-default" />
-            </div>
-            </form>
         </div>
         
     </div>

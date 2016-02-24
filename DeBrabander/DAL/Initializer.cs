@@ -19,13 +19,11 @@ namespace DeBrabander.DAL
             //base.Seed(context);
 
 
-            PostalCode postel1 = new PostalCode { PostalCodeNumber = 2900, Town = "Schoten" };
-            PostalCode postel2 = new PostalCode { PostalCodeNumber = 2170, Town = "Merksem" };
-            PostalCode postel3 = new PostalCode { PostalCodeNumber = 2930, Town = "Brasschaat" };
+            
 
 
-            Address add1 = new Address { StreetName = "Boekweitstraat", StreetNumber = 74, PostalCode = postel1 };
-            Address add2 = new Address { StreetName = "Bredabaan", StreetNumber = 813, PostalCode = postel2 };
+            Address add1 = new Address { StreetName = "Boekweitstraat", StreetNumber = 74,  PostalCodeNumber = 2900, Town = "Schoten"  };
+            Address add2 = new Address { StreetName = "Bredabaan", StreetNumber = 813, PostalCodeNumber = 2170, Town = "Merksem"  };
 
             var Customers = new List<Customer>
             {
