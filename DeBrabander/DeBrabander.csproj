@@ -135,7 +135,6 @@
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PostalCodesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\QuotationDetailsController.cs" />
     <Compile Include="Controllers\QuotationsController.cs" />
@@ -151,7 +150,6 @@
     <Compile Include="Models\Customers\Address.cs" />
     <Compile Include="Models\Customers\Customer.cs" />
     <Compile Include="Models\Customers\CustomerDeliveryAddress.cs" />
-    <Compile Include="Models\Customers\PostalCode.cs" />
     <Compile Include="Models\Products\Category.cs" />
     <Compile Include="Models\Products\Product.cs" />
     <Compile Include="Models\Products\VAT.cs" />

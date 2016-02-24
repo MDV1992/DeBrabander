@@ -30,16 +30,23 @@
             <th>
                 @Html.DisplayNameFor(model => model.product.ProductCode)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.product.Brand)
+            </th>
         </tr>
 
-        @foreach (var item in ViewBag.ProductID)
+        @foreach (var item in ViewBag.Products)
         {
             <tr>
                 <td>
-                    item.Text
+                    
+                    @item.ProductName
                 </td>
                 <td>
-                   @item.Value
+                   @item.ProductCode
+                </td>
+                <td>
+                    @item.Brand
                 </td>
                 
             </tr>

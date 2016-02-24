@@ -24,9 +24,9 @@ namespace DeBrabander.Controllers
 
             
             QuotationCreateViewModel obj = new QuotationCreateViewModel();
-            obj.quotation.Customer = new Customer();
-            int tempid = int.Parse(objContext.Request.Form["quotation.Customer.CustomerId"]);
-            obj.quotation.Customer.CustomerId = tempid;
+            
+            int tempid = int.Parse(objContext.Request.Form["quotation.CustomerId"]);
+            obj.quotation.CustomerId = tempid;
             obj.quotation.Active = bool.Parse(objContext.Request.Form.GetValues("quotation.Active")[0]);
             obj.quotation.Annotation = objContext.Request.Form["quotation.Annotation"];
             obj.quotation.Date = DateTime.Parse(objContext.Request.Form["quotation.Date"]);
@@ -144,12 +144,12 @@ namespace DeBrabander.Controllers
                 Quotation quotation = new Quotation();
                 Customer cus = new Customer();
                 
-                cus = db.Customers.Find(qcvm.quotation.Customer.CustomerId);
+                cus = db.Customers.Find(qcvm.quotation.CustomerId);
 
-                quotation.Customer = new Customer();
-                quotation.Customer = cus;
-                quotation.Customer.FirstName = cus.FirstName;
-                quotation.Customer.LastName = cus.LastName;
+                
+                
+                qcvm.quotation.FirstName = cus.FirstName;
+                qcvm.quotation.LastName = cus.LastName;
 
                 quotation.customerDeliveryAddress = new CustomerDeliveryAddress();
                 
@@ -174,10 +174,10 @@ namespace DeBrabander.Controllers
                 Quotation quotation = new Quotation();
                 Customer cus = new Customer();
 
-                cus = db.Customers.Find(qcvm.quotation.Customer.CustomerId);
+                cus = db.Customers.Find(qcvm.quotation.CustomerId);
 
-                quotation.Customer = new Customer();
-                quotation.Customer = cus;
+                qcvm.quotation.FirstName = cus.FirstName;
+                qcvm.quotation.LastName = cus.LastName;
 
                 quotation.customerDeliveryAddress = new CustomerDeliveryAddress();
 
@@ -198,7 +198,9 @@ namespace DeBrabander.Controllers
 
         public ActionResult AddProducts(int? id)
         {
+            List<Product> productList = db.Products.ToList();
             ViewBag.ProductID = new SelectList(db.Products, "ProductId", "ProductName");
+            ViewBag.Products = productList;
             Quotation quotation = new Quotation();            
             QuotationEditViewModel qevm = new QuotationEditViewModel();
             if (id == null)

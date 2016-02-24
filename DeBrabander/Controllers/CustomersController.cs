@@ -21,7 +21,7 @@ namespace DeBrabander.Controllers
 
             CustomerCreateViewModel obj = new CustomerCreateViewModel();
             obj.customer.Address = new Address();
-            obj.customer.Address.PostalCode = new PostalCode();
+            
             //obj.customer.CustomerDeliveryAddress = new List<CustomerDeliveryAddress>();
             obj.customer.LastName = objContext.Request.Form["customer.LastName"];
             obj.customer.FirstName = objContext.Request.Form["customer.FirstName"];
@@ -44,7 +44,7 @@ namespace DeBrabander.Controllers
             obj.customer.Address.Box = int.Parse(objContext.Request.Form["customer.Address.Box"]);
 
             //moet er nog uit
-            obj.customer.Address.PostalCode.PostalCodeId = 1;
+            
             
 
             return obj;
@@ -61,7 +61,7 @@ namespace DeBrabander.Controllers
 
             CustomerEditViewModel obj = new CustomerEditViewModel();
             obj.customer.Address = new Address();
-            obj.customer.Address.PostalCode = new PostalCode();
+           
             //obj.customer.CustomerDeliveryAddress = new List<CustomerDeliveryAddress>();
             obj.customer.LastName = objContext.Request.Form["customer.LastName"];
             obj.customer.FirstName = objContext.Request.Form["customer.FirstName"];
@@ -86,9 +86,9 @@ namespace DeBrabander.Controllers
             obj.customer.Address.Box = int.Parse(objContext.Request.Form["customer.Address.Box"]);
 
             //moet er nog uit
-            obj.customer.Address.PostalCode.PostalCodeId = 1;
-            obj.customer.Address.PostalCode.PostalCodeNumber = 2900;
-            obj.customer.Address.PostalCode.Town = "Schoten";
+            
+            obj.customer.Address.PostalCodeNumber = 2900;
+            obj.customer.Address.Town = "Schoten";
 
 
             return obj;
@@ -141,7 +141,7 @@ namespace DeBrabander.Controllers
         public ActionResult Create()
         {
             
-            ViewBag.PostalCodesId = new SelectList(db.PostalCodes, "PostalCodeId", "Town");
+            
             return View();
         }
 
@@ -194,7 +194,7 @@ namespace DeBrabander.Controllers
                 Customer cus = new Customer();
                 
                 cus.Address = new Address();
-                cus.Address.PostalCode = new PostalCode();
+                
                 
                 cus = customer.customer;
                 
