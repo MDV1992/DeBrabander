@@ -1,0 +1,65 @@
+﻿@model DeBrabander.ViewModels.Customers.CustomerAddDeliveryAddressViewModel
+
+@{
+    ViewBag.Title = "AddDeliveryAddress";
+}
+
+<h2>AddDeliveryAddress</h2>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.customer.Address.Town)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customer.Address.PostalCodeNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customer.Address.StreetName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customer.Address.StreetNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customer.Address.Box)
+        </th>
+    </tr>
+
+    @foreach (var item in ViewBag.Addressess2)
+    {
+        <tr>
+            <td>
+                @item.Town
+            </td>
+            <td>
+                @item.PostalCodeNumber
+            </td>
+            <td>
+                @item.StreetName
+            </td>
+            <td>
+                @item.StreetNumber
+            </td>
+            <td>
+                @item.Box
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+
+@*@Html.Partial("PagedIndex");*@
+
+
+
+
+
+
+
+
+
+

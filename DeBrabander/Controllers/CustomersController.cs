@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
 using DeBrabander.ViewModels.Customers;
+using PagedList;
 
 namespace DeBrabander.Controllers
 {
@@ -233,6 +234,33 @@ namespace DeBrabander.Controllers
             db.Customers.Remove(customer);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: Customers/AddDeliveryAddress/5
+        public ActionResult AddDeliveryAddress(int? id, int? page)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            List<Address> addressList = db.Addresses.ToList();            
+            ViewBag.Addressess = addressList;
+
+
+            ViewBag.Addressess2 = addressList.ToPagedList(1, 1);
+
+            
+
+
+            Customer customer = db.Customers.Find(id);
+            CustomerAddDeliveryAddressViewModel cavm = new CustomerAddDeliveryAddressViewModel();
+            cavm.customer = customer;
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            return View("AddDeliveryAddress",cavm);
         }
 
         protected override void Dispose(bool disposing)

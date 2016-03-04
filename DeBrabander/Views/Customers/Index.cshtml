@@ -74,7 +74,8 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.customer.CustomerId }) |
             @Html.ActionLink("Details", "Details", new { id=item.customer.CustomerId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.customer.CustomerId })
+            @Html.ActionLink("Delete", "Delete", new { id=item.customer.CustomerId }) |
+            @Html.ActionLink("AddDeliveryAddress", "AddDeliveryAddress", new  { id=item.customer.CustomerId })
         </td>
     </tr>
 }
