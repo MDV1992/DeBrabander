@@ -6,15 +6,18 @@
 
 <h2>AddDeliveryAddress</h2>
 
+@using (Html.BeginForm())
+{ <p> Find by Town - Address - postalcode: @Html.TextBox("SearchString") <input type="submit" value="Search" /></p> }
 
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.customer.Address.Town)
+            @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.TownSortParm })
+           
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.customer.Address.PostalCodeNumber)
+            @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.PostalCodeNumber).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.PostalCodeSortParm })            
         </th>
         <th>
             @Html.DisplayNameFor(model => model.customer.Address.StreetName)
@@ -27,7 +30,7 @@
         </th>
     </tr>
 
-    @foreach (var item in ViewBag.Addressess2)
+    @foreach (var item in ViewBag.Addressess)
     {
         <tr>
             <td>
@@ -52,7 +55,7 @@
 </table>
 
 
-@*@Html.Partial("PagedIndex");*@
+
 
 
 

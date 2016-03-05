@@ -237,20 +237,52 @@ namespace DeBrabander.Controllers
         }
 
         // GET: Customers/AddDeliveryAddress/5
-        public ActionResult AddDeliveryAddress(int? id, int? page)
+        public ActionResult AddDeliveryAddress(int? id, int? page, string sortOrder, string searchString)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            List<Address> addressList = db.Addresses.ToList();            
-            ViewBag.Addressess = addressList;
+            //lijst vullen met adressen om weer te geven
+            var addressList = from a in db.Addresses select a;
+
+            // zoekveld toepassen op addresslist
+            //if (!String.IsNullOrEmpty(searchString)) { addressList = addressList.Where(s => s.Town.ToUpper().Contains(searchString.ToUpper()) || 
+            //    s.PostalCodeNumber==Convert.ToInt32(searchString) ||
+            //    s.StreetName.ToUpper().Contains(searchString.ToUpper())); }
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                addressList = addressList.Where(s => s.Town.ToUpper().Contains(searchString.ToUpper()));
+            }
 
 
-            ViewBag.Addressess2 = addressList.ToPagedList(1, 1);
 
-            
+            //sorting parameters
+            ViewBag.TownSortParm = String.IsNullOrEmpty(sortOrder) ? "town_desc" : "";
+            ViewBag.PostalCodeSortParm = String.IsNullOrEmpty(sortOrder) ? "postal_desc" : "postal";
+
+
+            switch (sortOrder)
+            {
+                case "town_desc":
+                    addressList = addressList.OrderByDescending(s => s.Town);
+                    break;
+                case "postal":
+                    addressList = addressList.OrderBy(s => s.PostalCodeNumber);
+                    break;
+                case "postal_desc":
+                    addressList = addressList.OrderByDescending(s => s.PostalCodeNumber);
+                    break;
+                default:
+                    addressList = addressList.OrderBy(s => s.Town);
+                    break;
+            }
+
+            //gesorteerde info in viewbag + paged 
+            //ViewBag.Addressess = addressList.ToPagedList(1, 2);
+            ViewBag.Addressess = addressList.ToList();
+
 
 
             Customer customer = db.Customers.Find(id);
