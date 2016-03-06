@@ -237,25 +237,46 @@ namespace DeBrabander.Controllers
         }
 
         // GET: Customers/AddDeliveryAddress/5
-        public ActionResult AddDeliveryAddress(int? id, int? page, string sortOrder, string searchStringTown, string searchStringPostal)
+        public ActionResult AddDeliveryAddress(int? id, int? page, string sortOrder, string searchStringTown, string searchStringPostal, string currentFilterTown, string currentFilterPostal)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            ViewBag.CurrentSort = sortOrder;
+
+            // hij kijkt of town en postal leeg is indien niet leeg terug reset naar pagina 1
+            if (searchStringTown != null || searchStringPostal != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchStringTown = currentFilterTown;
+                searchStringPostal = currentFilterPostal;
+            }
+            ViewBag.CurrentFilterTown = searchStringTown;
+            ViewBag.CurrentFilterPostal = searchStringPostal;
+
             //lijst vullen met adressen om weer te geven
             var addressList = from a in db.Addresses select a;
 
-            // zoekveld toepassen op addresslist
-            //if (!String.IsNullOrEmpty(searchString)) { addressList = addressList.Where(s => s.Town.ToUpper().Contains(searchString.ToUpper()) || 
-            //    s.PostalCodeNumber==Convert.ToInt32(searchString) ||
-            //    s.StreetName.ToUpper().Contains(searchString.ToUpper())); }
+            // zoekvelden toepassen op addresslist
+            //zoeken op gemeente of adres           
             if (!String.IsNullOrEmpty(searchStringTown))
             {
                 addressList = addressList.Where(s => s.Town.ToUpper().Contains(searchStringTown.ToUpper()) ||
                 s.StreetName.ToUpper().Contains(searchStringTown.ToUpper()));
             }
+
+            // zoeken op postalcode
+            if (!String.IsNullOrEmpty(searchStringPostal))
+            {
+                int postalCode = int.Parse(searchStringPostal);
+                addressList = addressList.Where(s => s.PostalCodeNumber == (postalCode)) ;
+            }
+
 
 
 
@@ -279,10 +300,13 @@ namespace DeBrabander.Controllers
                     addressList = addressList.OrderBy(s => s.Town);
                     break;
             }
-       
+
             //gesorteerde info in viewbag + paged 
-            //ViewBag.Addressess = addressList.ToPagedList(1, 2);
-            ViewBag.Addressess = addressList.ToList();
+            int pageSize = 1;
+            int pageNumber = (page ?? 1);
+
+            ViewBag.Addressess = addressList.ToPagedList(pageNumber, pageSize);
+            //ViewBag.Addressess = addressList.ToList();
 
 
 

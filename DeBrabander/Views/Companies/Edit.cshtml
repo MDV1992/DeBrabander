@@ -109,7 +109,7 @@
                 @Html.EditorFor(model => model.Logo)
                 @(Html.BeginForm("Edit", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
-                    <input type="file" name="Logo" />
+                    <input type="file" id="Logo" name="Logo" />
                     <input type="submit" value="Upload File" />
                 }
                 </div>

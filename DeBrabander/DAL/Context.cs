@@ -16,17 +16,17 @@ namespace DeBrabander.DAL
     // verander in web.config   "MySql.Data.MySqlClient" in "System.Data.SqlClient"  en nadien terug zetten
     //Static context uit comments halen, DBconfiguration terug in comment zetten.
 
-  [DbConfigurationType(typeof(MySqlEFConfiguration))]
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class Context : DbContext
     {
         public Context() : base("DefaultConnection")
         {
-            Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
+          Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
         }
 
         static Context()
         {
-          //  Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
+        //  Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
         }
 
         public DbSet<UserAccount> UserAccounts { get; set; }
@@ -48,5 +48,7 @@ namespace DeBrabander.DAL
         }
 
         public System.Data.Entity.DbSet<DeBrabander.Models.Company.Company> Companies { get; set; }
+
+        public System.Data.Entity.DbSet<DeBrabander.Models.UserDefinedSetting> UserDefinedSettings { get; set; }
     }
 }

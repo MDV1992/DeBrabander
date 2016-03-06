@@ -7,6 +7,7 @@ using DeBrabander.Models;
 using System.Data.Entity.Infrastructure;
 using DeBrabander.Models.Company;
 
+
 namespace DeBrabander.DAL
 {
     public class Initializer : DropCreateDatabaseIfModelChanges<Context>
@@ -25,6 +26,7 @@ namespace DeBrabander.DAL
             Address add1 = new Address { StreetName = "Boekweitstraat", StreetNumber = 74,  PostalCodeNumber = 2900, Town = "Schoten"  };
             Address add2 = new Address { StreetName = "Bredabaan", StreetNumber = 813, PostalCodeNumber = 2170, Town = "Merksem"  };
 
+         
             var Customers = new List<Customer>
             {
                 new Customer { FirstName="Tom", LastName="Brunson", Address = add1 },
@@ -38,6 +40,24 @@ namespace DeBrabander.DAL
             }
             context.SaveChanges();
 
+            var AddressList= new List<Address>
+            {
+                new Address { StreetName = "Kerkhofweg", StreetNumber = 25, PostalCodeNumber = 2100, Town = "Deurne" },
+                new Address { StreetName = "Boterlaarbaan", StreetNumber = 101, PostalCodeNumber = 2100, Town = "Deurne" },
+                new Address { StreetName = "Kerkstraat", StreetNumber = 23, PostalCodeNumber = 2160, Town = "Wommelgem" },
+                new Address { StreetName = "Shupstraat", StreetNumber = 25, PostalCodeNumber = 2018, Town = "Antwerpen" },
+                new Address { StreetName = "Vosstraat", StreetNumber = 44, PostalCodeNumber = 2600, Town = "Berchem" },
+                new Address { StreetName = "Boomsesteenweg", StreetNumber = 630, PostalCodeNumber = 2850, Town = "Boom" },
+                new Address { StreetName = "Suikerdijkstraat", StreetNumber = 6, PostalCodeNumber = 2070, Town = "Zwijndrecht" },
+                new Address { StreetName = "Rozenlaan", StreetNumber = 56, PostalCodeNumber = 2070, Town = "Burcht" },
+            };
+            foreach (var temp in AddressList)
+            {
+                context.Addresses.Add(temp);
+            }
+
+            context.SaveChanges();
+
             var CustomerDeliveryAddress = new List<CustomerDeliveryAddress>
             {
                 new CustomerDeliveryAddress { DeliveryAddressInfo="Werf1", CustomerId = 1, AddressId = 1 },
@@ -49,9 +69,19 @@ namespace DeBrabander.DAL
                 context.CustomerDeliveryAddresses.Add(temp);
             }
 
-
-
             context.SaveChanges();
+
+            var UserDefinedSettings = new List<UserDefinedSetting>
+            {
+                new UserDefinedSetting { IndexResultLength= 10, DetailsResultLength= 5 }
+            };
+            foreach (var temp in UserDefinedSettings)
+            {
+                context.UserDefinedSettings.Add(temp);
+            }
+            context.SaveChanges();
+
+        
             var VATs = new List<VAT>
             {
                 new VAT {VATValue= 0, VATPercId = 1 },
@@ -64,6 +94,8 @@ namespace DeBrabander.DAL
                 context.VATs.Add(temp);
             }
             context.SaveChanges();
+
+        
 
             var Categories = new List<Category>
             {
@@ -111,7 +143,7 @@ namespace DeBrabander.DAL
 
         }
 
-
+        
 
     }
 }
