@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,9 @@ namespace DeBrabander.Models
     {
         [Key]
         public int Id { get; set; }
+        [DisplayName("Index aantal")]
         public int IndexResultLength { get; set; }
+        [DisplayName("Details aantal")]
         public int DetailsResultLength { get; set; }
         
     
