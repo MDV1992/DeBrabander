@@ -15,15 +15,13 @@
   <p> Find by postalcode: @Html.TextBox("SearchStringPostal", ViewBag.CurrentFilterPostal as string) <input type="submit" value="Search" /></p>
 }
     
-@*
     <table class="table">
         <tr>
             <th>
                 @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.TownSortParm })
-
             </th>
             <th>
-                @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.PostalCodeNumber).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.PostalCodeSortParm })
+               @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.PostalCodeNumber).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.PostalCodeSortParm })
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.customer.Address.StreetName)
@@ -33,25 +31,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.customer.Address.Box)
-            </th>
-        </tr>*@
-
-    <table class="table">
-        <tr>
-            <th>
-                @Html.ActionLink("town", "AddDeliveryAddress", new { sortOrder = ViewBag.TownSortParm })
-            </th>
-            <th>
-                @Html.ActionLink("postalcode", "AddDeliveryAddress", new { sortOrder = ViewBag.PostalCodeSortParm })
-            </th>
-            <th>
-                streetname
-            </th>
-            <th>
-                streetnumber
-            </th>
-            <th>
-                Box
             </th>
         </tr>
 

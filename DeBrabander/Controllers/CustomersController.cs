@@ -302,7 +302,8 @@ namespace DeBrabander.Controllers
             }
 
             //gesorteerde info in viewbag + paged 
-            int pageSize = 1;
+            var userDefinedInfo = db.UserDefinedSettings.Find(1);
+            int pageSize = userDefinedInfo.DetailsResultLength;
             int pageNumber = (page ?? 1);
 
             ViewBag.Addressess = addressList.ToPagedList(pageNumber, pageSize);
