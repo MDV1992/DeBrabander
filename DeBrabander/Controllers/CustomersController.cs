@@ -237,7 +237,7 @@ namespace DeBrabander.Controllers
         }
 
         // GET: Customers/AddDeliveryAddress/5
-        public ActionResult AddDeliveryAddress(int? id, int? page, string sortOrder, string searchString)
+        public ActionResult AddDeliveryAddress(int? id, int? page, string sortOrder, string searchStringTown, string searchStringPostal)
         {
             if (id == null)
             {
@@ -251,9 +251,9 @@ namespace DeBrabander.Controllers
             //if (!String.IsNullOrEmpty(searchString)) { addressList = addressList.Where(s => s.Town.ToUpper().Contains(searchString.ToUpper()) || 
             //    s.PostalCodeNumber==Convert.ToInt32(searchString) ||
             //    s.StreetName.ToUpper().Contains(searchString.ToUpper())); }
-            if (!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchStringTown))
             {
-                addressList = addressList.Where(s => s.Town.ToUpper().Contains(searchString.ToUpper()));
+                addressList = addressList.Where(s => s.Town.ToUpper().Contains(searchStringTown.ToUpper()));
             }
 
 

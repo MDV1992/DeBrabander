@@ -7,7 +7,8 @@
 <h2>AddDeliveryAddress</h2>
 
 @using (Html.BeginForm())
-{ <p> Find by Town - Address - postalcode: @Html.TextBox("SearchString") <input type="submit" value="Search" /></p> }
+{ <p> Find by Town - Address : @Html.TextBox("SearchStringTown") <input type="submit" value="Search" /></p> }
+{ <p> Find by postalcode: @Html.TextBox("SearchStringPostal") <input type="submit" value="Search" /></p> }
 
 
 <table class="table">
