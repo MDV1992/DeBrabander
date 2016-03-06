@@ -1,0 +1,69 @@
+﻿@model DeBrabander.ViewModels.Customers.CustomerAddDeliveryAddressViewModel
+
+@{
+    ViewBag.Title = "AddDeliveryAddress";
+}
+
+<h2>AddDeliveryAddress</h2>
+
+@using (Html.BeginForm())
+{ <p> Find by Town - Address : @Html.TextBox("SearchStringTown") <input type="submit" value="Search" /></p> }
+{ <p> Find by postalcode: @Html.TextBox("SearchStringPostal") <input type="submit" value="Search" /></p> }
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.TownSortParm })
+           
+        </th>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.PostalCodeNumber).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.PostalCodeSortParm })            
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customer.Address.StreetName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customer.Address.StreetNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.customer.Address.Box)
+        </th>
+    </tr>
+
+    @foreach (var item in ViewBag.Addressess)
+    {
+        <tr>
+            <td>
+                @item.Town
+            </td>
+            <td>
+                @item.PostalCodeNumber
+            </td>
+            <td>
+                @item.StreetName
+            </td>
+            <td>
+                @item.StreetNumber
+            </td>
+            <td>
+                @item.Box
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
