@@ -42,13 +42,15 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CompanyId,CompanyName,Street, PostalCode, District,Phone,Mobile,Email,Country,VatNumber,Iban,BIC,Logo")] Company company)
+        public ActionResult Edit([Bind(Include = "CompanyId,CompanyName,Street, PostalCode, District,Phone,Mobile,Email,Country,VatNumber,Iban,BIC,Logo")] Company company, HttpPostedFileBase upload)
         {
-                if (ModelState.IsValid)
+            
+            if (ModelState.IsValid)
             {
-                db.Entry(company).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", "Settings");
+                
+            db.Entry(company).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Settings");
             }
             return View(company);
         }
