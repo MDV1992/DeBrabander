@@ -149,6 +149,7 @@
     <Compile Include="Controllers\QuotationsController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\UserAccountController.cs" />
+    <Compile Include="Controllers\UserDefinedSettingsController.cs" />
     <Compile Include="Controllers\VATsController.cs" />
     <Compile Include="DAL\Context.cs" />
     <Compile Include="DAL\Initializer.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Models\Products\VAT.cs" />
     <Compile Include="Models\Quotation\Quotation.cs" />
     <Compile Include="Models\Quotation\QuotationDetail.cs" />
+    <Compile Include="Models\UserDefinedSetting\UserDefinedSetting.cs" />
     <Compile Include="Models\UserAccount\UserAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\CustomAuthorizeAttribute.cs" />
@@ -244,6 +246,7 @@
     <Content Include="Views\Quotations\DisplayQuotationDetailList.cshtml" />
     <Content Include="Views\Customers\AddDeliveryAddress.cshtml" />
     <Content Include="Views\Customers\PagedIndex.cshtml" />
+    <Content Include="Views\UserDefinedSettings\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
