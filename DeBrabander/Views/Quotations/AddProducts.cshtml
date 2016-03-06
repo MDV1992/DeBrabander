@@ -14,12 +14,13 @@
         <h4>Quotation</h4>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.product.ProductId, "Product", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.product.ProductId, (SelectList)ViewBag.ProductID)
-            @Html.ValidationMessageFor(model => model.product.ProductId, "", new { @class = "text-danger" })
-        </div>
+    <div>
+        @using (Html.BeginForm("AddProducts", "Quotations", FormMethod.Get)) {
+            <b>Zoeken op:</b> <br />
+            <p> Product Naam / Product Code: @Html.TextBox("searchString") </p>
+            <p>Categorie: @Html.DropDownList("CategoryID", (SelectList)ViewBag.CategoryID) </p>
+            <p><input type="submit" value="Zoek" /></p>
+        }
     </div>
 
     <table class="table">

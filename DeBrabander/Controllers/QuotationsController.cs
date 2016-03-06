@@ -196,13 +196,8 @@ namespace DeBrabander.Controllers
         }
 
 
-        public ActionResult AddProducts(int? id)
+        public ActionResult AddProducts(int? id, string searchString, string CategoryId)
         {
-            List<Product> productList = db.Products.ToList();
-            ViewBag.ProductID = new SelectList(db.Products, "ProductId", "ProductName");
-            ViewBag.Products = productList;
-            Quotation quotation = new Quotation();            
-            QuotationEditViewModel qevm = new QuotationEditViewModel();
             if (id == null)
             {
                 id = (int)TempData["id"];
@@ -212,14 +207,32 @@ namespace DeBrabander.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            var productList = from p in db.Products select p;
+
+
+            // Zoekfunctie
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                productList = productList.Where(x => x.ProductName.ToUpper().Contains(searchString.ToUpper()) || x.ProductCode.ToUpper().Contains(searchString.ToUpper()));
+            }
+            if (!String.IsNullOrEmpty(CategoryId))
+            {
+                int categoryId = int.Parse(CategoryId);
+                productList = productList.Where(x => x.CategoryId == categoryId);
+            }
+
+            ViewBag.Products = productList.ToList();
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryID", "CategoryName", CategoryId);
+
+            Quotation quotation = new Quotation();
+            QuotationEditViewModel qevm = new QuotationEditViewModel();
             quotation = db.Quotations.Find(id);
             if (quotation == null)
             {
                 return HttpNotFound();
             }
             qevm.quotation = quotation;
-
-
 
             return View("AddProducts",qevm);
         }

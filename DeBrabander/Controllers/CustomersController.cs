@@ -253,7 +253,8 @@ namespace DeBrabander.Controllers
             //    s.StreetName.ToUpper().Contains(searchString.ToUpper())); }
             if (!String.IsNullOrEmpty(searchStringTown))
             {
-                addressList = addressList.Where(s => s.Town.ToUpper().Contains(searchStringTown.ToUpper()));
+                addressList = addressList.Where(s => s.Town.ToUpper().Contains(searchStringTown.ToUpper()) ||
+                s.StreetName.ToUpper().Contains(searchStringTown.ToUpper()));
             }
 
 
@@ -278,7 +279,7 @@ namespace DeBrabander.Controllers
                     addressList = addressList.OrderBy(s => s.Town);
                     break;
             }
-
+       
             //gesorteerde info in viewbag + paged 
             //ViewBag.Addressess = addressList.ToPagedList(1, 2);
             ViewBag.Addressess = addressList.ToList();
