@@ -321,6 +321,13 @@ namespace DeBrabander.Controllers
             return View("AddDeliveryAddress",cavm);
         }
 
+
+        [HttpPost]
+        public ActionResult AddDeliveryAddress(int? id)
+        {
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
