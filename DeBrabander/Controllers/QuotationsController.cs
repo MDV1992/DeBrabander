@@ -22,9 +22,9 @@ namespace DeBrabander.Controllers
 
 
 
-            
+
             QuotationCreateViewModel obj = new QuotationCreateViewModel();
-            
+
             int tempid = int.Parse(objContext.Request.Form["quotation.CustomerId"]);
             obj.quotation.CustomerId = tempid;
             obj.quotation.Active = bool.Parse(objContext.Request.Form.GetValues("quotation.Active")[0]);
@@ -32,7 +32,7 @@ namespace DeBrabander.Controllers
             obj.quotation.Date = DateTime.Parse(objContext.Request.Form["quotation.Date"]);
             obj.quotation.ExpirationDate = DateTime.Parse(objContext.Request.Form["quotation.ExpirationDate"]);
             obj.quotation.QuotationNumber = int.Parse(objContext.Request.Form["quotation.QuotationNumber"]);
-            
+
 
 
 
@@ -69,11 +69,12 @@ namespace DeBrabander.Controllers
     //ActionNameSelectorAttribute
     public class SubmitButton : ActionNameSelectorAttribute
     {
-        public  string Name { get; set; }
+        public string Name { get; set; }
         public override bool IsValidName(ControllerContext controllerContext, string actionName, MethodInfo methodInfo)
         {
             var value = controllerContext.Controller.ValueProvider.GetValue(Name);
-            if (value == null) {
+            if (value == null)
+            {
                 return false;
             }
             return true;
@@ -115,19 +116,19 @@ namespace DeBrabander.Controllers
         {
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "LastName");
             Quotation quotation = new Quotation();
-            
+
             quotation.QuotationNumber = 1;
             quotation.Active = true;
             quotation.Date = DateTime.Now;
             quotation.ExpirationDate = quotation.Date.AddMonths(1);
-                     
-            
+
+
             QuotationCreateViewModel qcvm = new QuotationCreateViewModel();
             qcvm.quotation = quotation;
-            
-            
-            
-            
+
+
+
+
             return View(qcvm);
         }
 
@@ -136,29 +137,29 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [SubmitButton(Name="Create")]
+        [SubmitButton(Name = "Create")]
         public ActionResult Create([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm)
         {
             if (ModelState.IsValid)
             {
                 Quotation quotation = new Quotation();
                 Customer cus = new Customer();
-                
+
                 cus = db.Customers.Find(qcvm.quotation.CustomerId);
 
-                
-                
+
+
                 qcvm.quotation.FirstName = cus.FirstName;
                 qcvm.quotation.LastName = cus.LastName;
 
                 quotation.customerDeliveryAddress = new CustomerDeliveryAddress();
-                
+
                 quotation = qcvm.quotation;
 
                 db.Quotations.Add(quotation);
 
                 db.SaveChanges();
-                
+
                 return RedirectToAction("Index");
             }
             return View(qcvm);
@@ -182,7 +183,7 @@ namespace DeBrabander.Controllers
                 quotation.customerDeliveryAddress = new CustomerDeliveryAddress();
 
                 quotation = qcvm.quotation;
-                
+
 
                 db.Quotations.Add(quotation);
 
@@ -190,7 +191,7 @@ namespace DeBrabander.Controllers
                 int id = quotation.QuotationId;
                 TempData["id"] = id;
                 return RedirectToAction("AddProducts");
-                
+
             }
             return View(qcvm);
         }
@@ -234,7 +235,7 @@ namespace DeBrabander.Controllers
             }
             qevm.quotation = quotation;
 
-            return View("AddProducts",qevm);
+            return View("AddProducts", qevm);
         }
 
 
@@ -296,6 +297,20 @@ namespace DeBrabander.Controllers
             db.Quotations.Remove(quotation);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+
+        public ActionResult AddProductToQuotation(int? quotationId, int? productId)
+        {
+            // find op quotation en product
+
+            // nieuwe quotation detail
+
+            // alles van gevonden product copieren in quotationdetail
+
+            // quotation detail .add op quotation
+
+            return RedirectToAction("AddProducts");
         }
 
         protected override void Dispose(bool disposing)
