@@ -13,7 +13,7 @@ namespace DeBrabander.Models
         public int QuotationDetailId { get; set; }
         [DisplayName("Aantal")]
         public int Quantity { get; set; }
-
+        public int QuotationId { get; set; }
         public int ProductId { get; set; }
         [DisplayName("Product Naam")]
         public string ProductName { get; set; }
@@ -38,8 +38,5 @@ namespace DeBrabander.Models
         public int CategoryId { get; set; }
         [DisplayName("BTW %")]
         public int VATPercId { get; set; }
-       
-
-
     }
 }
