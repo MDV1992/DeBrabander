@@ -358,6 +358,18 @@ namespace DeBrabander.Controllers
         {
             Customer cus = new Customer();
 
+            cus = db.Customers.Find(customerID);
+
+            CustomerDeliveryAddress cda = new CustomerDeliveryAddress();
+
+            cda.AddressId = addressId.GetValueOrDefault();
+            cda.CustomerId = customerID.GetValueOrDefault();
+            cda.DeliveryAddressInfo = "testing";
+
+            cus.CustomerDeliveryAddress.Add(cda);
+
+            db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
