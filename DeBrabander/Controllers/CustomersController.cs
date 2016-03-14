@@ -42,10 +42,7 @@ namespace DeBrabander.Controllers
             
             obj.customer.Address.StreetName = objContext.Request.Form["customer.Address.StreetName"];
             obj.customer.Address.StreetNumber = int.Parse(objContext.Request.Form["customer.Address.StreetNumber"]);
-            obj.customer.Address.Box = int.Parse(objContext.Request.Form["customer.Address.Box"]);
-
-            //moet er nog uit
-            
+            obj.customer.Address.Box = int.Parse(objContext.Request.Form["customer.Address.Box"]);        
             
 
             return obj;
@@ -97,6 +94,24 @@ namespace DeBrabander.Controllers
         }
     }
 
+    public class CustomerBinderAddNewDeliveryAddress : IModelBinder
+    {
+        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        {
+            HttpContextBase objContext = controllerContext.HttpContext;
+
+            CustomerAddDeliveryAddressViewModel obj = new CustomerAddDeliveryAddressViewModel();
+            obj.address = new Address();
+            obj.deliveryAddress = new CustomerDeliveryAddress();
+
+            obj.address.StreetName = objContext.Request.Form["customer.Address.Town"];
+            obj.deliveryAddress.DeliveryAddressInfo = objContext.Request.Form["deliveryAddress.DeliveryAddressInfo"];        
+
+
+            return obj;
+
+        }
+    }
 
 
     public class CustomersController : Controller
@@ -323,8 +338,26 @@ namespace DeBrabander.Controllers
 
 
         [HttpPost]
-        public ActionResult AddDeliveryAddress(int? id)
+        public ActionResult AddDeliveryAddress([ModelBinder(typeof(CustomerBinderAddNewDeliveryAddress))] CustomerAddDeliveryAddressViewModel cadavm)
         {
+            
+            Customer cus = new Customer();
+
+            
+            //int customerId = int.Parse(Request.Form["customer.CustomerId"]);
+
+            
+            //obj.customer.CompanyName = objContext.Request.Form["customer.CompanyName"];
+
+
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult AddDeliveryAddress2(int? addressId, int? customerID)
+        {
+            Customer cus = new Customer();
+
             return RedirectToAction("Index");
         }
 

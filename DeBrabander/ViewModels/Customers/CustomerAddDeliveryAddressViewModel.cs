@@ -10,7 +10,7 @@ namespace DeBrabander.ViewModels.Customers
     {
         public Customer customer = new Customer();
         public CustomerDeliveryAddress deliveryAddress = new CustomerDeliveryAddress();
-       
+        public Address address = new Address();
 
     }
 }
