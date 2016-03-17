@@ -210,7 +210,8 @@ namespace DeBrabander.Controllers
             }
 
             var productList = from p in db.Products select p;
-
+            var quotDetList = from q in db.QuotationDetails select q;
+            quotDetList = quotDetList.Where(q => q.QuotationId == id);
 
             // Zoekfunctie
             if (!String.IsNullOrEmpty(searchString))
@@ -225,6 +226,7 @@ namespace DeBrabander.Controllers
 
             ViewBag.Products = productList.ToList();
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryID", "CategoryName", CategoryId);
+            ViewBag.QuotationDetail = quotDetList.ToList();
 
             Quotation quotation = new Quotation();
             QuotationEditViewModel qevm = new QuotationEditViewModel();
@@ -303,14 +305,37 @@ namespace DeBrabander.Controllers
         public ActionResult AddProductToQuotation(int? quotationId, int? productId)
         {
             // find op quotation en product
-
+            var quotItem = db.QuotationDetails.SingleOrDefault(q => q.QuotationId == quotationId && q.ProductId == productId);
+            Product prod = db.Products.Find(productId);
+            
             // nieuwe quotation detail
-
-            // alles van gevonden product copieren in quotationdetail
-
-            // quotation detail .add op quotation
-
-            return RedirectToAction("AddProducts");
+            if (quotItem == null)
+            {
+                quotItem = new QuotationDetail
+                {
+                    ProductId = (int)productId,
+                    QuotationId = (int)quotationId,
+                    Quantity = 1,
+                    Auvibel = prod.Auvibel,
+                    Bebat = prod.Bebat,
+                    CategoryId = prod.CategoryId,
+                    Brand = prod.Brand,
+                    Description = prod.Description,
+                    PriceExVAT = prod.PriceExVAT,
+                    ProductCode = prod.ProductCode,
+                    ProductName = prod.ProductName,
+                    Recupel = prod.Recupel,
+                    Reprobel = prod.Reprobel,
+                    VATPercId = prod.VATPercId
+                };
+                db.QuotationDetails.Add(quotItem);
+            }
+            else
+            {
+                quotItem.Quantity++;
+            }
+            db.SaveChanges();
+            return RedirectToAction("AddProducts", new { id= quotationId });
         }
 
         protected override void Dispose(bool disposing)
