@@ -105,7 +105,7 @@ namespace DeBrabander.Controllers
             obj.deliveryAddress = new CustomerDeliveryAddress();
 
             obj.address.StreetName = objContext.Request.Form["customer.Address.Town"];
-            obj.deliveryAddress.DeliveryAddressInfo = objContext.Request.Form["deliveryAddress.DeliveryAddressInfo"];        
+            obj.deliveryAddress.DeliveryAddressInfo = objContext.Request.Form["deliveryAddress.DeliveryAddressInfo"];       
 
 
             return obj;

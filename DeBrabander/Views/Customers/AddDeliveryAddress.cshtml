@@ -9,31 +9,33 @@
 Voeg een werfadres toe aan klant @Model.customer.FullName
 
 
-<h2>Geef de werf omschrijving in</h2>
-<div class="form-group">
-    @Html.LabelFor(model => model.deliveryAddress.DeliveryAddressInfo, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.deliveryAddress.DeliveryAddressInfo, new { htmlAttributes = new { @class = "form-control" } })
+    <h2>Geef de werf omschrijving in</h2>
+    <div class="form-group">
+        @Html.LabelFor(model => model.deliveryAddress.DeliveryAddressInfo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.deliveryAddress.DeliveryAddressInfo, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
     </div>
-</div>
 
 
-<h2>Selecteer een reeds bestaand adres</h2>
+    <h2>Selecteer een reeds bestaand adres</h2>
 
 
-@using (Html.BeginForm("AddDeliveryAddress", "Customers", FormMethod.Get))
-{
-  <p> Find by Town - Address : @Html.TextBox("SearchStringTown", ViewBag.CurrentFilterTown as string) <input type="submit" value="Search" /> 
-  Find by postalcode: @Html.TextBox("SearchStringPostal", ViewBag.CurrentFilterPostal as string) <input type="submit" value="Search" /></p>
-}
-    
+    @using (Html.BeginForm("AddDeliveryAddress", "Customers", FormMethod.Get))
+    {
+        <p>
+            Find by Town - Address : @Html.TextBox("SearchStringTown", ViewBag.CurrentFilterTown as string) <input type="submit" value="Search" />
+            Find by postalcode: @Html.TextBox("SearchStringPostal", ViewBag.CurrentFilterPostal as string) <input type="submit" value="Search" />
+        </p>
+    }
+
     <table class="table">
         <tr>
             <th>
                 @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.TownSortParm })
             </th>
             <th>
-               @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.PostalCodeNumber).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.PostalCodeSortParm })
+                @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.PostalCodeNumber).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.PostalCodeSortParm })
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.customer.Address.StreetName)
@@ -67,61 +69,58 @@ Voeg een werfadres toe aan klant @Model.customer.FullName
                 <td>
                     @Html.ActionLink("AddDeliveryAddress", "AddDeliveryAddress2", new { addressId = item.AddressId, customerID = Model.customer.CustomerId })
                 </td>
-                
+
 
             </tr>
         }
 
     </table>
 
-Page @(ViewBag.Addressess.PageCount < ViewBag.Addressess.PageNumber ? 0 : ViewBag.Addressess.PageNumber) of @ViewBag.Addressess.PageCount
-@Html.PagedListPager((IPagedList)ViewBag.Addressess, page => Url.Action("AddDeliveryAddress", new { page, sortOrder = ViewBag.CurrentSort, currentFilterTown = ViewBag.CurrentFilterTown, currentFilterPostal = ViewBag.CurrentFilterPostal }))
+    Page @(ViewBag.Addressess.PageCount < ViewBag.Addressess.PageNumber ? 0 : ViewBag.Addressess.PageNumber) of @ViewBag.Addressess.PageCount
+    @Html.PagedListPager((IPagedList)ViewBag.Addressess, page => Url.Action("AddDeliveryAddress", new { page, sortOrder = ViewBag.CurrentSort, currentFilterTown = ViewBag.CurrentFilterTown, currentFilterPostal = ViewBag.CurrentFilterPostal }))
 
 
 
-<h2>Of maak nieuw werfadres aan</h2>
-
-<div class="form-group" style="visibility: hidden">
-    @Html.LabelFor(model => model.customer.CustomerId, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.customer.CustomerId, new { htmlAttributes = new { @class = "form-control" } })
+    <h2>Of maak nieuw werfadres aan</h2>
+<form class="form-group" action="" method="post">
+    <div class="form-group" style="visibility: hidden">
+        @Html.LabelFor(model => model.customer.CustomerId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.customer.CustomerId, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
     </div>
-</div>
 
-<div class="form-group" >
-    @Html.LabelFor(model => model.customer.Address.Town, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.customer.Address.Town, new { htmlAttributes = new { @class = "form-control" } })        
+    <div class="form-group">
+        @Html.LabelFor(model => model.customer.Address.Town, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.customer.Address.Town, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
     </div>
-</div>
-<div class="form-group">
-    @Html.LabelFor(model => model.customer.Address.PostalCodeNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.customer.Address.PostalCodeNumber, new { htmlAttributes = new { @class = "form-control" } })
+    <div class="form-group">
+        @Html.LabelFor(model => model.customer.Address.PostalCodeNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.customer.Address.PostalCodeNumber, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
     </div>
-</div>
-<div class="form-group">
-    @Html.LabelFor(model => model.customer.Address.StreetName, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.customer.Address.StreetName, new { htmlAttributes = new { @class = "form-control" } })
+    <div class="form-group">
+        @Html.LabelFor(model => model.customer.Address.StreetName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.customer.Address.StreetName, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
     </div>
-</div>
-<div class="form-group">
-    @Html.LabelFor(model => model.customer.Address.StreetNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.customer.Address.StreetNumber, new { htmlAttributes = new { @class = "form-control" } })
+    <div class="form-group">
+        @Html.LabelFor(model => model.customer.Address.StreetNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.customer.Address.StreetNumber, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
     </div>
-</div>
-<div class="form-group">
-    @Html.LabelFor(model => model.customer.Address.Box, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.customer.Address.Box, new { htmlAttributes = new { @class = "form-control" } })
+    <div class="form-group">
+        @Html.LabelFor(model => model.customer.Address.Box, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.customer.Address.Box, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
     </div>
-</div>
 
-
-
-<form class="float_left" action="" method="post" >
     <button class="btn btn-inverse" title="Bewaar werfadres" type="submit">Bewaar Werfadres</button>
 </form>
 
