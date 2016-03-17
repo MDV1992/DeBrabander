@@ -74,6 +74,38 @@
 
 }
 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.quotationDetail.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.quotationDetail.Quantity)
+        </th>
+    </tr>
+
+    @foreach (var item in ViewBag.QuotationDetail)
+    {
+        <tr>
+            <td>
+                @item.ProductName
+            </td>
+            <td>
+                @item.Quantity
+            </td>
+        </tr>
+    }
+</table>
+
+
+
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

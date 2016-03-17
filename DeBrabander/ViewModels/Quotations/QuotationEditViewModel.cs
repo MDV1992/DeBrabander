@@ -10,5 +10,6 @@ namespace DeBrabander.ViewModels.Quotations
     {
         public Quotation quotation = new Quotation();
         public Product product = new Product();
+        public QuotationDetail quotationDetail = new QuotationDetail();
     }
 }

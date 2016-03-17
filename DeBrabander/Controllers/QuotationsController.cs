@@ -210,7 +210,8 @@ namespace DeBrabander.Controllers
             }
 
             var productList = from p in db.Products select p;
-
+            var quotDetList = from q in db.QuotationDetails select q;
+            quotDetList = quotDetList.Where(q => q.QuotationId == id);
 
             // Zoekfunctie
             if (!String.IsNullOrEmpty(searchString))
@@ -225,6 +226,7 @@ namespace DeBrabander.Controllers
 
             ViewBag.Products = productList.ToList();
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryID", "CategoryName", CategoryId);
+            ViewBag.QuotationDetail = quotDetList.ToList();
 
             Quotation quotation = new Quotation();
             QuotationEditViewModel qevm = new QuotationEditViewModel();
