@@ -383,7 +383,7 @@ namespace DeBrabander.Controllers
             allCustomers = db.Customers.ToList();
 
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CrystalReport3.rpt"));
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CrystalReport4.rpt"));
             rd.SetDataSource(allCustomers);
             Response.Buffer = false;
             Response.ClearContent();
