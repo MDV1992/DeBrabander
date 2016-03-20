@@ -104,8 +104,8 @@ namespace DeBrabander.Controllers
             obj.address = new Address();
             obj.deliveryAddress = new CustomerDeliveryAddress();
 
-            obj.address.StreetName = objContext.Request.Form["customer.Address.Town"];
-            obj.deliveryAddress.DeliveryAddressInfo = objContext.Request.Form["deliveryAddress.DeliveryAddressInfo"];       
+            obj.address.Town = objContext.Request.Form["customer.Address.Town"];
+              
 
 
             return obj;
@@ -322,7 +322,7 @@ namespace DeBrabander.Controllers
             int pageNumber = (page ?? 1);
 
             ViewBag.Addressess = addressList.ToPagedList(pageNumber, pageSize);
-            //ViewBag.Addressess = addressList.ToList();
+            
 
 
 
@@ -342,11 +342,13 @@ namespace DeBrabander.Controllers
         {
             
             Customer cus = new Customer();
-
+            CustomerDeliveryAddress cda = new CustomerDeliveryAddress();
+            cda.DeliveryAddressInfo = ViewBag.DeliveryInfo;
             
+
             //int customerId = int.Parse(Request.Form["customer.CustomerId"]);
 
-            
+
             //obj.customer.CompanyName = objContext.Request.Form["customer.CompanyName"];
 
 
@@ -364,7 +366,7 @@ namespace DeBrabander.Controllers
 
             cda.AddressId = addressId.GetValueOrDefault();
             cda.CustomerId = customerID.GetValueOrDefault();
-            cda.DeliveryAddressInfo = "testing";
+            cda.DeliveryAddressInfo = ViewBag.CurrentFilterTown;
 
             cus.CustomerDeliveryAddress.Add(cda);
 

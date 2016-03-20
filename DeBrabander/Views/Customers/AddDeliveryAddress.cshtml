@@ -24,7 +24,7 @@ Voeg een werfadres toe aan klant @Model.customer.FullName
     @using (Html.BeginForm("AddDeliveryAddress", "Customers", FormMethod.Get))
     {
         <p>
-            Find by Town - Address : @Html.TextBox("SearchStringTown", ViewBag.CurrentFilterTown as string) <input type="submit" value="Search" />
+            Find by Town - Address : @Html.TextBox("SearchStringTown", ViewBag.CurrentFilterTown as string) 
             Find by postalcode: @Html.TextBox("SearchStringPostal", ViewBag.CurrentFilterPostal as string) <input type="submit" value="Search" />
         </p>
     }
