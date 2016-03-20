@@ -114,6 +114,19 @@
                 }
                 </div>
             </div>
+
+        @using (Html.BeginForm("UploadImages", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <span class="span4">
+                    <input type="file" name="uploadImages" multiple="multiple" class="input-files" />
+                </span>
+                <span class="span2">
+                    <input type="submit" name="button" value="Upload" class="btn btn-upload" />
+                </span>
+            </div>
+        }
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Save" class="btn btn-default" />
