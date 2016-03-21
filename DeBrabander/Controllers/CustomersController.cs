@@ -10,6 +10,8 @@ using DeBrabander.DAL;
 using DeBrabander.Models;
 using DeBrabander.ViewModels.Customers;
 using PagedList;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
 
 namespace DeBrabander.Controllers
 {
@@ -373,6 +375,39 @@ namespace DeBrabander.Controllers
             db.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult CRAllCustomers(int? id)
+        {
+            List<Customer> allCustomers = new List<Customer>();
+            allCustomers = db.Customers.ToList();
+
+            List<Company> company = new List<Company>();
+            company = db.Companies.ToList();
+
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "MainCustomers.rpt"));
+            rd.OpenSubreport("Header.rpt").SetDataSource(company);
+            rd.OpenSubreport("allCustomers.rpt").SetDataSource(allCustomers);
+            //rd.SetDataSource(company);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "All_Customers.pdf");
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+            
         }
 
         protected override void Dispose(bool disposing)

@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 
-namespace DeBrabander.Models.Company
+namespace DeBrabander.Models
 {
     public class Company
     {
