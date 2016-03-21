@@ -82,6 +82,10 @@ namespace DeBrabander.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "QuotationDetailId,Quantity,QuotationId,ProductId,ProductName,ProductCode,Description,PriceExVAT,Reprobel,Bebat,Recupel,Auvibel,Brand,CategoryId,VATPercId")] QuotationDetail quotationDetail)
         {
+            Product prod = new Product();
+            prod = db.Products.Find(quotationDetail.ProductId);
+            quotationDetail.ProductName = prod.ProductName;
+
             if (ModelState.IsValid)
             {
                 db.Entry(quotationDetail).State = EntityState.Modified;
