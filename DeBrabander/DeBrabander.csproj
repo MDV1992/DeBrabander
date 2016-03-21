@@ -239,22 +239,22 @@
     <Compile Include="Models\UserDefinedSetting\UserDefinedSetting.cs" />
     <Compile Include="Models\UserAccount\UserAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reports\CrystalReport1.cs">
+    <Compile Include="Reports\allCustomers.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrystalReport1.rpt</DependentUpon>
+      <DependentUpon>allCustomers.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\CrystalReport3.cs">
+    <Compile Include="Reports\Header.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrystalReport3.rpt</DependentUpon>
+      <DependentUpon>Header.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\CrystalReport4.cs">
+    <Compile Include="Reports\MainCustomers.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrystalReport4.rpt</DependentUpon>
+      <DependentUpon>MainCustomers.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\CustomAuthorizeAttribute.cs" />
@@ -349,17 +349,17 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reports\CrystalReport1.rpt">
+    <EmbeddedResource Include="Reports\allCustomers.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
+      <LastGenOutput>allCustomers.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\CrystalReport3.rpt">
+    <EmbeddedResource Include="Reports\Header.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CrystalReport3.cs</LastGenOutput>
+      <LastGenOutput>Header.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\CrystalReport4.rpt">
+    <EmbeddedResource Include="Reports\MainCustomers.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CrystalReport4.cs</LastGenOutput>
+      <LastGenOutput>MainCustomers.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

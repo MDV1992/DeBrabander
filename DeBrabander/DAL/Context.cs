@@ -47,7 +47,7 @@ namespace DeBrabander.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        public System.Data.Entity.DbSet<DeBrabander.Models.Company.Company> Companies { get; set; }
+        public System.Data.Entity.DbSet<DeBrabander.Models.Company> Companies { get; set; }
 
         public System.Data.Entity.DbSet<DeBrabander.Models.UserDefinedSetting> UserDefinedSettings { get; set; }
     }

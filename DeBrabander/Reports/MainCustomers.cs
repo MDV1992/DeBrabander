@@ -16,14 +16,14 @@ namespace DeBrabander.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class CrystalReport3 : ReportClass {
+    public class MainCustomers : ReportClass {
         
-        public CrystalReport3() {
+        public MainCustomers() {
         }
         
         public override string ResourceName {
             get {
-                return "CrystalReport3.rpt";
+                return "MainCustomers.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace DeBrabander.Reports {
         
         public override string FullResourceName {
             get {
-                return "DeBrabander.Reports.CrystalReport3.rpt";
+                return "DeBrabander.Reports.MainCustomers.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace DeBrabander.Reports {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedCrystalReport3 : Component, ICachedReport {
+    public class CachedMainCustomers : Component, ICachedReport {
         
-        public CachedCrystalReport3() {
+        public CachedMainCustomers() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace DeBrabander.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            CrystalReport3 rpt = new CrystalReport3();
+            MainCustomers rpt = new MainCustomers();
             rpt.Site = this.Site;
             return rpt;
         }

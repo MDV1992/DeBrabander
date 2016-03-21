@@ -5,7 +5,7 @@ using System.Web;
 using System.Data.Entity;
 using DeBrabander.Models;
 using System.Data.Entity.Infrastructure;
-using DeBrabander.Models.Company;
+
 
 
 namespace DeBrabander.DAL

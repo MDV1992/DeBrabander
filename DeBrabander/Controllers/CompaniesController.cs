@@ -7,7 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DeBrabander.DAL;
-using DeBrabander.Models.Company;
+using DeBrabander.Models;
+
 using System.IO;
 
 namespace DeBrabander.Controllers

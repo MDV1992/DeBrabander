@@ -382,9 +382,14 @@ namespace DeBrabander.Controllers
             List<Customer> allCustomers = new List<Customer>();
             allCustomers = db.Customers.ToList();
 
+            List<Company> company = new List<Company>();
+            company = db.Companies.ToList();
+
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CrystalReport4.rpt"));
-            rd.SetDataSource(allCustomers);
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "MainCustomers.rpt"));
+            rd.OpenSubreport("Header.rpt").SetDataSource(company);
+            rd.OpenSubreport("allCustomers.rpt").SetDataSource(allCustomers);
+            //rd.SetDataSource(company);
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
