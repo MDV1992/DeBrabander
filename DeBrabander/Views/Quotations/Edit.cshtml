@@ -10,7 +10,7 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
+    <div class="form-horizontal" style="display: none">
         <h4>Quotation</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })

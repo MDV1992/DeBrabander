@@ -248,17 +248,17 @@
     <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\QuotationDetails\Create.cshtml" />
-    <Content Include="Views\QuotationDetails\Delete.cshtml" />
-    <Content Include="Views\QuotationDetails\Details.cshtml" />
-    <Content Include="Views\QuotationDetails\Edit.cshtml" />
-    <Content Include="Views\QuotationDetails\Index.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Companies\Edit.cshtml" />
     <Content Include="Views\Quotations\AddProducts.cshtml" />
     <Content Include="Views\Quotations\DisplayQuotationDetailList.cshtml" />
     <Content Include="Views\Customers\AddDeliveryAddress.cshtml" />
     <Content Include="Views\UserDefinedSettings\Edit.cshtml" />
+    <Content Include="Views\QuotationDetails\Create.cshtml" />
+    <Content Include="Views\QuotationDetails\Delete.cshtml" />
+    <Content Include="Views\QuotationDetails\Details.cshtml" />
+    <Content Include="Views\QuotationDetails\Edit.cshtml" />
+    <Content Include="Views\QuotationDetails\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

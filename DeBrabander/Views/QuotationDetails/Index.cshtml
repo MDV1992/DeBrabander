@@ -12,16 +12,46 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ProductCode)
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuotationId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ProductName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UnitPrice)
+            @Html.DisplayNameFor(model => model.ProductCode)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Quantity)
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceExVAT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reprobel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bebat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recupel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Auvibel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VATPercId)
         </th>
         <th></th>
     </tr>
@@ -29,16 +59,46 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ProductCode)
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuotationId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProductName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UnitPrice)
+            @Html.DisplayFor(modelItem => item.ProductCode)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceExVAT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reprobel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bebat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Recupel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Auvibel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Brand)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VATPercId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.QuotationDetailId }) |

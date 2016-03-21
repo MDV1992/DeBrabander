@@ -47,7 +47,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "QuotationDetailId,ProductCode,ProductName,UnitPrice,Quantity")] QuotationDetail quotationDetail)
+        public ActionResult Create([Bind(Include = "QuotationDetailId,Quantity,QuotationId,ProductId,ProductName,ProductCode,Description,PriceExVAT,Reprobel,Bebat,Recupel,Auvibel,Brand,CategoryId,VATPercId")] QuotationDetail quotationDetail)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +62,7 @@ namespace DeBrabander.Controllers
         // GET: QuotationDetails/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.VAT = new SelectList(db.QuotationDetails, "VATPercId", "VATValue");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -79,7 +80,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "QuotationDetailId,ProductCode,ProductName,UnitPrice,Quantity")] QuotationDetail quotationDetail)
+        public ActionResult Edit([Bind(Include = "QuotationDetailId,Quantity,QuotationId,ProductId,ProductName,ProductCode,Description,PriceExVAT,Reprobel,Bebat,Recupel,Auvibel,Brand,CategoryId,VATPercId")] QuotationDetail quotationDetail)
         {
             if (ModelState.IsValid)
             {
