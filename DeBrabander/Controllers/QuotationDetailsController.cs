@@ -90,7 +90,7 @@ namespace DeBrabander.Controllers
             {
                 db.Entry(quotationDetail).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AddProducts", "Quotations", new { id = quotationDetail.QuotationId });
             }
             return View(quotationDetail);
         }

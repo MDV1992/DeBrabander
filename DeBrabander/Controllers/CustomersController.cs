@@ -393,6 +393,7 @@ namespace DeBrabander.Controllers
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
+            
 
             try
             {

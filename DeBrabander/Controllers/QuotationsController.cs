@@ -117,7 +117,13 @@ namespace DeBrabander.Controllers
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "LastName");
             Quotation quotation = new Quotation();
 
-            quotation.QuotationNumber = 1;
+            //ophalen van lijst quotations voor vinden van laatste quotationnummer en dan +1 
+            var listquotations = new List<Quotation>();
+            listquotations = db.Quotations.ToList();
+            var maxQuotationnumber = listquotations.Max(r => r.QuotationNumber);
+
+
+            quotation.QuotationNumber = maxQuotationnumber+1;
             quotation.Active = true;
             quotation.Date = DateTime.Now;
             quotation.ExpirationDate = quotation.Date.AddMonths(1);
@@ -251,12 +257,18 @@ namespace DeBrabander.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Quotation quotation = db.Quotations.Find(id);
+            var customer = db.Customers.Find(quotation.CustomerId);
+
+            QuotationEditViewModel qevm = new QuotationEditViewModel();
+            qevm.quotation = quotation;
+            qevm.customer = customer;
+
             if (quotation == null)
             {
                 return HttpNotFound();
             }
             ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "FullName");
-            return View(quotation);
+            return View(qevm);
         }
 
         // POST: Quotations/Edit/5
