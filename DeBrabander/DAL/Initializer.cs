@@ -61,7 +61,8 @@ namespace DeBrabander.DAL
             var CustomerDeliveryAddress = new List<CustomerDeliveryAddress>
             {
                 new CustomerDeliveryAddress { DeliveryAddressInfo="Werf1", CustomerId = 1, AddressId = 1 },
-                new CustomerDeliveryAddress { DeliveryAddressInfo="werf2", CustomerId = 1, AddressId = 2 }
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf2", CustomerId = 2, AddressId = 2 },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf3", CustomerId = 3, AddressId = 3 }
             };
 
             foreach (var temp in CustomerDeliveryAddress)

@@ -41,7 +41,9 @@ namespace DeBrabander.Controllers
             obj.customer.CreationDate = DateTime.Now;
             obj.customer.Type = objContext.Request.Form["customer.Type"];
             obj.customer.TAXLiability = objContext.Request.Form["customer.TAXLiability"];
-            
+
+            obj.customer.Address.Town = objContext.Request.Form["customer.Address.Town"];
+            obj.customer.Address.PostalCodeNumber = int.Parse(objContext.Request.Form["customer.Address.PostalCodeNumber"]);
             obj.customer.Address.StreetName = objContext.Request.Form["customer.Address.StreetName"];
             obj.customer.Address.StreetNumber = int.Parse(objContext.Request.Form["customer.Address.StreetNumber"]);
             obj.customer.Address.Box = int.Parse(objContext.Request.Form["customer.Address.Box"]);        
@@ -158,8 +160,6 @@ namespace DeBrabander.Controllers
         // GET: Customers/Create
         public ActionResult Create()
         {
-            
-            
             return View();
         }
 
@@ -174,8 +174,16 @@ namespace DeBrabander.Controllers
             if (ModelState.IsValid)
             {
                 Customer cus = new Customer();
+                cus.CustomerDeliveryAddress = new List<CustomerDeliveryAddress>();
+                CustomerDeliveryAddress cda = new CustomerDeliveryAddress();
+                
                 cus = ccvm.customer;
                 db.Customers.Add(cus);
+                db.SaveChanges();
+                cda.AddressId = cus.Address.AddressId;
+                cda.CustomerId = cus.CustomerId;
+                cda.DeliveryAddressInfo = "Standaard adres";
+                db.CustomerDeliveryAddresses.Add(cda);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
