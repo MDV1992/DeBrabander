@@ -268,6 +268,9 @@ namespace DeBrabander.Controllers
                 return HttpNotFound();
             }
             ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "FullName");
+            var quotDetList = from q in db.QuotationDetails select q;
+            quotDetList = quotDetList.Where(q => q.QuotationId == id);
+            ViewBag.QuotationDetail = quotDetList.ToList();
             return View(qevm);
         }
 
