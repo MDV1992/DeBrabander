@@ -85,6 +85,12 @@
         <th>
             @Html.DisplayNameFor(model => model.quotationDetail.Quantity)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.quotationDetail.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.quotationDetail.PriceExVAT)
+        </th>
     </tr>
 
     @foreach (var item in ViewBag.QuotationDetail)
@@ -95,6 +101,12 @@
             </td>
             <td>
                 @item.Quantity
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                @item.PriceExVAT
             </td>
             <td>
                 <a href="@Url.Action("Edit", "QuotationDetails", new { id = item.QuotationDetailId })" class="btn btn-primary">
