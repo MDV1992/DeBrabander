@@ -93,6 +93,11 @@ namespace DeBrabander.Controllers
             {
                 quotations = quotations.Where(q => q.QuotationNumber.ToString().Contains(searchQuotationNumber));
             }
+            if (!String.IsNullOrEmpty(searchCustomer))
+            {
+                quotations = quotations.Where(q => q.LastName.ToUpper().Contains(searchCustomer.ToUpper()) || q.FirstName.ToUpper().Contains(searchCustomer.ToUpper()));
+
+            }
             return View(quotations);
         }
 

@@ -13,6 +13,7 @@
 {
     <p>
         Zoek op offertenummer: &nbsp;@Html.TextBox("searchQuotationNumber")<br />
+        <br />
         Zoek op klant: &nbsp;@Html.TextBox("searchCustomer")
         <input type="submit" value="Zoek" />
     </p>
@@ -31,6 +32,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Active)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
         <th></th>
     </tr>
 
@@ -47,6 +51,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
         </td>
         <td>
             <a href="@Url.Action("Edit", "Quotations", new { id = item.QuotationId })" class="btn btn-info toggle-more-detail">
