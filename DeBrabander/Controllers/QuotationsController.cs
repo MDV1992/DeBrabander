@@ -86,14 +86,14 @@ namespace DeBrabander.Controllers
         private Context db = new Context();
 
         // GET: Quotations
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchQuotationNumber, string searchCustomer)
         {
             var quotations = from q in db.Quotations select q;
-            if (!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchQuotationNumber))
             {
-                quotations = quotations.Where(q => q.QuotationNumber.ToString().Contains(searchString));
+                quotations = quotations.Where(q => q.QuotationNumber.ToString().Contains(searchQuotationNumber));
             }
-            return View(db.Quotations.ToList());
+            return View(quotations);
         }
 
         // GET: Quotations/Details/5

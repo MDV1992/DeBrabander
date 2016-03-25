@@ -8,8 +8,6 @@ namespace DeBrabander.ViewModels.Quotations
 {
     public class QuotationCreateViewModel
     {
-        public Quotation quotation = new Quotation();
-        
-        
+        public Quotation quotation = new Quotation();    
     }
 }

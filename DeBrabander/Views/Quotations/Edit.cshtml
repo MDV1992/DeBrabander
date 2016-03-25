@@ -5,13 +5,13 @@
 }
 
 <h2>Overzicht Offerte</h2>
-
+<br />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div>
-        <table style="width:40%; display:inline-block">
+        <table style="float: left">
             <tr>
                 <td>@Html.DisplayFor(model => model.quotation.QuotationNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
             </tr>
@@ -34,28 +34,18 @@
                 <td>@Html.DisplayFor(model => model.customer.VATNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
             </tr>
         </table>
-        <table style="width:40%; display:inline-block">
+        <table style="width:40%; display:inline-block; float: right">
             <tr>
                 <td>@Html.DisplayFor(model => model.quotation.customerDeliveryAddress.DeliveryAddressInfo, new { htmlAttributes = new { @class = "form-control" } })</td>
             </tr>
             <tr>
-                <td>@Html.DisplayFor(model => model.address.StreetName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                <td>@Html.DisplayFor(model => model.address.StreetName, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.address.StreetNumber, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.address.Box, new { htmlAttributes = new { @class = "form-control" } })</td>
             </tr>
             <tr>
-                <td>@Html.DisplayFor(model => model.address.StreetNumber, new { htmlAttributes = new { @class = "form-control" } })
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.address.PostalCodeNumber, new { htmlAttributes = new { @class = "form-control" } })
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.address.Town, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.address.Box, new { htmlAttributes = new { @class = "form-control" } })</td>
+                <td>@Html.DisplayFor(model => model.address.PostalCodeNumber, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.address.Town, new { htmlAttributes = new { @class = "form-control" } })</td>
             </tr>
         </table>
     </div>
-
     <div>
         <table class="table">
             <tr>

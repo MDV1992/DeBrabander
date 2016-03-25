@@ -3,21 +3,17 @@
 @{
     ViewBag.Title = "Index";
 }
-<head>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/TableRowCollapse.js"></script>
-</head>
-
 <h2>Index</h2>
 <link href="~/Content/Site.css" rel="stylesheet" />
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Maak Een Nieuwe Offerte Aan", "Create")
 </p>
 
 @using (Html.BeginForm())
 {
     <p>
-        Zoek op offertenummer: &nbsp;@Html.TextBox("SearchString")
+        Zoek op offertenummer: &nbsp;@Html.TextBox("searchQuotationNumber")<br />
+        Zoek op klant: &nbsp;@Html.TextBox("searchCustomer")
         <input type="submit" value="Zoek" />
     </p>
 }
@@ -27,16 +23,10 @@
             @Html.DisplayNameFor(model => model.QuotationNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TotalPrice)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ExpirationDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Annotation)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Active)
@@ -50,16 +40,10 @@
             @Html.DisplayFor(modelItem => item.QuotationNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TotalPrice)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ExpirationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Annotation)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Active)
