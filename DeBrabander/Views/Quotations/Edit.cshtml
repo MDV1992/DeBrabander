@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Overzicht Offerte</h2>
 
 @using (Html.BeginForm())
 {
@@ -36,25 +36,22 @@
         </table>
         <table style="width:40%; display:inline-block">
             <tr>
-                <td>@Html.DisplayFor(model => model.quotation.QuotationNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
+                <td>@Html.DisplayFor(model => model.quotation.customerDeliveryAddress.DeliveryAddressInfo, new { htmlAttributes = new { @class = "form-control" } })</td>
             </tr>
             <tr>
-                <td>@Html.DisplayFor(model => model.customer.FullName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                <td>@Html.DisplayFor(model => model.address.StreetName, new { htmlAttributes = new { @class = "form-control" } })</td>
             </tr>
             <tr>
-                <td>@Html.DisplayFor(model => model.customer.Address.StreetName, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.customer.Address.StreetNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
+                <td>@Html.DisplayFor(model => model.address.StreetNumber, new { htmlAttributes = new { @class = "form-control" } })
             </tr>
             <tr>
-                <td>@Html.DisplayFor(model => model.customer.Address.PostalCodeNumber, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.customer.Address.Town, new { htmlAttributes = new { @class = "form-control" } })</td>
+                <td>@Html.DisplayFor(model => model.address.PostalCodeNumber, new { htmlAttributes = new { @class = "form-control" } })
             </tr>
             <tr>
-                <td>@Html.DisplayFor(model => model.customer.CellPhone, new { htmlAttributes = new { @class = "form-control" } })</td>
+                <td>@Html.DisplayFor(model => model.address.Town, new { htmlAttributes = new { @class = "form-control" } })</td>
             </tr>
             <tr>
-                <td>@Html.DisplayFor(model => model.customer.Email, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.VATNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
+                <td>@Html.DisplayFor(model => model.address.Box, new { htmlAttributes = new { @class = "form-control" } })</td>
             </tr>
         </table>
     </div>
@@ -73,10 +70,12 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.quotationDetail.PriceExVAT)
+                    
                 </th>
             </tr>
 
-            @foreach (var item in ViewBag.QuotationDetail)
+            @*@foreach (var item in ViewBag.QuotationDetail)*@
+            @foreach ( var item in Model.quotation.QuotationDetail)
             {
                 <tr>
                     <td>

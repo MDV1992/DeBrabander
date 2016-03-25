@@ -256,21 +256,30 @@ namespace DeBrabander.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            // opzoeken van de juiste quotation
             Quotation quotation = db.Quotations.Find(id);
+            // alle klantgegevens ophalen van de offerte
             var customer = db.Customers.Find(quotation.CustomerId);
+            // info opzoeken van het werfadres
+            Address werfadres = db.Addresses.Find(quotation.customerDeliveryAddress.AddressId);
 
+            // vullen van viewmodel
             QuotationEditViewModel qevm = new QuotationEditViewModel();
             qevm.quotation = quotation;
             qevm.customer = customer;
+            qevm.address = werfadres;
+
+
 
             if (quotation == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "FullName");
-            var quotDetList = from q in db.QuotationDetails select q;
-            quotDetList = quotDetList.Where(q => q.QuotationId == id);
-            ViewBag.QuotationDetail = quotDetList.ToList();
+            // omgezet naar model
+            //ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "FullName");
+            //var quotDetList = from q in db.QuotationDetails select q;
+            //quotDetList = quotDetList.Where(q => q.QuotationId == id);
+            //ViewBag.QuotationDetail = quotDetList.ToList();
             return View(qevm);
         }
 

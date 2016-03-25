@@ -58,6 +58,6 @@ namespace DeBrabander.Models
 
 
         public virtual CustomerDeliveryAddress customerDeliveryAddress { get; set; }
-        public List<QuotationDetail> QuotationDetail { get; set; }
+        public virtual List<QuotationDetail> QuotationDetail { get; set; }
     }
 }
