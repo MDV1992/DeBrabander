@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<DeBrabander.Models.Quotation>
+@using PagedList.Mvc;
+@using PagedList;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
@@ -12,16 +15,16 @@
 @using (Html.BeginForm())
 {
     <p>
-        Zoek op offertenummer: &nbsp;@Html.TextBox("searchQuotationNumber")<br />
+        Zoek op offertenummer: &nbsp;@Html.TextBox("searchQuotationNumber", ViewBag.CurrentFilterQuotation as string)<br />
         <br />
-        Zoek op klant: &nbsp;@Html.TextBox("searchCustomer")
+        Zoek op klant: &nbsp;@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string)
         <input type="submit" value="Zoek" />
     </p>
 }
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.QuotationNumber)
+            @Html.ActionLink(Html.DisplayNameFor(model => model.QuotationNumber).ToHtmlString(), "Index", new { sortOrder = ViewBag.QuotationSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Date)
@@ -33,7 +36,7 @@
             @Html.DisplayNameFor(model => model.Active)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FullName)
+            @Html.ActionLink(Html.DisplayNameFor(model => model.FullName).ToHtmlString(), "Index", new { sortOrder = ViewBag.CustomerSortParm })
         </th>
         <th></th>
     </tr>
@@ -70,3 +73,6 @@
 }
 
 </table>
+<br />
+Page @(ViewBag.Quotations.PageCount < ViewBag.Quotations.PageNumber ? 0 : ViewBag.Quotations.PageNumber) of @ViewBag.Quotations.PageCount
+@Html.PagedListPager((IPagedList)ViewBag.Quotations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterQuotationNumber = ViewBag.CurrentFilterQuotation, currentFilterCustomer = ViewBag.CurrentFilterCustomer }))

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
 using DeBrabander.ViewModels.Quotations;
+using PagedList;
 
 namespace DeBrabander.Controllers
 {
@@ -86,8 +87,22 @@ namespace DeBrabander.Controllers
         private Context db = new Context();
 
         // GET: Quotations
-        public ActionResult Index(string searchQuotationNumber, string searchCustomer)
+        public ActionResult Index(string searchQuotationNumber, string currentFilterQuotationNumber ,string searchCustomer, string currentFilterCustomer, int? page, string sortOrder)
         {
+            ViewBag.CurrentSort = sortOrder;
+
+            if (searchCustomer != null || searchQuotationNumber !=null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchQuotationNumber = currentFilterQuotationNumber;
+                searchCustomer = currentFilterCustomer;
+            }
+            ViewBag.CurrentFilterQuotation = searchQuotationNumber;
+            ViewBag.CurrentFilterCustomer = searchCustomer;
+
             var quotations = from q in db.Quotations select q;
             if (!String.IsNullOrEmpty(searchQuotationNumber))
             {
@@ -96,8 +111,34 @@ namespace DeBrabander.Controllers
             if (!String.IsNullOrEmpty(searchCustomer))
             {
                 quotations = quotations.Where(q => q.LastName.ToUpper().Contains(searchCustomer.ToUpper()) || q.FirstName.ToUpper().Contains(searchCustomer.ToUpper()));
-
             }
+
+            ViewBag.QuotationSortParm = String.IsNullOrEmpty(sortOrder) ? "quot_desc" : "";
+            ViewBag.CustomerSortParm = String.IsNullOrEmpty(sortOrder) ? "cust_desc" : "cust";
+
+            switch(sortOrder)
+            {
+                case "quot_desc":
+                    quotations = quotations.OrderByDescending(s => s.QuotationNumber);
+                    break;
+                case "cust_desc":
+                    quotations = quotations.OrderByDescending(s => s.LastName);
+                    break;
+                case "cust":
+                    quotations = quotations.OrderBy(s => s.LastName);
+                    break;
+                default:
+                    quotations = quotations.OrderBy(s => s.QuotationNumber);
+                    break;
+            }
+
+            var userDefinedInfo = db.UserDefinedSettings.Find(1);
+            int pageSize = userDefinedInfo.DetailsResultLength;
+            int pageNumber = (page ?? 1);
+
+            ViewBag.Quotations = quotations.ToPagedList(pageNumber, pageSize);
+
+
             return View(quotations);
         }
 
