@@ -60,7 +60,7 @@ namespace DeBrabander.Controllers
         }
 
         // GET: QuotationDetails/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int? edit)
         {
             ViewBag.VAT = new SelectList(db.QuotationDetails, "VATPercId", "VATValue");
             if (id == null)
@@ -72,6 +72,16 @@ namespace DeBrabander.Controllers
             {
                 return HttpNotFound();
             }
+            // zet de edit waarde op 0 of 1 (zodat we weten dat hij van Edit of vanuit addproducts komt)
+            ViewBag.edit = 0;
+            if (edit != null)
+            {
+                ViewBag.edit = edit;
+            }
+            else
+            {
+                ViewBag.edit = 0;
+            }
             return View(quotationDetail);
         }
 
@@ -80,7 +90,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "QuotationDetailId,Quantity,QuotationId,ProductId,ProductName,ProductCode,Description,PriceExVAT,Reprobel,Bebat,Recupel,Auvibel,Brand,CategoryId,VATPercId")] QuotationDetail quotationDetail)
+        public ActionResult Edit([Bind(Include = "QuotationDetailId,Quantity,QuotationId,ProductId,ProductName,ProductCode,Description,PriceExVAT,Reprobel,Bebat,Recupel,Auvibel,Brand,CategoryId,VATPercId")] QuotationDetail quotationDetail, int editValue)
         {
             Product prod = new Product();
             prod = db.Products.Find(quotationDetail.ProductId);
@@ -90,6 +100,10 @@ namespace DeBrabander.Controllers
             {
                 db.Entry(quotationDetail).State = EntityState.Modified;
                 db.SaveChanges();
+                if (editValue == 1)
+                {
+                    return RedirectToAction("Edit", "Quotations", new { id = quotationDetail.QuotationId });
+                }
                 return RedirectToAction("AddProducts", "Quotations", new { id = quotationDetail.QuotationId });
             }
             return View(quotationDetail);

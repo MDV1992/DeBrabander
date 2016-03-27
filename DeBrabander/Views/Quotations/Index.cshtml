@@ -15,8 +15,7 @@
 @using (Html.BeginForm())
 {
     <p>
-        Zoek op offertenummer: &nbsp;@Html.TextBox("searchQuotationNumber", ViewBag.CurrentFilterQuotation as string)<br />
-        <br />
+        Zoek op offertenummer: &nbsp;@Html.TextBox("searchQuotationNumber", ViewBag.CurrentFilterQuotation as string)
         Zoek op klant: &nbsp;@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string)
         <input type="submit" value="Zoek" />
     </p>
