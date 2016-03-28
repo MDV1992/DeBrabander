@@ -5,12 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using DeBrabander.Models;
+using PagedList;
 
 namespace DeBrabander.ViewModels.Customers
 {
     public class CustomerIndexViewModel
     {
 
+        public List<Customer> customers2 { get; set; }
+        public IPagedList<Customer> customers { get; set; }
+        
         public Customer customer = new Customer();
     }
 }

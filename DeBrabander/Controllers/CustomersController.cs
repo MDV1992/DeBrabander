@@ -123,19 +123,73 @@ namespace DeBrabander.Controllers
         private Context db = new Context();
 
         // GET: Customers
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchStringName, string searchStringTown, string currentFilterName, string currentFilterTown, int? page)
         {
-            List<CustomerIndexViewModel> custumorVMList = new List<CustomerIndexViewModel>();
-            List<Customer> customers = new List<Customer>(db.Customers.ToList());
+            // nieuw ViewModel aanmaken en tijdelijke lijst vullen met klant info
+            CustomerIndexViewModel civm = new CustomerIndexViewModel();
+            var customerList = from a in db.Customers select a;
             
-            foreach (var item in customers)
+
+
+            //sorteren  default op "name_desc" 
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.TownSortParm = sortOrder == "town" ? "town_desc" : "town";
+
+
+            // als zoeken leeg is pagina 1 anders 
+            if (searchStringTown != null || searchStringName != null)
             {
-                CustomerIndexViewModel civm = new CustomerIndexViewModel();                
-                civm.customer = item;               
-                custumorVMList.Add(civm);
+                page = 1;
+            }
+            else
+            {
+                searchStringName = currentFilterName;
+                searchStringTown = currentFilterTown;                
+            }
+            ViewBag.CurrentFilterName = searchStringName;
+            ViewBag.CurrentFilterTown = searchStringTown;
+            
+
+
+            // zoekvelden toepassen op klantenlijst
+            //zoeken op naam (voor of achter en/of gemeente)           
+            if (!String.IsNullOrEmpty(searchStringTown))
+            {
+                customerList = customerList.Where(s => s.Address.Town.ToUpper().Contains(searchStringTown.ToUpper()));
             }
 
-            return View(custumorVMList);
+            // zoeken op postalcode
+            if (!String.IsNullOrEmpty(searchStringName))
+            {
+                customerList = customerList.Where(s => s.LastName.ToUpper().Contains(searchStringName.ToUpper()) ||
+                s.FirstName.ToUpper().Contains(searchStringName.ToUpper()));
+            }
+
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    customerList = customerList.OrderByDescending(s => s.LastName);
+                    break;
+                case "town":
+                    customerList = customerList.OrderBy(s => s.Address.Town);
+                    break;
+                case "town_desc":
+                    customerList = customerList.OrderByDescending(s => s.Address.Town);
+                    break;
+                default:
+                    customerList = customerList.OrderBy(s => s.LastName);
+                    break;
+            }
+
+            var userDefinedInfo = db.UserDefinedSettings.Find(1);
+            //int pageSize = userDefinedInfo.IndexResultLength;
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+
+            civm.customers = customerList.ToPagedList(pageNumber, pageSize);
+            civm.customers2 = customerList.ToList();
+            return View(civm);
         }
 
         // GET: Customers/Details/5

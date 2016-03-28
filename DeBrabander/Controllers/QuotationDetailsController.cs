@@ -78,10 +78,7 @@ namespace DeBrabander.Controllers
             {
                 ViewBag.edit = edit;
             }
-            else
-            {
-                ViewBag.edit = 0;
-            }
+            
             return View(quotationDetail);
         }
 

@@ -1,23 +1,34 @@
 ﻿
-@model IEnumerable<DeBrabander.ViewModels.Customers.CustomerIndexViewModel>
+@model DeBrabander.ViewModels.Customers.CustomerIndexViewModel
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Klanten</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
     <a href="@Url.Action("CRAllCustomers")"> Print alle klanten</a>
 </p>
+@using (Html.BeginForm("Index", "Customers", FormMethod.Get))
+{
+    <p>
+        <b>Zoeken op:</b> <br />
+        Naam: @Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string) 
+         Gemeente: @Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string)
+        <input type="submit" value="Zoek" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.customer.CustomerId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.customer.LastName)
+            @Html.ActionLink(Html.DisplayNameFor(model => model.customer.LastName).ToHtmlString(), "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.customer.FirstName)
@@ -26,7 +37,8 @@
             @Html.DisplayNameFor(model => model.customer.Address.StreetName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.customer.Address.Town)
+
+            @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "Index", new { sortOrder = ViewBag.TownSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.customer.CompanyName)
@@ -43,42 +55,46 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.customer.CustomerId)
-        </td>        
-        <td>
-            @Html.DisplayFor(modelItem => item.customer.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.customer.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelitem => item.customer.Address.StreetName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelitem => item.customer.Address.Town)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.customer.CompanyName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.customer.CellPhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.customer.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.customer.VATNumber)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.customer.CustomerId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.customer.CustomerId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.customer.CustomerId }) |
-            @Html.ActionLink("AddDeliveryAddress", "AddDeliveryAddress", new  { id=item.customer.CustomerId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.customers)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => item.Address.StreetName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => item.Address.Town)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CellPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VATNumber)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CustomerId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CustomerId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CustomerId }) |
+                @Html.ActionLink("AddDeliveryAddress", "AddDeliveryAddress", new { id = item.CustomerId })
+            </td>
+        </tr>
+    }
 
 </table>
+<br />
+Page @(Model.customers.PageCount<Model.customers.PageNumber ? 0 : Model.customers.PageNumber) of @Model.customers.PageCount
+@Html.PagedListPager(Model.customers,page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown}))

@@ -26,7 +26,7 @@ namespace DeBrabander.Controllers
 
             QuotationCreateViewModel obj = new QuotationCreateViewModel();
 
-            int tempid = int.Parse(objContext.Request.Form["quotation.CustomerId"]);
+            int tempid = int.Parse(objContext.Request.Form["customers"]);
             obj.quotation.CustomerId = tempid;
             obj.quotation.Active = bool.Parse(objContext.Request.Form.GetValues("quotation.Active")[0]);
             obj.quotation.Annotation = objContext.Request.Form["quotation.Annotation"];
@@ -177,7 +177,7 @@ namespace DeBrabander.Controllers
 
             QuotationCreateViewModel qcvm = new QuotationCreateViewModel();
             qcvm.quotation = quotation;
-
+            qcvm.customers = db.Customers.ToList();
 
 
 
