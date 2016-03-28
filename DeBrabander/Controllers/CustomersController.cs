@@ -183,12 +183,10 @@ namespace DeBrabander.Controllers
             }
 
             var userDefinedInfo = db.UserDefinedSettings.Find(1);
-            //int pageSize = userDefinedInfo.IndexResultLength;
-            int pageSize = 4;
+            int pageSize = userDefinedInfo.IndexResultLength;
             int pageNumber = (page ?? 1);
 
             civm.customers = customerList.ToPagedList(pageNumber, pageSize);
-            civm.customers2 = customerList.ToList();
             return View(civm);
         }
 

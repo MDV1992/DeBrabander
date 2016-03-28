@@ -89,7 +89,16 @@ namespace DeBrabander.Controllers
         // GET: Quotations
         public ActionResult Index(string searchQuotationNumber, string currentFilterQuotationNumber ,string searchCustomer, string currentFilterCustomer, int? page, string sortOrder)
         {
-            ViewBag.CurrentSort = sortOrder;
+            // viewmodel aanmaken + vullen tijdelijke lijst
+            QuotationIndexViewModel qivm = new QuotationIndexViewModel();
+            var quotations = from q in db.Quotations select q;
+
+            //ViewBag.CurrentSort = sortOrder;
+
+
+            ViewBag.QuotationSortParm = String.IsNullOrEmpty(sortOrder) ? "quot_desc" : "";
+            ViewBag.CustomerSortParm = sortOrder=="cust" ? "cust_desc" : "cust";
+
 
             if (searchCustomer != null || searchQuotationNumber !=null)
             {
@@ -103,7 +112,7 @@ namespace DeBrabander.Controllers
             ViewBag.CurrentFilterQuotation = searchQuotationNumber;
             ViewBag.CurrentFilterCustomer = searchCustomer;
 
-            var quotations = from q in db.Quotations select q;
+            
             if (!String.IsNullOrEmpty(searchQuotationNumber))
             {
                 quotations = quotations.Where(q => q.QuotationNumber.ToString().Contains(searchQuotationNumber));
@@ -113,9 +122,7 @@ namespace DeBrabander.Controllers
                 quotations = quotations.Where(q => q.LastName.ToUpper().Contains(searchCustomer.ToUpper()) || q.FirstName.ToUpper().Contains(searchCustomer.ToUpper()));
             }
 
-            ViewBag.QuotationSortParm = String.IsNullOrEmpty(sortOrder) ? "quot_desc" : "";
-            ViewBag.CustomerSortParm = String.IsNullOrEmpty(sortOrder) ? "cust_desc" : "cust";
-
+           
             switch(sortOrder)
             {
                 case "quot_desc":
@@ -133,13 +140,13 @@ namespace DeBrabander.Controllers
             }
 
             var userDefinedInfo = db.UserDefinedSettings.Find(1);
-            int pageSize = userDefinedInfo.DetailsResultLength;
+            int pageSize = userDefinedInfo.IndexResultLength;
             int pageNumber = (page ?? 1);
 
-            ViewBag.Quotations = quotations.ToPagedList(pageNumber, pageSize);
+            //ViewBag.Quotations = quotations.ToPagedList(pageNumber, pageSize);
+            qivm.quotations = quotations.ToPagedList(pageNumber, pageSize);
 
-
-            return View(quotations);
+            return View(qivm);
         }
 
         // GET: Quotations/Details/5

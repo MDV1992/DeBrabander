@@ -4,22 +4,17 @@
     ViewBag.Title = "AddProducts";
 }
 
-<h2>Add Products cool</h2>
+<h2>Artikelen toevoegen op offerte van @Model.quotation.FullName</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Quotation</h4>
-    </div>
-
     <div>
         @using (Html.BeginForm("AddProducts", "Quotations", FormMethod.Get))
         {
-            <b>Zoeken op:</b> <br />
-            <p> Product Naam / Product Code: @Html.TextBox("searchString") </p>
-            <p>Categorie: @Html.DropDownList("CategoryID", (SelectList)ViewBag.CategoryID) </p>
+            <b>Zoeken op:</b>
+            <p> Product Naam / Product Code: @Html.TextBox("searchString") Categorie: @Html.DropDownList("CategoryID", (SelectList)ViewBag.CategoryID) </p>
             <p><input type="submit" value="Zoek" /></p>
         }
     </div>

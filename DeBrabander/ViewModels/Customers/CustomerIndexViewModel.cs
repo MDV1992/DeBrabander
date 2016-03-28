@@ -12,7 +12,6 @@ namespace DeBrabander.ViewModels.Customers
     public class CustomerIndexViewModel
     {
 
-        public List<Customer> customers2 { get; set; }
         public IPagedList<Customer> customers { get; set; }
         
         public Customer customer = new Customer();

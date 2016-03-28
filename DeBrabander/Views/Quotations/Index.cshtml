@@ -1,6 +1,6 @@
-﻿@model IEnumerable<DeBrabander.Models.Quotation>
+﻿@model DeBrabander.ViewModels.Quotations.QuotationIndexViewModel
 @using PagedList.Mvc;
-@using PagedList;
+
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
@@ -23,24 +23,24 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink(Html.DisplayNameFor(model => model.QuotationNumber).ToHtmlString(), "Index", new { sortOrder = ViewBag.QuotationSortParm })
+            @Html.ActionLink(Html.DisplayNameFor(model => model.quotation.QuotationNumber).ToHtmlString(), "Index", new { sortOrder = ViewBag.QuotationSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.DisplayNameFor(model => model.quotation.Date)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ExpirationDate)
+            @Html.DisplayNameFor(model => model.quotation.ExpirationDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Active)
+            @Html.DisplayNameFor(model => model.quotation.Active)
         </th>
         <th>
-            @Html.ActionLink(Html.DisplayNameFor(model => model.FullName).ToHtmlString(), "Index", new { sortOrder = ViewBag.CustomerSortParm })
+            @Html.ActionLink(Html.DisplayNameFor(model => model.quotation.FullName).ToHtmlString(), "Index", new { sortOrder = ViewBag.CustomerSortParm })
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.quotations) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.QuotationNumber)
@@ -73,5 +73,5 @@
 
 </table>
 <br />
-Page @(ViewBag.Quotations.PageCount < ViewBag.Quotations.PageNumber ? 0 : ViewBag.Quotations.PageNumber) of @ViewBag.Quotations.PageCount
-@Html.PagedListPager((IPagedList)ViewBag.Quotations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterQuotationNumber = ViewBag.CurrentFilterQuotation, currentFilterCustomer = ViewBag.CurrentFilterCustomer }))
+Page @(Model.quotations.PageCount < Model.quotations.PageNumber ? 0 : Model.quotations.PageNumber) of @Model.quotations.PageCount
+@Html.PagedListPager(Model.quotations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterQuotationNumber = ViewBag.CurrentFilterQuotation, currentFilterCustomer = ViewBag.CurrentFilterCustomer }))
