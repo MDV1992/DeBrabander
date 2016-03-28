@@ -118,18 +118,20 @@ namespace DeBrabander.Controllers
             {
                 return HttpNotFound();
             }
+            // uitleg returnUrl http://stackoverflow.com/questions/9772947/c-sharp-asp-net-mvc-return-to-previous-page
+            ViewBag.returnUrl = Request.UrlReferrer;
             return View(quotationDetail);
         }
 
         // POST: QuotationDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, string returnUrl)
         {
             QuotationDetail quotationDetail = db.QuotationDetails.Find(id);
             db.QuotationDetails.Remove(quotationDetail);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Redirect(returnUrl);
         }
 
         protected override void Dispose(bool disposing)
