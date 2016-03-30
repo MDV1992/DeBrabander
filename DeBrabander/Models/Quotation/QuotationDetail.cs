@@ -19,7 +19,6 @@ namespace DeBrabander.Models
         public string ProductName { get; set; }
         [DisplayName("Productcode")]
         public string ProductCode { get; set; }
-
         [DisplayName("Omschrijving")]
         public string Description { get; set; }
         [DisplayName("Prijs exclusief BTW")]
@@ -38,5 +37,15 @@ namespace DeBrabander.Models
         public int CategoryId { get; set; }
         [DisplayName("BTW %")]
         public int VATPercId { get; set; }
+        [DisplayName("Totaal Exclusief BTW")]
+        public double Total { get; set; }
+        public virtual Quotation Quotation { get; set; }
+        public virtual VAT VAT { get; set; }
+
+        public void CalculateTotal()
+        {
+            Total = (PriceExVAT + ((PriceExVAT / 100) * VAT.VATValue)) * Quantity;
+            Quotation.TotalPrice = Quotation.QuotationDetail.Sum(x => x.Total);
+        }
     }
 }

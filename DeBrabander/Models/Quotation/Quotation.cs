@@ -26,7 +26,6 @@ namespace DeBrabander.Models
         public string Annotation { get; set; }
         [DisplayName("Actief")]
         public bool Active { get; set; }
-
         public int CustomerId { get; set; }
         // [DisplayName] zorgt ervoor dat het aangegeven argument 
         // wordt weergegeven in de view ipv property naam
@@ -45,27 +44,18 @@ namespace DeBrabander.Models
         }
         [DisplayName("GSM")]
         public string CellPhone { get; set; }
-
         [DisplayName("Email")]
         public string Email { get; set; }
-
         [DisplayName("Straatnaam")]
         public string StreetName { get; set; }
-
         [DisplayName("Huisnummer")]
         public int StreetNumber { get; set; }
-
         [DisplayName("Busnummer")]
         public int Box { get; set; }
-
         [DisplayName("Postcode")]
         public int PostalCodeNumber { get; set; }
-
         [DisplayName("Gemeente")]
         public string Town { get; set; }
-
-
-
         public virtual CustomerDeliveryAddress customerDeliveryAddress { get; set; }
         public virtual List<QuotationDetail> QuotationDetail { get; set; }
     }

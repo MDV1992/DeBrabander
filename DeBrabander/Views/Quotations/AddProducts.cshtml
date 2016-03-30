@@ -93,6 +93,9 @@
                     @Html.DisplayNameFor(model => model.quotationDetail.PriceExVAT)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.quotationDetail.Total)
+                </th>
+                <th>
 
                 </th>
             </tr>
@@ -111,6 +114,9 @@
                     </td>
                     <td>
                         @item.PriceExVAT
+                    </td>
+                    <td>
+                        @item.Total
                     </td>
                     <td>
                         <a href="@Url.Action("Edit", "QuotationDetails", new { id = item.QuotationDetailId })" class="btn btn-primary">

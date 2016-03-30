@@ -173,10 +173,16 @@ namespace DeBrabander.Controllers
             //ophalen van lijst quotations voor vinden van laatste quotationnummer en dan +1 
             var listquotations = new List<Quotation>();
             listquotations = db.Quotations.ToList();
-            var maxQuotationnumber = listquotations.Max(r => r.QuotationNumber);
+
+            int maxQuotationnumber = 1;
+            quotation.QuotationNumber = maxQuotationnumber;
+            if (listquotations.Count != 0)
+            {
+                maxQuotationnumber = listquotations.Max(r => r.QuotationNumber);
+                quotation.QuotationNumber = maxQuotationnumber + 1;
+            }
 
 
-            quotation.QuotationNumber = maxQuotationnumber+1;
             quotation.Active = true;
             quotation.Date = DateTime.Now;
             quotation.ExpirationDate = quotation.Date.AddMonths(1);
@@ -211,9 +217,10 @@ namespace DeBrabander.Controllers
                 qcvm.quotation.FirstName = cus.FirstName;
                 qcvm.quotation.LastName = cus.LastName;
 
-                quotation.customerDeliveryAddress = new CustomerDeliveryAddress();
-
                 quotation = qcvm.quotation;
+
+                //tijdelijk tot werfadres erin zit
+                quotation.customerDeliveryAddress = db.CustomerDeliveryAddresses.Find(1);
 
                 db.Quotations.Add(quotation);
 
@@ -243,7 +250,8 @@ namespace DeBrabander.Controllers
 
                 quotation = qcvm.quotation;
 
-
+                //tijdelijk tot werfadres erin zit
+                quotation.customerDeliveryAddress = db.CustomerDeliveryAddresses.Find(1);
                 db.Quotations.Add(quotation);
 
                 db.SaveChanges();
@@ -403,8 +411,7 @@ namespace DeBrabander.Controllers
                     ProductName = prod.ProductName,
                     Recupel = prod.Recupel,
                     Reprobel = prod.Reprobel,
-                    VATPercId = prod.VATPercId
-                    
+                    VATPercId = prod.VATPercId,
                 };
                 db.QuotationDetails.Add(quotItem);
             }
@@ -412,8 +419,25 @@ namespace DeBrabander.Controllers
             {
                 quotItem.Quantity++;
             }
+            quotItem.Total = prod.PriceExVAT * quotItem.Quantity;
+
             db.SaveChanges();
+            CalculateTotalPriceinc(quotationId);
+
             return RedirectToAction("AddProducts", new { id= quotationId });
+        }
+
+        private void CalculateTotalPriceinc(int? quotationId)
+        {
+            double totalInc = 0;
+            Quotation quot = db.Quotations.Find(quotationId);
+            foreach (var qd in quot.QuotationDetail)
+            {
+                totalInc += (qd.Total * qd.VAT.VATValue);
+            }
+            quot.TotalPrice = totalInc;
+            db.SaveChanges();
+
         }
 
         protected override void Dispose(bool disposing)
