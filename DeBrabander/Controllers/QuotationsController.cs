@@ -404,6 +404,7 @@ namespace DeBrabander.Controllers
                     Recupel = prod.Recupel,
                     Reprobel = prod.Reprobel,
                     VATPercId = prod.VATPercId
+                    
                 };
                 db.QuotationDetails.Add(quotItem);
             }
