@@ -423,6 +423,7 @@ namespace DeBrabander.Controllers
 
             db.SaveChanges();
             CalculateTotalPriceinc(quotationId);
+            
 
             return RedirectToAction("AddProducts", new { id= quotationId });
         }
@@ -433,7 +434,8 @@ namespace DeBrabander.Controllers
             Quotation quot = db.Quotations.Find(quotationId);
             foreach (var qd in quot.QuotationDetail)
             {
-                totalInc += (qd.Total * qd.VAT.VATValue);
+                // Hij telt de eerste total nog niet bij het toevoegen van het eerste product.
+                totalInc += (qd.Total * ( 1 + (qd.VAT.VATValue / 100)));
             }
             quot.TotalPrice = totalInc;
             db.SaveChanges();
