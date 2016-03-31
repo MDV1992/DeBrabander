@@ -92,7 +92,7 @@ namespace DeBrabander.Controllers
             Product prod = new Product();
             prod = db.Products.Find(quotationDetail.ProductId);
             quotationDetail.ProductName = prod.ProductName;
-
+            quotationDetail.TotalExVat = quotationDetail.PriceExVAT * quotationDetail.Quantity;
             if (ModelState.IsValid)
             {
                 db.Entry(quotationDetail).State = EntityState.Modified;

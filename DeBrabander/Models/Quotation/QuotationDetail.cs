@@ -38,14 +38,14 @@ namespace DeBrabander.Models
         [DisplayName("BTW %")]
         public int VATPercId { get; set; }
         [DisplayName("Totaal Exclusief BTW")]
-        public double Total { get; set; }
+        public double TotalExVat { get; set; }
         public virtual Quotation Quotation { get; set; }
         public virtual VAT VAT { get; set; }
 
         public void CalculateTotal()
         {
-            Total = (PriceExVAT + ((PriceExVAT / 100) * VAT.VATValue)) * Quantity;
-            Quotation.TotalPrice = Quotation.QuotationDetail.Sum(x => x.Total);
+            TotalExVat = (PriceExVAT + ((PriceExVAT / 100) * VAT.VATValue)) * Quantity;
+            Quotation.TotalPrice = Quotation.QuotationDetail.Sum(x => x.TotalExVat);
         }
     }
 }

@@ -413,13 +413,14 @@ namespace DeBrabander.Controllers
                     Reprobel = prod.Reprobel,
                     VATPercId = prod.VATPercId,
                 };
+                quotItem.VAT = db.VATs.Find(quotItem.VATPercId);
                 db.QuotationDetails.Add(quotItem);
             }
             else
             {
                 quotItem.Quantity++;
             }
-            quotItem.Total = prod.PriceExVAT * quotItem.Quantity;
+            quotItem.TotalExVat = quotItem.PriceExVAT * quotItem.Quantity;
 
             db.SaveChanges();
             CalculateTotalPriceinc(quotationId);
@@ -435,7 +436,7 @@ namespace DeBrabander.Controllers
             foreach (var qd in quot.QuotationDetail)
             {
                 // Hij telt de eerste total nog niet bij het toevoegen van het eerste product.
-                totalInc += (qd.Total * ( 1 + (qd.VAT.VATValue / 100)));
+                totalInc += (qd.TotalExVat * ( 1 + (qd.VAT.VATValue / 100)));
             }
             quot.TotalPrice = totalInc;
             db.SaveChanges();

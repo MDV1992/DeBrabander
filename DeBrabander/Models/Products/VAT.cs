@@ -12,7 +12,7 @@ namespace DeBrabander.Models
         [Key]
         public int VATPercId { get; set; }
 
-        [DisplayName("BTW Percentage")]
+        [DisplayName("BTW %")]
         public double VATValue { get; set; }
     }
 }
