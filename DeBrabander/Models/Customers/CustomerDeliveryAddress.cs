@@ -20,9 +20,23 @@ namespace DeBrabander.Models
         [DisplayName("Klantnummer")]
         public int CustomerId { get; set; }
 
+        [DisplayName("Straatnaam")]
+        public string StreetName { get; set; }
 
-        
-        [DisplayName("WerfAdresID")]
-        public int AddressId { get; set; }
+        [DisplayName("Huisnummer")]
+        public int StreetNumber { get; set; }
+
+        [DisplayName("Busnummer")]
+        public int Box { get; set; }
+
+        [DisplayName("Postcode")]
+        public int PostalCodeNumber { get; set; }
+
+        [DisplayName("Gemeente")]
+        public string Town { get; set; }
+
+
+
+
     }
 }

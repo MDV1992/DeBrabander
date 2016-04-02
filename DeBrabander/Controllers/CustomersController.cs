@@ -232,7 +232,11 @@ namespace DeBrabander.Controllers
                 cus = ccvm.customer;
                 db.Customers.Add(cus);
                 db.SaveChanges();
-                cda.AddressId = cus.Address.AddressId;
+                cda.Box = cus.Address.Box;
+                cda.PostalCodeNumber = cus.Address.PostalCodeNumber;
+                cda.StreetName = cus.Address.StreetName;
+                cda.StreetNumber = cus.Address.StreetNumber;
+                cda.Town = cus.Address.Town;
                 cda.CustomerId = cus.CustomerId;
                 cda.DeliveryAddressInfo = "Standaard adres";
                 db.CustomerDeliveryAddresses.Add(cda);
@@ -426,7 +430,13 @@ namespace DeBrabander.Controllers
 
             CustomerDeliveryAddress cda = new CustomerDeliveryAddress();
 
-            cda.AddressId = addressId.GetValueOrDefault();
+            var address = db.Addresses.Find(addressId);
+            cda.Box = address.Box;
+            cda.PostalCodeNumber = address.PostalCodeNumber;
+            cda.StreetName = address.StreetName;
+            cda.StreetNumber = address.StreetNumber;
+            cda.Town = address.Town;
+
             cda.CustomerId = customerID.GetValueOrDefault();
             cda.DeliveryAddressInfo = ViewBag.CurrentFilterTown;
 

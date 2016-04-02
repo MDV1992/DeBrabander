@@ -165,15 +165,17 @@ namespace DeBrabander.Controllers
         }
 
         // GET: Quotations/Create
-        public ActionResult Create()
+        public ActionResult Create(string sortOrder, string searchStringName, string searchStringTown, string currentFilterName, string currentFilterTown, int? page)
         {
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerId", "LastName");
+            // quotation viewmodel + ipaged list users aanmaken + nieuwe quotation voor default stuff
+            QuotationCreateViewModel qcvm = new QuotationCreateViewModel();
+            var customerList = from a in db.Customers select a;
             Quotation quotation = new Quotation();
 
+            //basis info invullen in quotation
             //ophalen van lijst quotations voor vinden van laatste quotationnummer en dan +1 
             var listquotations = new List<Quotation>();
             listquotations = db.Quotations.ToList();
-
             int maxQuotationnumber = 1;
             quotation.QuotationNumber = maxQuotationnumber;
             if (listquotations.Count != 0)
@@ -181,17 +183,69 @@ namespace DeBrabander.Controllers
                 maxQuotationnumber = listquotations.Max(r => r.QuotationNumber);
                 quotation.QuotationNumber = maxQuotationnumber + 1;
             }
-
-
             quotation.Active = true;
             quotation.Date = DateTime.Now;
-            quotation.ExpirationDate = quotation.Date.AddMonths(1);
-
-
-            QuotationCreateViewModel qcvm = new QuotationCreateViewModel();
+            quotation.ExpirationDate = quotation.Date.AddMonths(1);            
             qcvm.quotation = quotation;
-            qcvm.customers = db.Customers.ToList();
 
+
+            //zoeken / sorteren / paging
+            //sorteren  default op "name_desc" 
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.TownSortParm = sortOrder == "town" ? "town_desc" : "town";
+
+
+            // als zoeken leeg is pagina 1 anders 
+            if (searchStringTown != null || searchStringName != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchStringName = currentFilterName;
+                searchStringTown = currentFilterTown;
+            }
+            ViewBag.CurrentFilterName = searchStringName;
+            ViewBag.CurrentFilterTown = searchStringTown;
+
+
+
+            // zoekvelden toepassen op klantenlijst
+            //zoeken op naam (voor of achter en/of gemeente)           
+            if (!String.IsNullOrEmpty(searchStringTown))
+            {
+                customerList = customerList.Where(s => s.Address.Town.ToUpper().Contains(searchStringTown.ToUpper()));
+            }
+
+            // zoeken op postalcode
+            if (!String.IsNullOrEmpty(searchStringName))
+            {
+                customerList = customerList.Where(s => s.LastName.ToUpper().Contains(searchStringName.ToUpper()) ||
+                s.FirstName.ToUpper().Contains(searchStringName.ToUpper()));
+            }
+
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    customerList = customerList.OrderByDescending(s => s.LastName);
+                    break;
+                case "town":
+                    customerList = customerList.OrderBy(s => s.Address.Town);
+                    break;
+                case "town_desc":
+                    customerList = customerList.OrderByDescending(s => s.Address.Town);
+                    break;
+                default:
+                    customerList = customerList.OrderBy(s => s.LastName);
+                    break;
+            }
+
+            var userDefinedInfo = db.UserDefinedSettings.Find(1);
+            int pageSize = userDefinedInfo.DetailsResultLength;
+            int pageNumber = (page ?? 1);
+
+            qcvm.customers = customerList.ToPagedList(pageNumber, pageSize);
 
 
             return View(qcvm);
@@ -322,7 +376,12 @@ namespace DeBrabander.Controllers
             // alle klantgegevens ophalen van de offerte
             var customer = db.Customers.Find(quotation.CustomerId);
             // info opzoeken van het werfadres
-            Address werfadres = db.Addresses.Find(quotation.customerDeliveryAddress.AddressId);
+            Address werfadres = new Address();
+            werfadres.Box = quotation.customerDeliveryAddress.Box;
+            werfadres.PostalCodeNumber = quotation.customerDeliveryAddress.PostalCodeNumber;
+            werfadres.StreetName = quotation.customerDeliveryAddress.StreetName;
+            werfadres.StreetNumber = quotation.customerDeliveryAddress.StreetNumber;
+            werfadres.Town = quotation.customerDeliveryAddress.Town;
 
             // vullen van viewmodel
             QuotationEditViewModel qevm = new QuotationEditViewModel();

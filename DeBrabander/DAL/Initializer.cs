@@ -60,9 +60,9 @@ namespace DeBrabander.DAL
 
             var CustomerDeliveryAddress = new List<CustomerDeliveryAddress>
             {
-                new CustomerDeliveryAddress { DeliveryAddressInfo="Werf1", CustomerId = 1, AddressId = 1 },
-                new CustomerDeliveryAddress { DeliveryAddressInfo="werf2", CustomerId = 2, AddressId = 2 },
-                new CustomerDeliveryAddress { DeliveryAddressInfo="werf3", CustomerId = 3, AddressId = 3 }
+                new CustomerDeliveryAddress { DeliveryAddressInfo="Werf1", CustomerId = 1, StreetName = "Kerkhofweg", StreetNumber = 25, PostalCodeNumber = 2100, Town = "Deurne" },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf2", CustomerId = 2, StreetName = "Boterlaarbaan", StreetNumber = 101, PostalCodeNumber = 2100, Town = "Deurne" },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf3", CustomerId = 3, StreetName = "Suikerdijkstraat", StreetNumber = 6, PostalCodeNumber = 2070, Town = "Zwijndrecht"  }
             };
 
             foreach (var temp in CustomerDeliveryAddress)

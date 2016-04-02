@@ -1,5 +1,7 @@
 ﻿
 @model DeBrabander.ViewModels.Quotations.QuotationCreateViewModel
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Create";
@@ -7,13 +9,92 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Quotations", FormMethod.Get))
 {
     @Html.AntiForgeryToken()
 
     <div class="hidden">
         @Html.EditorFor(model => model.quotation.QuotationId, new { htmlAttributes = new { @class = "form-control" } })
     </div>
+    <p>
+        <b>Zoeken op:</b> <br />
+        Naam: @Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string)
+        Gemeente: @Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string)
+        <input type="submit" value="Zoek" />
+    </p>
+    <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.customer.CustomerId)
+                </th>
+                <th>
+                    @Html.ActionLink(Html.DisplayNameFor(model => model.customer.LastName).ToHtmlString(), "Create", new { sortOrder = ViewBag.NameSortParm })
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.customer.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.customer.Address.StreetName)
+                </th>
+                <th>
+
+                    @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "Create", new { sortOrder = ViewBag.TownSortParm })
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.customer.CompanyName)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.customers)
+            {
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <th>
+                                   delivery
+                                </th>
+                            </tr>
+                            <tr>
+                                test2
+                            </tr>                            
+                        </table>
+                        @Html.DisplayFor(modelItem => item.CustomerId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Address.StreetName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Address.Town)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("AddDeliveryAddress", "AddDeliveryAddress", new { id = item.CustomerId })
+                    </td>
+                </tr>
+            }
+
+        </table>        
+    
+
+}
+Page @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) of @Model.customers.PageCount
+    
+    @Html.PagedListPager(Model.customers, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }))
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <h4>Quotation</h4>
@@ -64,12 +145,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.quotation.CustomerId, "Klant", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(x=> x.customers, new SelectList(Model.customers, "CustomerId", "FullName"))
+                @Html.DropDownListFor(x => x.customers, new SelectList(Model.customers, "CustomerId", "FullName"))
                 @Html.ValidationMessageFor(model => model.quotation.CustomerId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -77,7 +158,7 @@
                 <input type="submit" value="AddProducts" name="AddProducts" class="btn btn-default" />
             </div>
         </div>
-        
+
     </div>
 }
 
