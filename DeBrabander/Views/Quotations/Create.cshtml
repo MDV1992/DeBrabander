@@ -25,23 +25,27 @@
     <table class="table">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.customer.CustomerId)
-                </th>
-                <th>
                     @Html.ActionLink(Html.DisplayNameFor(model => model.customer.LastName).ToHtmlString(), "Create", new { sortOrder = ViewBag.NameSortParm })
+                    
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.customer.FirstName)
+                  
+                </th>
+                <th>
+                    @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "Create", new { sortOrder = ViewBag.TownSortParm }) 
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.customer.Address.StreetName)
                 </th>
                 <th>
-
-                    @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "Create", new { sortOrder = ViewBag.TownSortParm })
+                    @Html.DisplayNameFor(model => model.customer.Address.StreetNumber)
                 </th>
-                <th>
+                <th>                    
                     @Html.DisplayNameFor(model => model.customer.CompanyName)
+                </th>
+                <th>                  
+                    @Html.DisplayNameFor(model => model.customer.CustomerId)
                 </th>
                 <th></th>
             </tr>
@@ -50,32 +54,47 @@
             {
                 <tr>
                     <td>
-                        <table>
-                            <tr>
-                                <th>
-                                   delivery
-                                </th>
-                            </tr>
-                            <tr>
-                                test2
-                            </tr>                            
-                        </table>
-                        @Html.DisplayFor(modelItem => item.CustomerId)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.LastName)
+                        <br >
+                        <table>
+                           @if (item.CustomerDeliveryAddress.Count > 1)
+                           {
+                           foreach (var item2 in item.CustomerDeliveryAddress)
+                           {
+
+                            <tr>
+                                <td>
+                                   @Html.DisplayFor(ModelItem => item2.DeliveryAddressInfo)
+                                </td>
+                                <td>
+                                   @Html.DisplayFor(ModelItem => item2.StreetName)
+                                </td>
+                                <td>
+                                   @Html.DisplayFor(ModelItem => item2.StreetNumber)
+                                </td>
+                            </tr>
+                           }
+                           }
+                        </table>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FirstName)
+                       @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Address.Town)                       
                     </td>
                     <td>
                         @Html.DisplayFor(modelitem => item.Address.StreetName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelitem => item.Address.Town)
+                        @Html.DisplayFor(modelitem => item.Address.StreetNumber)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CompanyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerId)
+                       
                     </td>
                     <td>
                         @Html.ActionLink("AddDeliveryAddress", "AddDeliveryAddress", new { id = item.CustomerId })
