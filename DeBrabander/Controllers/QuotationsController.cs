@@ -19,50 +19,10 @@ namespace DeBrabander.Controllers
         //private Context db2 = new Context();
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            HttpContextBase objContext = controllerContext.HttpContext;
-
-
-
-
+            HttpContextBase objContext = controllerContext.HttpContext;            
             QuotationCreateViewModel obj = new QuotationCreateViewModel();
-
-            int tempid = int.Parse(objContext.Request.Form["customers"]);
-            obj.quotation.CustomerId = tempid;
-            obj.quotation.Active = bool.Parse(objContext.Request.Form.GetValues("quotation.Active")[0]);
-            obj.quotation.Annotation = objContext.Request.Form["quotation.Annotation"];
-            obj.quotation.Date = DateTime.Parse(objContext.Request.Form["quotation.Date"]);
-            obj.quotation.ExpirationDate = DateTime.Parse(objContext.Request.Form["quotation.ExpirationDate"]);
-            obj.quotation.QuotationNumber = int.Parse(objContext.Request.Form["quotation.QuotationNumber"]);
-
-
-
-
-            //obj.customer.LastName = objContext.Request.Form["customer.LastName"];
-            //obj.customer.FirstName = objContext.Request.Form["customer.FirstName"];
-            //obj.customer.CompanyName = objContext.Request.Form["customer.CompanyName"];
-            //obj.customer.Phone = objContext.Request.Form["customer.Phone"];
-            //obj.customer.CellPhone = objContext.Request.Form["customer.CellPhone"];
-            //obj.customer.Email = objContext.Request.Form["customer.Email"];
-            //obj.customer.VATNumber = objContext.Request.Form["customer.VATNumber"];
-            //obj.customer.AccountNumber = objContext.Request.Form["customer.AccountNumber"];
-            //obj.customer.Annotation = objContext.Request.Form["customer.Annotation"];
-            //obj.customer.ContactName = objContext.Request.Form["customer.ContactName"];
-            //obj.customer.ContactEmail = objContext.Request.Form["customer.ContactEmail"];
-            //obj.customer.ContactCellPhone = objContext.Request.Form["customer.ContactCellPhone"];
-            //obj.customer.CreationDate = DateTime.Now;
-            //obj.customer.Type = objContext.Request.Form["customer.Type"];
-            //obj.customer.TAXLiability = objContext.Request.Form["customer.TAXLiability"];
-
-            //obj.customer.Address.StreetName = objContext.Request.Form["customer.Address.StreetName"];
-            //obj.customer.Address.StreetNumber = int.Parse(objContext.Request.Form["customer.Address.StreetNumber"]);
-            //obj.customer.Address.Box = int.Parse(objContext.Request.Form["customer.Address.Box"]);
-
-            //moet er nog uit
-            //obj.customer.Address.PostalCode.PostalCodeId = 1;
-
-
+            obj.quotation.Annotation = objContext.Request.Form["QuotationInfo"];
             return obj;
-
         }
     }
 
@@ -172,20 +132,8 @@ namespace DeBrabander.Controllers
             var customerList = from a in db.Customers select a;
             Quotation quotation = new Quotation();
 
-            //basis info invullen in quotation
-            //ophalen van lijst quotations voor vinden van laatste quotationnummer en dan +1 
-            var listquotations = new List<Quotation>();
-            listquotations = db.Quotations.ToList();
-            int maxQuotationnumber = 1;
-            quotation.QuotationNumber = maxQuotationnumber;
-            if (listquotations.Count != 0)
-            {
-                maxQuotationnumber = listquotations.Max(r => r.QuotationNumber);
-                quotation.QuotationNumber = maxQuotationnumber + 1;
-            }
-            quotation.Active = true;
-            quotation.Date = DateTime.Now;
-            quotation.ExpirationDate = quotation.Date.AddMonths(1);            
+            DefaultQuotationInfo(quotation);
+               
             qcvm.quotation = quotation;
 
 
@@ -251,18 +199,21 @@ namespace DeBrabander.Controllers
             return View(qcvm);
         }
 
+
+
         // POST: Quotations/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SubmitButton(Name = "Create")]
-        public ActionResult Create([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm)
+        public ActionResult Create([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm, string[] vehicle)
         {
             if (ModelState.IsValid)
             {
                 Quotation quotation = new Quotation();
                 Customer cus = new Customer();
+
 
                 cus = db.Customers.Find(qcvm.quotation.CustomerId);
 
@@ -315,6 +266,26 @@ namespace DeBrabander.Controllers
 
             }
             return View(qcvm);
+        }
+
+        private Quotation DefaultQuotationInfo(Quotation quotation)
+        {
+            //basis info invullen in quotation
+            //ophalen van lijst quotations voor vinden van laatste quotationnummer en dan +1 
+            var listquotations = new List<Quotation>();
+            listquotations = db.Quotations.ToList();
+            int maxQuotationnumber = 1;
+            quotation.QuotationNumber = maxQuotationnumber;
+            if (listquotations.Count != 0)
+            {
+                maxQuotationnumber = listquotations.Max(r => r.QuotationNumber);
+                quotation.QuotationNumber = maxQuotationnumber + 1;
+            }
+            quotation.Active = true;
+            quotation.Date = DateTime.Now;
+            quotation.ExpirationDate = quotation.Date.AddMonths(1);
+
+            return quotation;
         }
 
 
