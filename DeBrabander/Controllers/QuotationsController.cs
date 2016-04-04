@@ -371,6 +371,7 @@ namespace DeBrabander.Controllers
                 return HttpNotFound();
             }
             qevm.quotation = quotation;
+            CalculateTotalPriceinc(id);
 
             return View("AddProducts", qevm);
         }
@@ -494,24 +495,24 @@ namespace DeBrabander.Controllers
                 quotItem.Quantity++;
             }
             quotItem.TotalExVat = quotItem.PriceExVAT * quotItem.Quantity;
-
-            db.SaveChanges();
+            //Berekent totaal per lijn van producten inc BTW
+            quotItem.TotalIncVat = quotItem.TotalExVat * (1 + (quotItem.VAT.VATValue / 100));
             CalculateTotalPriceinc(quotationId);
-            
+            db.SaveChanges();
 
             return RedirectToAction("AddProducts", new { id= quotationId });
         }
 
-        private void CalculateTotalPriceinc(int? quotationId)
+        //Methode voor berekenen totale prijs offerte
+        public void CalculateTotalPriceinc(int? quotationId)
         {
-            double totalInc = 0;
+            double totalPriceQuotation = 0;
             Quotation quot = db.Quotations.Find(quotationId);
             foreach (var qd in quot.QuotationDetail)
             {
-                // Hij telt de eerste total nog niet bij het toevoegen van het eerste product.
-                totalInc += (qd.TotalExVat * ( 1 + (qd.VAT.VATValue / 100)));
+                totalPriceQuotation = quot.QuotationDetail.Sum(x => x.TotalIncVat);
             }
-            quot.TotalPrice = totalInc;
+            quot.TotalPrice = totalPriceQuotation;
             db.SaveChanges();
 
         }

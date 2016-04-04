@@ -93,6 +93,7 @@ namespace DeBrabander.Controllers
             prod = db.Products.Find(quotationDetail.ProductId);
             quotationDetail.ProductName = prod.ProductName;
             quotationDetail.TotalExVat = quotationDetail.PriceExVAT * quotationDetail.Quantity;
+            //quotationDetail.TotalIncVat = quotationDetail.TotalExVat * (1 + (quotationDetail.VAT.VATValue / 100));
             if (ModelState.IsValid)
             {
                 db.Entry(quotationDetail).State = EntityState.Modified;
@@ -130,6 +131,7 @@ namespace DeBrabander.Controllers
         {
             QuotationDetail quotationDetail = db.QuotationDetails.Find(id);
             db.QuotationDetails.Remove(quotationDetail);
+
             db.SaveChanges();
             return Redirect(returnUrl);
         }

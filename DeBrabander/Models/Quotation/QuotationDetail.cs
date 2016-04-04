@@ -39,6 +39,8 @@ namespace DeBrabander.Models
         public int VATPercId { get; set; }
         [DisplayName("Totaal Exclusief BTW")]
         public double TotalExVat { get; set; }
+        [DisplayName("Totaal Inclusief BTW")]
+        public double TotalIncVat { get; set; }
         public virtual Quotation Quotation { get; set; }
         public virtual VAT VAT { get; set; }
 
