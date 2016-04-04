@@ -207,28 +207,48 @@ namespace DeBrabander.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SubmitButton(Name = "Create")]
-        public ActionResult Create([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm, string[] vehicle)
+        public ActionResult Create([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm, string[] DeliveryID)
         {
             if (ModelState.IsValid)
             {
+                //aanmaken van quotation / customerdeliveryaddress en customer
                 Quotation quotation = new Quotation();
+                CustomerDeliveryAddress cda = new CustomerDeliveryAddress();
                 Customer cus = new Customer();
 
+                //ophalen van customerDeliveryAddressID vanuit de array
+                // eventueel nog test inbouwen voor lengte van array (check dat ze niet meer als 1 veld selecteren)
+                int DeliveryId = 1;
+                if (DeliveryID.Length == 1)
+                {
+                    DeliveryId = Int32.Parse(DeliveryID.First());
+                }
+                else
+                {
+                   return RedirectToAction("Create");
+                }
 
-                cus = db.Customers.Find(qcvm.quotation.CustomerId);
+                // ophalen delivery info en van daaruit customer info
+                cda = db.CustomerDeliveryAddresses.Find(DeliveryId);
+                cus = db.Customers.Find(cda.CustomerId);
 
+                // invullen van de klant info in de quotation
+                DefaultQuotationInfo(quotation);
+                quotation.FirstName = cus.FirstName;
+                quotation.LastName = cus.LastName;
+                quotation.Box = cus.Address.Box;
+                quotation.CellPhone = cus.CellPhone;
+                quotation.CustomerId = cus.CustomerId;
+                quotation.Email = cus.Email;
+                quotation.PostalCodeNumber = cus.Address.PostalCodeNumber;
+                quotation.StreetName = cus.Address.StreetName;
+                quotation.StreetNumber = cus.Address.StreetNumber;
+                quotation.Town = cus.Address.Town;                
+                quotation.Annotation = qcvm.quotation.Annotation;
+                quotation.customerDeliveryAddress = db.CustomerDeliveryAddresses.Find(DeliveryId);
 
-
-                qcvm.quotation.FirstName = cus.FirstName;
-                qcvm.quotation.LastName = cus.LastName;
-
-                quotation = qcvm.quotation;
-
-                //tijdelijk tot werfadres erin zit
-                quotation.customerDeliveryAddress = db.CustomerDeliveryAddresses.Find(1);
-
+                //toevoegen en saven
                 db.Quotations.Add(quotation);
-
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -239,27 +259,50 @@ namespace DeBrabander.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SubmitButton(Name = "AddProducts")]
-        public ActionResult CreateAndAddProducts([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm)
+        public ActionResult CreateAndAddProducts([ModelBinder(typeof(QuotationBinderCreate))]  QuotationCreateViewModel qcvm, string[] DeliveryID)
         {
             if (ModelState.IsValid)
             {
+                //aanmaken van quotation / customerdeliveryaddress en customer
                 Quotation quotation = new Quotation();
+                CustomerDeliveryAddress cda = new CustomerDeliveryAddress();
                 Customer cus = new Customer();
 
-                cus = db.Customers.Find(qcvm.quotation.CustomerId);
+                //ophalen van customerDeliveryAddressID vanuit de array
+                // eventueel nog test inbouwen voor lengte van array (check dat ze niet meer als 1 veld selecteren)
+                int DeliveryId = 1;
+                if (DeliveryID.Length == 1)
+                {
+                    DeliveryId = Int32.Parse(DeliveryID.First());
+                }
+                else
+                {
+                    return RedirectToAction("Create");
+                }
 
-                qcvm.quotation.FirstName = cus.FirstName;
-                qcvm.quotation.LastName = cus.LastName;
+                // ophalen delivery info en van daaruit customer info
+                cda = db.CustomerDeliveryAddresses.Find(DeliveryId);
+                cus = db.Customers.Find(cda.CustomerId);
 
-                quotation.customerDeliveryAddress = new CustomerDeliveryAddress();
+                // invullen van de klant info in de quotation
+                DefaultQuotationInfo(quotation);
+                quotation.FirstName = cus.FirstName;
+                quotation.LastName = cus.LastName;
+                quotation.Box = cus.Address.Box;
+                quotation.CellPhone = cus.CellPhone;
+                quotation.CustomerId = cus.CustomerId;
+                quotation.Email = cus.Email;
+                quotation.PostalCodeNumber = cus.Address.PostalCodeNumber;
+                quotation.StreetName = cus.Address.StreetName;
+                quotation.StreetNumber = cus.Address.StreetNumber;
+                quotation.Town = cus.Address.Town;
+                quotation.Annotation = qcvm.quotation.Annotation;
+                quotation.customerDeliveryAddress = db.CustomerDeliveryAddresses.Find(DeliveryId);
 
-                quotation = qcvm.quotation;
-
-                //tijdelijk tot werfadres erin zit
-                quotation.customerDeliveryAddress = db.CustomerDeliveryAddresses.Find(1);
+                //toevoegen en saven
                 db.Quotations.Add(quotation);
-
                 db.SaveChanges();
+
                 int id = quotation.QuotationId;
                 TempData["id"] = id;
                 return RedirectToAction("AddProducts");
