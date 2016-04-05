@@ -15,8 +15,8 @@ namespace DeBrabander.Models
         public int IndexResultLength { get; set; }
         [DisplayName("Details aantal")]
         public int DetailsResultLength { get; set; }
-        [DisplayName("Vervaldatum")]
-        public int ExpirationDate { get; set; }
+        [DisplayName("VervaldatumLengte")]
+        public int ExpirationDateLenght { get; set; }
         
     
     }

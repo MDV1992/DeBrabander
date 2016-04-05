@@ -317,6 +317,9 @@ namespace DeBrabander.Controllers
             //ophalen van lijst quotations voor vinden van laatste quotationnummer en dan +1 
             var listquotations = new List<Quotation>();
             listquotations = db.Quotations.ToList();
+            var userSettings = db.UserDefinedSettings.Find(1);
+            int expirationDateLengt = userSettings.ExpirationDateLenght;
+
             int maxQuotationnumber = 1;
             quotation.QuotationNumber = maxQuotationnumber;
             if (listquotations.Count != 0)
@@ -326,7 +329,7 @@ namespace DeBrabander.Controllers
             }
             quotation.Active = true;
             quotation.Date = DateTime.Now;
-            quotation.ExpirationDate = quotation.Date.AddMonths(1);
+            quotation.ExpirationDate = quotation.Date.AddMonths(expirationDateLengt);
 
             return quotation;
         }

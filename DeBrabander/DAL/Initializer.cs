@@ -75,7 +75,7 @@ namespace DeBrabander.DAL
 
             var UserDefinedSettings = new List<UserDefinedSetting>
             {
-                new UserDefinedSetting { IndexResultLength= 10, DetailsResultLength= 5, ExpirationDate=1 }
+                new UserDefinedSetting { IndexResultLength= 10, DetailsResultLength= 5, ExpirationDateLenght=1 }
             };
             foreach (var temp in UserDefinedSettings)
             {

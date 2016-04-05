@@ -86,11 +86,8 @@ namespace DeBrabander.Controllers
             obj.customer.Address.StreetName = objContext.Request.Form["customer.Address.StreetName"];
             obj.customer.Address.StreetNumber = int.Parse(objContext.Request.Form["customer.Address.StreetNumber"]);
             obj.customer.Address.Box = int.Parse(objContext.Request.Form["customer.Address.Box"]);
-
-            //moet er nog uit
-            
-            obj.customer.Address.PostalCodeNumber = 2900;
-            obj.customer.Address.Town = "Schoten";
+            obj.customer.Address.PostalCodeNumber = int.Parse(objContext.Request.Form["customer.Address.PostalCodeNumber"]);
+            obj.customer.Address.Town = objContext.Request.Form["customer.Address.Town"];
 
 
             return obj;
@@ -108,10 +105,14 @@ namespace DeBrabander.Controllers
             obj.address = new Address();
             obj.deliveryAddress = new CustomerDeliveryAddress();
 
-            obj.address.Town = objContext.Request.Form["customer.Address.Town"];
-              
-
-
+            obj.deliveryAddress.DeliveryAddressInfo = objContext.Request.Form["DeliveryAddressInfo"];
+            obj.deliveryAddress.Box = Int32.Parse(objContext.Request.Form["Box"]);
+            obj.deliveryAddress.PostalCodeNumber = Int32.Parse(objContext.Request.Form["PostalCodeNumber"]);
+            obj.deliveryAddress.StreetName = objContext.Request.Form["StreetName"];
+            obj.deliveryAddress.StreetNumber = Int32.Parse(objContext.Request.Form["StreetNumber"]);
+            obj.deliveryAddress.Town = objContext.Request.Form["Town"];
+            obj.deliveryAddress.CustomerId = Int32.Parse(objContext.Request.Form["CustomerId"]);            
+            
             return obj;
 
         }
@@ -225,13 +226,16 @@ namespace DeBrabander.Controllers
         {
             if (ModelState.IsValid)
             {
+                // aanmaken lege opbjecten 
                 Customer cus = new Customer();
-                cus.CustomerDeliveryAddress = new List<CustomerDeliveryAddress>();
                 CustomerDeliveryAddress cda = new CustomerDeliveryAddress();
                 
+                //opslaan van klant
                 cus = ccvm.customer;
                 db.Customers.Add(cus);
                 db.SaveChanges();
+
+                // vullen van delivery Address met default info
                 cda.Box = cus.Address.Box;
                 cda.PostalCodeNumber = cus.Address.PostalCodeNumber;
                 cda.StreetName = cus.Address.StreetName;
@@ -241,6 +245,8 @@ namespace DeBrabander.Controllers
                 cda.DeliveryAddressInfo = "Standaard adres";
                 db.CustomerDeliveryAddresses.Add(cda);
                 db.SaveChanges();
+
+                //redirect to index
                 return RedirectToAction("Index");
             }
             return View(ccvm);
@@ -273,8 +279,7 @@ namespace DeBrabander.Controllers
             
             if (ModelState.IsValid)
             {
-                Customer cus = new Customer();
-                
+                Customer cus = new Customer();                
                 cus.Address = new Address();
                 
                 
@@ -404,48 +409,46 @@ namespace DeBrabander.Controllers
 
 
         [HttpPost]
-        public ActionResult AddDeliveryAddress([ModelBinder(typeof(CustomerBinderAddNewDeliveryAddress))] CustomerAddDeliveryAddressViewModel cadavm)
+        public ActionResult AddDeliveryAddress([ModelBinder(typeof(CustomerBinderAddNewDeliveryAddress))] CustomerAddDeliveryAddressViewModel cadavm, string[] AddressId)
         {
             
             Customer cus = new Customer();
+            Address add = new Address();
             CustomerDeliveryAddress cda = new CustomerDeliveryAddress();
-            cda.DeliveryAddressInfo = ViewBag.DeliveryInfo;
-            
+            cus = db.Customers.Find(cadavm.deliveryAddress.CustomerId);
 
-            //int customerId = int.Parse(Request.Form["customer.CustomerId"]);
+            if (AddressId != null)
+            {
+                if (AddressId.Length > 1)
+                {
+                    return RedirectToAction("AddDeliveryAddress");
+                }
 
+                if (AddressId.Length == 1)
+                {
+                    add = db.Addresses.Find(Int32.Parse(AddressId.First()));
+                    cda.Box = add.Box;
+                    cda.CustomerId = cadavm.customer.CustomerId;
+                    cda.DeliveryAddressInfo = cadavm.deliveryAddress.DeliveryAddressInfo;
+                    cda.PostalCodeNumber = add.PostalCodeNumber;
+                    cda.StreetName = add.StreetName;
+                    cda.StreetNumber = add.StreetNumber;
+                    cda.Town = add.Town;
+                    cus.CustomerDeliveryAddress.Add(cda);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
 
-            //obj.customer.CompanyName = objContext.Request.Form["customer.CompanyName"];
-
-
-            return RedirectToAction("Index");
-        }
-
-
-        public ActionResult AddDeliveryAddress2(int? addressId, int? customerID)
-        {
-            Customer cus = new Customer();
-
-            cus = db.Customers.Find(customerID);
-
-            CustomerDeliveryAddress cda = new CustomerDeliveryAddress();
-
-            var address = db.Addresses.Find(addressId);
-            cda.Box = address.Box;
-            cda.PostalCodeNumber = address.PostalCodeNumber;
-            cda.StreetName = address.StreetName;
-            cda.StreetNumber = address.StreetNumber;
-            cda.Town = address.Town;
-
-            cda.CustomerId = customerID.GetValueOrDefault();
-            cda.DeliveryAddressInfo = ViewBag.CurrentFilterTown;
-
+            cda = cadavm.deliveryAddress;
             cus.CustomerDeliveryAddress.Add(cda);
-
             db.SaveChanges();
-
             return RedirectToAction("Index");
+
+
         }
+
+
 
         public ActionResult CRAllCustomers(int? id)
         {
@@ -473,12 +476,19 @@ namespace DeBrabander.Controllers
             }
             catch (Exception ex)
             {
+                if (ex.Data == null)
+                {
+                    throw;
+                }
+                else
+                {
+                    throw;
+                }
 
-                throw;
             }
 
 
-            
+
         }
 
         protected override void Dispose(bool disposing)
