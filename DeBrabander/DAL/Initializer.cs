@@ -29,9 +29,9 @@ namespace DeBrabander.DAL
          
             var Customers = new List<Customer>
             {
-                new Customer { FirstName="Tom", LastName="Brunson", Address = add1, AccountNumber = "1", CellPhone="0471573796", CreationDate = DateTime.Now    },
-                new Customer { FirstName="Maarten", LastName="DeVleesSchouwer", Address = add1 },
-                new Customer { FirstName="Glenn", LastName="Gersis", Address = add2 }
+                new Customer { FirstName="Tom", LastName="Brunson", CompanyName="Brunson NV", Phone="05987415", Email="tom@brunsonnv.be", VATNumber="BE874598745", Address = add1, AccountNumber = "1", CellPhone="0471573796", CreationDate = DateTime.Now, Annotation="Mr.", TAXLiability= "true", Type="Aannemer", ContactName="Tom Brunson", ContactEmail="tom@brunsonnv.be", ContactCellPhone="0497182222"   },
+                new Customer { FirstName="Maarten", LastName="DeVleesSchouwer", CompanyName="DV bvba", Phone="033225555", Email="maarten@dv.be", VATNumber="BE8745987444", Address = add1, AccountNumber="5", ContactCellPhone="0498556677", Annotation="Mr.", CreationDate = DateTime.Now, TAXLiability="false", Type="Particulier", ContactName="Maarten De Vleeschouwer", ContactEmail="maarten@dv.be", CellPhone="045597422" },
+                new Customer { FirstName="Glenn", LastName="Gersis", Address = add2, CreationDate = DateTime.Now, CompanyName="Gersis NV", Phone="88554477", Email="Glenn@gersisnv.com", VATNumber="BE158741225", ContactCellPhone="049725814", Annotation="Mr.", Type="Aannemer", TAXLiability= "true", ContactName="Glenn Gersis", ContactEmail="glenn@gersisnv.com", AccountNumber="8574", CellPhone="0497158844" }
             };
 
             foreach (var temp in Customers)

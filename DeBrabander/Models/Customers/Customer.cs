@@ -29,7 +29,7 @@ namespace DeBrabander.Models
         [DisplayName("Bedrijfsnaam")]
         public string CompanyName { get; set; }
 
-        [DisplayName ("Telefoon")]
+        [DisplayName("Telefoon")]
         public string Phone { get; set; }
 
         [DisplayName("GSM")]
@@ -64,7 +64,6 @@ namespace DeBrabander.Models
 
         [DisplayName("BTW Plichtig")]
         public string TAXLiability { get; set; }
-
         
         public virtual Address Address { get; set; }
         

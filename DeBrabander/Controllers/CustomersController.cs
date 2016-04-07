@@ -40,7 +40,8 @@ namespace DeBrabander.Controllers
             obj.customer.ContactCellPhone = objContext.Request.Form["customer.ContactCellPhone"];
             obj.customer.CreationDate = DateTime.Now;
             obj.customer.Type = objContext.Request.Form["customer.Type"];
-            obj.customer.TAXLiability = objContext.Request.Form["customer.TAXLiability"];
+            //obj.customer.TAXLiability = objContext.Request.Form["customer.TAXLiability"];
+            
 
             obj.customer.Address.Town = objContext.Request.Form["customer.Address.Town"];
             obj.customer.Address.PostalCodeNumber = int.Parse(objContext.Request.Form["customer.Address.PostalCodeNumber"]);
