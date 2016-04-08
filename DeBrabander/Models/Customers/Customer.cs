@@ -43,6 +43,7 @@ namespace DeBrabander.Models
 
         [DisplayName("Rekeningnummer")]
         public string AccountNumber { get; set; }
+     
 
         [DisplayName("Opmerking")]
         public string Annotation { get; set; }

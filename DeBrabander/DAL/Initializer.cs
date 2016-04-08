@@ -31,6 +31,7 @@ namespace DeBrabander.DAL
             {
                 new Customer { FirstName="Tom", LastName="Brunson", CompanyName="Brunson NV", Phone="05987415", Email="tom@brunsonnv.be", VATNumber="BE874598745", Address = add1, AccountNumber = "1", CellPhone="0471573796", CreationDate = DateTime.Now, Annotation="Mr.", TAXLiability= "true", Type="Aannemer", ContactName="Tom Brunson", ContactEmail="tom@brunsonnv.be", ContactCellPhone="0497182222"   },
                 new Customer { FirstName="Maarten", LastName="DeVleesSchouwer", CompanyName="DV bvba", Phone="033225555", Email="maarten@dv.be", VATNumber="BE8745987444", Address = add1, AccountNumber="5", ContactCellPhone="0498556677", Annotation="Mr.", CreationDate = DateTime.Now, TAXLiability="false", Type="Particulier", ContactName="Maarten De Vleeschouwer", ContactEmail="maarten@dv.be", CellPhone="045597422" },
+                new Customer { FirstName="Van De Walle", LastName="Michiel", Address = add1, CreationDate = DateTime.Now, CompanyName="Van de Walle NV", Phone="034598722", Email="michiel@vandewalle.be", VATNumber="BE89742251", ContactCellPhone="0497557799", Annotation="Mr.", Type="Aannemer", TAXLiability= "true", ContactName="Michiel Van De Walle", ContactEmail="michiel@vandewalle.be", AccountNumber="874211985", CellPhone="0486995514" },
                 new Customer { FirstName="Glenn", LastName="Gersis", Address = add2, CreationDate = DateTime.Now, CompanyName="Gersis NV", Phone="88554477", Email="Glenn@gersisnv.com", VATNumber="BE158741225", ContactCellPhone="049725814", Annotation="Mr.", Type="Aannemer", TAXLiability= "true", ContactName="Glenn Gersis", ContactEmail="glenn@gersisnv.com", AccountNumber="8574", CellPhone="0497158844" }
             };
 
@@ -104,7 +105,8 @@ namespace DeBrabander.DAL
                 new Category { CategoryName="Dakpannen", CategoryId = 1 },
                 new Category { CategoryName="Vijzen", CategoryId = 2 },
                 new Category { CategoryName="Roofing", CategoryId = 3 },
-                new Category { CategoryName="Hout", CategoryId = 4 }
+                new Category { CategoryName="Hout", CategoryId = 4 },
+                new Category { CategoryName="Dakramen", CategoryId = 5 }
             };
             foreach (var temp in Categories)
             {
