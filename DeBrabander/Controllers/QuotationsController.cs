@@ -318,7 +318,7 @@ namespace DeBrabander.Controllers
             var listquotations = new List<Quotation>();
             listquotations = db.Quotations.ToList();
             var userSettings = db.UserDefinedSettings.Find(1);
-            int expirationDateLengt = userSettings.ExpirationDateLenght;
+            int expirationDateLengt = userSettings.ExpirationDateLength;
 
             int maxQuotationnumber = 1;
             quotation.QuotationNumber = maxQuotationnumber;
