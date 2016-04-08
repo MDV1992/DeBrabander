@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Klant details</h2>
 
 <div>
     <h4>Customer</h4>
@@ -141,6 +141,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.customer.CustomerId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Aanpassen", "Edit", new { id = Model.customer.CustomerId }) |
+    @Html.ActionLink("Overzicht klanten", "Index")
 </p>

@@ -273,6 +273,7 @@
     <Compile Include="ViewModels\Quotations\QuotationCreateViewModel.cs" />
     <Compile Include="ViewModels\Quotations\QuotationEditViewModel.cs" />
     <Compile Include="ViewModels\Quotations\QuotationIndexViewModel.cs" />
+    <Compile Include="ViewModels\Reports\CustomerCR\AllCustomersCR.cs" />
     <Compile Include="ViewModels\Vats\VatCreateViewModel.cs" />
     <Compile Include="ViewModels\Vats\VatDetailsViewModel.cs" />
     <Compile Include="ViewModels\Vats\VatEditViewModel.cs" />

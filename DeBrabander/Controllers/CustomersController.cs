@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
 using DeBrabander.ViewModels.Customers;
+using DeBrabander.ViewModels;
 using PagedList;
 using CrystalDecisions.CrystalReports.Engine;
 using System.IO;
@@ -458,6 +459,29 @@ namespace DeBrabander.Controllers
 
             List<Company> company = new List<Company>();
             company = db.Companies.ToList();
+
+            List<AllCustomersCR> allCustomersCR = new List<AllCustomersCR>();
+            foreach (var item in allCustomers)
+            {
+                var allCustomerCR = new AllCustomersCR();
+                allCustomerCR.FirstName = item.FirstName;
+                allCustomerCR.LastName = item.LastName;
+                allCustomerCR.CompanyName = item.CompanyName;
+                allCustomerCR.Phone = item.Phone;
+                allCustomerCR.CellPhone = item.CellPhone;
+                allCustomerCR.VATNumber = item.VATNumber;
+                allCustomerCR.ContactName = item.ContactName;
+                allCustomerCR.ContactEmail = item.ContactEmail;
+                allCustomerCR.ContactCellPhone = item.ContactCellPhone;
+                allCustomerCR.Type = item.Type;
+                allCustomerCR.TAXLiability = item.TAXLiability;
+                allCustomerCR.AccountNumber = item.AccountNumber;
+                allCustomerCR.Annotation = item.Annotation;
+                allCustomerCR.Email = item.Email;
+                allCustomerCR.CustomerId = item.CustomerId;
+
+                allCustomersCR.Add(allCustomerCR);
+            }
 
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Reports"), "MainCustomers.rpt"));
