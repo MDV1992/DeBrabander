@@ -342,7 +342,7 @@ namespace DeBrabander.Controllers
         }
 
 
-        public ActionResult AddProducts(int? id, string searchString, string CategoryId)
+        public ActionResult AddProducts(int? id,int? page, string searchString, string currentFilterSearchString, string categoryId, string currentFilterCategoryId)
         {
             if (id == null)
             {
@@ -353,37 +353,58 @@ namespace DeBrabander.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            Quotation quotation = new Quotation();
+            QuotationAddProductsViewModel qapvm = new QuotationAddProductsViewModel();
 
+
+            //aanmaken product list + filtering
             var productList = from p in db.Products select p;
-            var quotDetList = from q in db.QuotationDetails select q;
-            quotDetList = quotDetList.Where(q => q.QuotationId == id);
+
+            //paging
+            if (searchString != null || categoryId != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilterSearchString;
+                categoryId = currentFilterCategoryId;
+            }
+            ViewBag.CurrentFilterSearchString = searchString;
+            ViewBag.CurrentFilterCategoryId = categoryId;
+
 
             // Zoekfunctie
             if (!String.IsNullOrEmpty(searchString))
             {
                 productList = productList.Where(x => x.ProductName.ToUpper().Contains(searchString.ToUpper()) || x.ProductCode.ToUpper().Contains(searchString.ToUpper()));
             }
-            if (!String.IsNullOrEmpty(CategoryId))
+            if (!String.IsNullOrEmpty(categoryId))
             {
-                int categoryId = int.Parse(CategoryId);
-                productList = productList.Where(x => x.CategoryId == categoryId);
-            }
+                int catId = int.Parse(categoryId);
+                productList = productList.Where(x => x.CategoryId == catId);
+            }          
 
-            ViewBag.Products = productList.ToList();
-            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryID", "CategoryName", CategoryId);
-            ViewBag.QuotationDetail = quotDetList.ToList();
+            
+            var userDefinedInfo = db.UserDefinedSettings.Find(1);
+            int pageSize = userDefinedInfo.DetailsResultLength;
+            int pageNumber = (page ?? 1);
+            qapvm.products = productList.ToPagedList(pageNumber, pageSize);
 
-            Quotation quotation = new Quotation();
-            QuotationEditViewModel qevm = new QuotationEditViewModel();
+
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryID", "CategoryName", categoryId);
+            
+
+            
             quotation = db.Quotations.Find(id);
             if (quotation == null)
             {
                 return HttpNotFound();
             }
-            qevm.quotation = quotation;
+            qapvm.quotation = quotation;
             CalculateTotalPriceinc(id);
 
-            return View("AddProducts", qevm);
+            return View("AddProducts", qapvm);
         }
 
 
