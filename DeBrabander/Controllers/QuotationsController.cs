@@ -47,11 +47,12 @@ namespace DeBrabander.Controllers
         private Context db = new Context();
 
         // GET: Quotations
-        public ActionResult Index(string searchQuotationNumber, string currentFilterQuotationNumber ,string searchCustomer, string currentFilterCustomer, int? page, string sortOrder)
+        public ActionResult Index(string searchQuotationNumber, string currentFilterQuotationNumber ,string searchCustomer, string currentFilterCustomer,string searchDelivery, string currentFilterDelivery, int? page, string sortOrder)
         {
             // viewmodel aanmaken + vullen tijdelijke lijst
             QuotationIndexViewModel qivm = new QuotationIndexViewModel();
             var quotations = from q in db.Quotations select q;
+            Quotation quot = new Quotation();
 
             //ViewBag.CurrentSort = sortOrder;
 
@@ -68,9 +69,11 @@ namespace DeBrabander.Controllers
             {
                 searchQuotationNumber = currentFilterQuotationNumber;
                 searchCustomer = currentFilterCustomer;
+                searchDelivery = currentFilterDelivery;
             }
             ViewBag.CurrentFilterQuotation = searchQuotationNumber;
             ViewBag.CurrentFilterCustomer = searchCustomer;
+            ViewBag.CurrentFilterDelivery = searchDelivery;
 
             
             if (!String.IsNullOrEmpty(searchQuotationNumber))
@@ -80,6 +83,10 @@ namespace DeBrabander.Controllers
             if (!String.IsNullOrEmpty(searchCustomer))
             {
                 quotations = quotations.Where(q => q.LastName.ToUpper().Contains(searchCustomer.ToUpper()) || q.FirstName.ToUpper().Contains(searchCustomer.ToUpper()));
+            }
+            if (!string.IsNullOrEmpty(searchDelivery))
+            {
+                quotations = quotations.Where(q => q.customerDeliveryAddress.DeliveryAddressInfo.ToUpper().Contains(searchDelivery.ToUpper()) || q.customerDeliveryAddress.StreetName.ToUpper().Contains(searchDelivery.ToUpper()) || q.customerDeliveryAddress.Town.ToUpper().Contains(searchDelivery.ToUpper()));
             }
 
            
