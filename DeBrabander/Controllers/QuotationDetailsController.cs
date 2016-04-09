@@ -91,9 +91,14 @@ namespace DeBrabander.Controllers
         {
             Product prod = new Product();
             prod = db.Products.Find(quotationDetail.ProductId);
+
+            //aangezien VAT obj niet 100% mee linkt vanuit de edit halen we deze opnieuw op via QD id
+            VAT tempqd = db.VATs.Find(quotationDetail.VATPercId);
+
             quotationDetail.ProductName = prod.ProductName;
             quotationDetail.TotalExVat = quotationDetail.PriceExVAT * quotationDetail.Quantity;
-            //quotationDetail.TotalIncVat = quotationDetail.TotalExVat * (1 + (quotationDetail.VAT.VATValue / 100));
+            quotationDetail.TotalIncVat = quotationDetail.TotalExVat * (1 + (tempqd.VATValue / 100));
+            
             if (ModelState.IsValid)
             {
                 db.Entry(quotationDetail).State = EntityState.Modified;
