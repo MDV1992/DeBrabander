@@ -106,7 +106,9 @@ namespace DeBrabander.DAL
                 new Category { CategoryName="Vijzen", CategoryId = 2 },
                 new Category { CategoryName="Roofing", CategoryId = 3 },
                 new Category { CategoryName="Hout", CategoryId = 4 },
-                new Category { CategoryName="Dakramen", CategoryId = 5 }
+                new Category { CategoryName="Dakramen", CategoryId = 5 },
+                new Category { CategoryName="Roofing", CategoryId=6 },
+                new Category { CategoryName="Dakgoten", CategoryId=7 }
             };
             foreach (var temp in Categories)
             {
@@ -117,7 +119,11 @@ namespace DeBrabander.DAL
             var Products = new List<Product>
             {
                 new Product {ProductName="Dakpan", ProductCode="123456M", Remark="test", Description="Grijs", PriceExVAT= 148, Reprobel= 0, Bebat = 1, Auvibel = 22, Recupel = 32, PurchasePrice = 68, Brand = "Brico", CategoryId = 1, VATPercId = 3, Stock = 6, EAN= "123456789" },
-                new Product {ProductName="Vijsje", ProductCode="987562T", Remark="test2", Description="Kruis", PriceExVAT= 6, Reprobel= 0, Bebat = 0, Auvibel = 0, Recupel = 0, PurchasePrice = 62, Brand = "Gamma", CategoryId = 2, VATPercId = 2, Stock = 105, EAN= "9876543210" }
+                new Product {ProductName="Vijsje", ProductCode="987562T", Remark="test2", Description="Kruis", PriceExVAT= 6, Reprobel= 0, Bebat = 0, Auvibel = 0, Recupel = 0, PurchasePrice = 62, Brand = "Gamma", CategoryId = 2, VATPercId = 2, Stock = 105, EAN= "9876543210" },
+                new Product {ProductName="Dakraam", ProductCode="584G87", Remark="Grijs", Description="Dubbel glas", PriceExVAT= 6420, Reprobel= 8, Bebat = 0, Auvibel = 0, Recupel = 0, PurchasePrice = 99, Brand = "Belisol", CategoryId = 5, VATPercId = 4, Stock = 3, EAN= "5871254" },
+                new Product {ProductName="Balken (Hout)", ProductCode="HOUT885", Remark="Den", Description="Ongeschaafd", PriceExVAT= 62, Reprobel= 0, Bebat = 0, Auvibel = 0, Recupel = 0, PurchasePrice = 15, Brand = "Crollet", CategoryId = 4, VATPercId = 4, Stock = 201, EAN= "EAN778415" },
+                new Product {ProductName="Roofing", ProductCode="R88745", Remark="Zwart", Description="Roofing", PriceExVAT= 95, Reprobel= 0, Bebat = 15, Auvibel = 0, Recupel = 0, PurchasePrice = 33, Brand = "Sencys", CategoryId = 6, VATPercId = 3, Stock = 56, EAN= "58745221" },
+                new Product {ProductName="Dakgoot", ProductCode="D874154", Remark="Inox", Description="Lang", PriceExVAT= 79, Reprobel= 0, Bebat = 0, Auvibel = 0, Recupel = 0, PurchasePrice = 21, Brand = "Martens", CategoryId = 7, VATPercId = 4, Stock = 12, EAN= "4412570" }
 
             };
             foreach (var temp in Products)
@@ -130,17 +136,17 @@ namespace DeBrabander.DAL
 
             Company comp = new Company();
             comp.CompanyId = 1;
-            comp.CompanyName = "De Brabander";
-            comp.Street = "Ruggeveldlaan 12";
-            comp.District = "Deurne";
-            comp.Postalcode = "2100";
-            comp.Email = "Joe@doe.com";
+            comp.CompanyName = "De Brabander bvba";
+            comp.Street = "Lispersteenweg 91";
+            comp.District = "Boechout";
+            comp.Postalcode = "2530";
+            comp.Email = " info@debrabanderdakwerken.be";
             comp.Country = "België";
             comp.VatNumber = "BE874598852";
             comp.Iban = "BE6585146633";
             comp.BIC = "KREDBEBB";
-            comp.Phone = "03/325 55 88";
-            comp.Mobile = "0497/ 22 55 99";
+            comp.Phone = "03 288 00 99";
+            comp.Mobile = "0477 318 372";
             
             context.Companies.Add(comp);
 

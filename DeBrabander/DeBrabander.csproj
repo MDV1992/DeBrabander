@@ -229,6 +229,12 @@
     <Compile Include="Models\Customers\Address.cs" />
     <Compile Include="Models\Customers\Customer.cs" />
     <Compile Include="Models\Customers\CustomerDeliveryAddress.cs" />
+    <Compile Include="Reports\AllProductsMain.cs">
+      <DependentUpon>AllProductsMain.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Models\Products\Category.cs" />
     <Compile Include="Models\Products\Product.cs" />
     <Compile Include="Models\Products\VAT.cs" />
@@ -241,6 +247,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>allCustomers.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\allProductsSub1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>allProductsSub.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\Header.cs">
@@ -275,6 +287,7 @@
     <Compile Include="ViewModels\Quotations\QuotationEditViewModel.cs" />
     <Compile Include="ViewModels\Quotations\QuotationIndexViewModel.cs" />
     <Compile Include="ViewModels\Reports\CustomerCR\AllCustomersCR.cs" />
+    <Compile Include="ViewModels\Reports\ProductCR\AllProductsCR.cs" />
     <Compile Include="ViewModels\Vats\VatCreateViewModel.cs" />
     <Compile Include="ViewModels\Vats\VatDetailsViewModel.cs" />
     <Compile Include="ViewModels\Vats\VatEditViewModel.cs" />
@@ -348,9 +361,17 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\AllProductsMain.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AllProductsMain.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\allCustomers.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>allCustomers.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\allProductsSub.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>allProductsSub1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Header.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

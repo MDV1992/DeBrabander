@@ -9,6 +9,10 @@ using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
 using DeBrabander.ViewModels.Products;
+using DeBrabander.ViewModels;
+using PagedList;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
 
 namespace DeBrabander.Controllers
 {
@@ -201,6 +205,71 @@ namespace DeBrabander.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult CRAllProducts(int? id)
+        {
+            List<Product> allProducts = new List<Product>();
+            allProducts = db.Products.ToList();
+
+            List<Company> company = new List<Company>();
+            company = db.Companies.ToList();
+
+            List<AllProductsCR> allProductsCR = new List<AllProductsCR>();
+            foreach (var item in allProducts)
+            {
+                var allProductCR = new AllProductsCR();
+                allProductCR.ProductId = item.ProductId;
+                allProductCR.ProductName = item.ProductName;
+                allProductCR.ProductCode = item.ProductCode;
+                allProductCR.Brand = item.Brand;
+                allProductCR.Auvibel = item.Auvibel;
+                allProductCR.Bebat = item.Bebat;
+                allProductCR.Recupel = item.Recupel;
+                allProductCR.Reprobel = item.Reprobel;
+                allProductCR.PurchasePrice = item.PurchasePrice;
+                allProductCR.PriceExVAT = item.PriceExVAT;
+                allProductCR.VATPercId = item.VATPercId;
+                allProductCR.Remark = item.Remark;
+                allProductCR.Stock = item.Stock;
+                allProductCR.Description = item.Description;
+                allProductCR.EAN = item.EAN;
+                allProductCR.CategoryId = item.CategoryId;
+                
+
+                allProductsCR.Add(allProductCR);
+            }
+
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AllProductsMain.rpt"));
+            rd.OpenSubreport("Header.rpt").SetDataSource(company);
+            rd.OpenSubreport("allProductsSub.rpt").SetDataSource(allProducts);
+            //rd.SetDataSource(company);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "All_Products.pdf");
+            }
+            catch (Exception ex)
+            {
+                if (ex.Data == null)
+                {
+                    throw;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+
+
+
 
         protected override void Dispose(bool disposing)
         {

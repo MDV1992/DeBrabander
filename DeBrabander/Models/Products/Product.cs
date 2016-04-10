@@ -41,8 +41,7 @@ namespace DeBrabander.Models
         public double Stock { get; set; }
         [DisplayName("EAN Code")]
         public string EAN { get; set; }
-
-
+        
         [DisplayName("Voorraad Controle")]
         public bool StockControl { get; set; }
 
