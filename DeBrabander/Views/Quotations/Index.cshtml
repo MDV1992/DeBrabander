@@ -85,7 +85,10 @@
             </a>
             <a href="@Url.Action("AddProducts", "Quotations", new { id = item.QuotationId })" class="btn btn-success">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            </a>      
+            </a>    
+            <a href="@Url.Action("CopyQuotation", "Quotations", new { id = item.QuotationId })" class="btn btn-warning">
+                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+            </a>  
         </td>
     </tr>
 }

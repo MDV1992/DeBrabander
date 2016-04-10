@@ -547,6 +547,44 @@ namespace DeBrabander.Controllers
             return RedirectToAction("AddProducts", new { id= quotationId });
         }
 
+
+        public ActionResult CopyQuotation(int? Id)
+        {
+            Quotation quotNew = new Quotation();
+            Quotation quotTemp = new Quotation();
+            quotNew = db.Quotations.Find(Id);
+
+
+            //temp
+            var delivery = db.CustomerDeliveryAddresses.Find(2);
+
+            quotTemp = quotNew;
+            quotNew.QuotationDetail = null;
+            quotNew.customerDeliveryAddress = delivery;
+            quotNew.Annotation += " - copy";
+            quotNew.TotalPrice = 0;
+
+            db.Quotations.Add(quotNew);
+            db.SaveChanges();
+
+            quotNew.QuotationDetail = quotTemp.QuotationDetail;
+
+            foreach (var item in quotNew.QuotationDetail)
+            {
+                item.Quantity = 1;
+                item.PriceExVAT = 0;
+                item.TotalExVat = 0;
+                item.TotalIncVat = 0;
+                item.QuotationId = quotNew.QuotationId;
+
+                var qd = item;
+                db.QuotationDetails.Add(qd);
+                db.SaveChanges();
+            }
+           
+            return RedirectToAction("index");
+        }
+
         //Methode voor berekenen totale prijs offerte
         public void CalculateTotalPriceinc(int? quotationId)
         {
