@@ -342,7 +342,7 @@ namespace DeBrabander.Controllers
         }
 
 
-        public ActionResult AddProducts(int? id,int? page, string searchString, string currentFilterSearchString, string categoryId, string currentFilterCategoryId)
+        public ActionResult AddProducts(int? id,int? page, string searchString, string currentFilterSearchString, string categoryId, string currentFilterCategoryId, string sortOrder)
         {
             if (id == null)
             {
@@ -355,10 +355,13 @@ namespace DeBrabander.Controllers
             }
             Quotation quotation = new Quotation();
             QuotationAddProductsViewModel qapvm = new QuotationAddProductsViewModel();
+            var productList = from p in db.Products select p;
+
+            ViewBag.ProductSortParm = string.IsNullOrEmpty(sortOrder) ? "prod_desc" : "";
 
 
             //aanmaken product list + filtering
-            var productList = from p in db.Products select p;
+            
 
             //paging
             if (searchString != null || categoryId != null)
@@ -383,7 +386,17 @@ namespace DeBrabander.Controllers
             {
                 int catId = int.Parse(categoryId);
                 productList = productList.Where(x => x.CategoryId == catId);
-            }          
+            }      
+            
+            switch(sortOrder)
+            {
+                case "prod_dec":
+                    productList = productList.OrderByDescending(p => p.ProductName);
+                    break;
+                default:
+                    productList = productList.OrderBy(p => p.ProductName);
+                    break;
+            }    
 
             
             var userDefinedInfo = db.UserDefinedSettings.Find(1);

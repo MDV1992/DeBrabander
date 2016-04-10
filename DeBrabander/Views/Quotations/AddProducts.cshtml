@@ -26,7 +26,7 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.product.ProductName)
+                @Html.ActionLink(Html.DisplayNameFor(Model => Model.product.ProductName).ToHtmlString(), "addProduct", new { sortOrder = ViewBag.ProductSortParm })
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.product.ProductCode)
@@ -62,14 +62,7 @@
     </table>
 }
 Page @(Model.products.PageCount < Model.products.PageNumber ? 0 : Model.products.PageNumber) of @Model.products.PageCount
-@Html.PagedListPager(Model.products, page => Url.Action("Index", new { page, currentFilterSearchString = ViewBag.CurrentFilterSearchString , currentFilterCategoryId = ViewBag.CurrentFilterCategoryId }))
-
-
-
-
-
-
-
+@Html.PagedListPager(Model.products, page => Url.Action("AddProducts", new { page, currentFilterSearchString = ViewBag.CurrentFilterSearchString , currentFilterCategoryId = ViewBag.CurrentFilterCategoryId }))
 
 <div>
     <table align="center">
@@ -77,10 +70,6 @@ Page @(Model.products.PageCount < Model.products.PageNumber ? 0 : Model.products
     </table>
 </div>
 
-
-
-<br />
-<br />
 <br />
 <br />
 
