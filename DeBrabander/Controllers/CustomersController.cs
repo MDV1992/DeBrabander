@@ -479,6 +479,10 @@ namespace DeBrabander.Controllers
                 allCustomerCR.Annotation = item.Annotation;
                 allCustomerCR.Email = item.Email;
                 allCustomerCR.CustomerId = item.CustomerId;
+                allCustomerCR.AddressId = item.Address.AddressId;
+                allCustomerCR.StreetName = item.Address.StreetName;
+                allCustomerCR.StreetNumber = item.Address.StreetNumber;
+                allCustomerCR.Town = item.Address.Town;
 
                 allCustomersCR.Add(allCustomerCR);
             }
@@ -486,7 +490,7 @@ namespace DeBrabander.Controllers
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Reports"), "MainCustomers.rpt"));
             rd.OpenSubreport("Header.rpt").SetDataSource(company);
-            rd.OpenSubreport("allCustomers.rpt").SetDataSource(allCustomers);
+            rd.OpenSubreport("allCustomers.rpt").SetDataSource(allCustomersCR);
             //rd.SetDataSource(company);
             Response.Buffer = false;
             Response.ClearContent();

@@ -45,7 +45,7 @@ namespace DeBrabander.Models
         [DisplayName("Voorraad Controle")]
         public bool StockControl { get; set; }
 
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         public virtual VAT VAT { get; set; }
         

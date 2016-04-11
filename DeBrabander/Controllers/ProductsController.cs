@@ -234,6 +234,9 @@ namespace DeBrabander.Controllers
                 allProductCR.Description = item.Description;
                 allProductCR.EAN = item.EAN;
                 allProductCR.CategoryId = item.CategoryId;
+                allProductCR.CategoryName = item.Category.CategoryName;
+                allProductCR.VATValue = item.VAT.VATValue;
+                
            
                 
 
@@ -243,7 +246,7 @@ namespace DeBrabander.Controllers
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AllProductsMain.rpt"));
             rd.OpenSubreport("Header.rpt").SetDataSource(company);
-            rd.OpenSubreport("allProductsSub.rpt").SetDataSource(allProducts);
+            rd.OpenSubreport("allProductsSub.rpt").SetDataSource(allProductsCR);
             //rd.SetDataSource(company);
             Response.Buffer = false;
             Response.ClearContent();
