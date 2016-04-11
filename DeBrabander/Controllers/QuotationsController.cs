@@ -551,23 +551,36 @@ namespace DeBrabander.Controllers
         public ActionResult CopyQuotation(int? Id)
         {
             Quotation quotNew = new Quotation();
-            Quotation quotTemp = new Quotation();
-            quotNew = db.Quotations.Find(Id);
+            Quotation quotOld = new Quotation();
+            quotOld = db.Quotations.Find(Id);
 
-
-            //temp
-            var delivery = db.CustomerDeliveryAddresses.Find(2);
-
-            quotTemp = quotNew;
-            quotNew.QuotationDetail = null;
-            quotNew.customerDeliveryAddress = delivery;
-            quotNew.Annotation += " - copy";
+            quotNew.Annotation = quotOld.Annotation + " - Copy";
+            quotNew.Active = quotOld.Active;
+            quotNew.Box = quotOld.Box;
+            quotNew.CellPhone = quotOld.CellPhone;
+            quotNew.CustomerId = quotOld.CustomerId;
+            quotNew.Date = quotOld.Date;
+            quotNew.Email = quotOld.Email;
+            quotNew.ExpirationDate = quotOld.ExpirationDate;
+            quotNew.FirstName = quotOld.FirstName;
+            quotNew.LastName = quotOld.LastName;
+            quotNew.PostalCodeNumber = quotOld.PostalCodeNumber;
+            quotNew.QuotationNumber = quotOld.QuotationNumber;
+            quotNew.StreetName = quotOld.StreetName;
+            quotNew.StreetNumber = quotOld.StreetNumber;
             quotNew.TotalPrice = 0;
+            quotNew.Town = quotOld.Town;           
 
             db.Quotations.Add(quotNew);
             db.SaveChanges();
 
-            quotNew.QuotationDetail = quotTemp.QuotationDetail;
+            //temp
+            var delivery = db.CustomerDeliveryAddresses.Find(quotOld.customerDeliveryAddress.CustomerDeliveryAddressId);
+
+            
+            quotNew.customerDeliveryAddress = delivery;
+            
+            quotNew.QuotationDetail = quotOld.QuotationDetail;
 
             foreach (var item in quotNew.QuotationDetail)
             {
@@ -576,12 +589,11 @@ namespace DeBrabander.Controllers
                 item.TotalExVat = 0;
                 item.TotalIncVat = 0;
                 item.QuotationId = quotNew.QuotationId;
-
-                var qd = item;
-                db.QuotationDetails.Add(qd);
-                db.SaveChanges();
+                //db.QuotationDetails.Add(item);
+                
             }
-           
+
+            db.SaveChanges();
             return RedirectToAction("index");
         }
 
