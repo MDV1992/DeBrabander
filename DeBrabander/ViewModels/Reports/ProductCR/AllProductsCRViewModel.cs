@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DeBrabander.ViewModels
 {
-    public class AllProductsCR
+    public class AllProductsCRViewModel
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
@@ -23,6 +23,11 @@ namespace DeBrabander.ViewModels
         public int VATPercId { get; set; }
         public double Stock { get; set; }
         public string EAN { get; set; }
+
+        public string CategoryName { get; set; }
+        public double VATValue { get; set; }
+
+
 
 
     }

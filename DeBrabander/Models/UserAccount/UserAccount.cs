@@ -19,10 +19,10 @@ namespace DeBrabander.Models
         [DisplayName("Naam")]
         [Required(ErrorMessage = "Naam is verplicht")]
         public string LastName { get; set; }
-        [DisplayName("Username")]
+        [DisplayName("Gebruikersnaam")]
         [Required(ErrorMessage = "Username is verplicht")]
         public string Username { get; set; }
-        [DisplayName("Email")]
+        [DisplayName("E-mail")]
         [Required(ErrorMessage = "Email is verplicht")]
         //validator nog maken
         public string Email { get; set; }

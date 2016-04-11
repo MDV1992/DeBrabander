@@ -7,7 +7,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Klanten</h2>
+<h2>Klanten overzicht</h2>
 
 <p>
     @Html.ActionLink("Nieuwe klant", "Create")
@@ -96,5 +96,5 @@
 
 </table>
 <br />
-Page @(Model.customers.PageCount<Model.customers.PageNumber ? 0 : Model.customers.PageNumber) of @Model.customers.PageCount
+Pagina @(Model.customers.PageCount<Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
 @Html.PagedListPager(Model.customers,page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown}))

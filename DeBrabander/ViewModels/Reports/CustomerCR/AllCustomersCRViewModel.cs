@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DeBrabander.ViewModels
 {
-    public class AllCustomersCR
+    public class AllCustomersCRViewModel
     {
         public int CustomerId { get; set; }
 

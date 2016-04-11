@@ -460,10 +460,10 @@ namespace DeBrabander.Controllers
             List<Company> company = new List<Company>();
             company = db.Companies.ToList();
 
-            List<AllCustomersCR> allCustomersCR = new List<AllCustomersCR>();
+            List<AllCustomersCRViewModel> allCustomersCR = new List<AllCustomersCRViewModel>();
             foreach (var item in allCustomers)
             {
-                var allCustomerCR = new AllCustomersCR();
+                var allCustomerCR = new AllCustomersCRViewModel();
                 allCustomerCR.FirstName = item.FirstName;
                 allCustomerCR.LastName = item.LastName;
                 allCustomerCR.CompanyName = item.CompanyName;

@@ -25,14 +25,42 @@ namespace DeBrabander.DAL
 
             Address add1 = new Address { StreetName = "Boekweitstraat", StreetNumber = 74,  PostalCodeNumber = 2900, Town = "Schoten"  };
             Address add2 = new Address { StreetName = "Bredabaan", StreetNumber = 813, PostalCodeNumber = 2170, Town = "Merksem"  };
+            Address add3 = new Address { StreetName = "Hoveniersstraat", StreetNumber = 15, PostalCodeNumber = 2018, Town = "Antwerpen" };
+            Address add4 = new Address { StreetName = "Plantin en Moretuslei", StreetNumber = 23, PostalCodeNumber = 2018, Town = "Antwerpen" };
+            Address add5 = new Address { StreetName = "Krijgsbaan", StreetNumber = 328, PostalCodeNumber = 2100, Town = "Deurne" };
+            Address add6 = new Address { StreetName = "Medialaan", StreetNumber = 26, PostalCodeNumber = 1800, Town = "Vilvoorde" };
+            Address add7 = new Address { StreetName = "Mechelsesteenweg", StreetNumber = 118, PostalCodeNumber = 2800, Town = "Mechelen" };
+            Address add8 = new Address { StreetName = "Boterlaarbaan", StreetNumber = 2, PostalCodeNumber = 2100, Town = "Deurne" };
+            Address add9 = new Address { StreetName = "Beursplein", StreetNumber = 44, PostalCodeNumber = 1000, Town = "Brussel" };
+            Address add10 = new Address { StreetName = "Nieuwmoersesteenweg", StreetNumber = 95, PostalCodeNumber = 2990, Town = "Wuustwezel" };
+            Address add11 = new Address { StreetName = "Stationsstraat", StreetNumber = 9, PostalCodeNumber = 2910, Town = "Essen" };
+            Address add12 = new Address { StreetName = "Tulpenlaan", StreetNumber = 62, PostalCodeNumber = 9150, Town = "Kruibeke" };
+            Address add13 = new Address { StreetName = "Bisschoppenhoflaan", StreetNumber =284, PostalCodeNumber = 2100, Town = "Deurne" };
 
-         
+
             var Customers = new List<Customer>
             {
                 new Customer { FirstName="Tom", LastName="Brunson", CompanyName="Brunson NV", Phone="05987415", Email="tom@brunsonnv.be", VATNumber="BE874598745", Address = add1, AccountNumber = "1", CellPhone="0471573796", CreationDate = DateTime.Now, Annotation="Mr.", TAXLiability= "true", Type="Aannemer", ContactName="Tom Brunson", ContactEmail="tom@brunsonnv.be", ContactCellPhone="0497182222"   },
-                new Customer { FirstName="Maarten", LastName="DeVleesSchouwer", CompanyName="DV bvba", Phone="033225555", Email="maarten@dv.be", VATNumber="BE8745987444", Address = add1, AccountNumber="5", ContactCellPhone="0498556677", Annotation="Mr.", CreationDate = DateTime.Now, TAXLiability="false", Type="Particulier", ContactName="Maarten De Vleeschouwer", ContactEmail="maarten@dv.be", CellPhone="045597422" },
-                new Customer { FirstName="Van De Walle", LastName="Michiel", Address = add1, CreationDate = DateTime.Now, CompanyName="Van de Walle NV", Phone="034598722", Email="michiel@vandewalle.be", VATNumber="BE89742251", ContactCellPhone="0497557799", Annotation="Mr.", Type="Aannemer", TAXLiability= "true", ContactName="Michiel Van De Walle", ContactEmail="michiel@vandewalle.be", AccountNumber="874211985", CellPhone="0486995514" },
-                new Customer { FirstName="Glenn", LastName="Gersis", Address = add2, CreationDate = DateTime.Now, CompanyName="Gersis NV", Phone="88554477", Email="Glenn@gersisnv.com", VATNumber="BE158741225", ContactCellPhone="049725814", Annotation="Mr.", Type="Aannemer", TAXLiability= "true", ContactName="Glenn Gersis", ContactEmail="glenn@gersisnv.com", AccountNumber="8574", CellPhone="0497158844" }
+                new Customer { FirstName="Maarten", LastName="DeVleesSchouwer", CompanyName="DV bvba", Phone="033225555", Email="maarten@dv.be", VATNumber="BE8745987444", Address = add4, AccountNumber="5", ContactCellPhone="0498556677", Annotation="Mr.", CreationDate = DateTime.Now, TAXLiability="false", Type="Particulier", ContactName="Maarten De Vleeschouwer", ContactEmail="maarten@dv.be", CellPhone="045597422" },
+                new Customer { FirstName="Van De Walle", LastName="Michiel", Address = add7, CreationDate = DateTime.Now, CompanyName="Van de Walle NV", Phone="034598722", Email="michiel@vandewalle.be", VATNumber="BE89742251", ContactCellPhone="0497557799", Annotation="Mr.", Type="Aannemer", TAXLiability= "true", ContactName="Michiel Van De Walle", ContactEmail="michiel@vandewalle.be", AccountNumber="874211985", CellPhone="0486995514" },
+                new Customer { FirstName="Glenn", LastName="Gersis", Address = add5, CreationDate = DateTime.Now, CompanyName="Gersis NV", Phone="88554477", Email="Glenn@gersisnv.com", VATNumber="BE158741225", ContactCellPhone="049725814", Annotation="Mr.", Type="Aannemer", TAXLiability= "true", ContactName="Glenn Gersis", ContactEmail="glenn@gersisnv.com", AccountNumber="8574", CellPhone="0497158844" },
+                new Customer { FirstName="Sophie", LastName="Van de Perre", Address = add2, CreationDate = DateTime.Now, CompanyName="Perre BVBA", Phone="8874123545", Email="sofie.perre@perrebvba.be", VATNumber="BE871244", ContactCellPhone="048622581", Annotation="Mvr.", Type="Particulier", TAXLiability= "true", ContactName="Sofie Van De Perre", ContactEmail="sofie.vandeperre@Perrebvba.be", AccountNumber="87125471", CellPhone="048742251" },
+                new Customer { FirstName="Rudy", LastName="Vervoort", Address = add6, CreationDate = DateTime.Now, CompanyName="Vervoort", Phone="82242455", Email="rudy.vervoort@gmail.com", VATNumber="BE1824110", ContactCellPhone="048633541", Annotation="Mr.", Type="Aannemer", TAXLiability= "False", ContactName="Hans Anders", ContactEmail="hans.anders@gmail.com", AccountNumber="77419", CellPhone="049633271" },
+                new Customer { FirstName="Jan", LastName="Op de Beeck", Address = add3, CreationDate = DateTime.Now, CompanyName="Op de Beeck bvba", Phone="021544712", Email="info@opdebeeck.be", VATNumber="BE685142", ContactCellPhone="0486335210", Annotation="Mr.", Type="Aannemer", TAXLiability= "true", ContactName="jan.opdebeeck@gmail.com", ContactEmail="jan.opdebeeck@gmail.com", AccountNumber="996521", CellPhone="086352241" },
+                new Customer { FirstName="Danny", LastName="Peeters", Address = add8, CreationDate = DateTime.Now, CompanyName="Peeters NV", Phone="7441254", Email="danny@peetersnv.nl", VATNumber="BE5245241", ContactCellPhone="04869978411", Annotation="Mr.", Type="Aannemer", TAXLiability= "true", ContactName="Danny Peeters", ContactEmail="danny@peetersnv.nl", AccountNumber="8521445", CellPhone="048633741" },
+                new Customer { FirstName="Gitte", LastName="van den Bosche", Address = add9, CreationDate = DateTime.Now, CompanyName="Bosche bvba", Phone="12357410", Email="Gitte@vandenbosche.be", VATNumber="BE4125841", ContactCellPhone="0497855236", Annotation="Mvr.", Type="Aannemer", TAXLiability= "true", ContactName="Gitte van den Bosche", ContactEmail="gitte@vandenbosche.nl", AccountNumber="88422", CellPhone="049755310" },
+                new Customer { FirstName="Julie", LastName="van Aalst", Address = add10, CreationDate = DateTime.Now, CompanyName="Van Aalst nv", Phone="0154025431", Email="julie.vanaalst@telenet.be", VATNumber="BE6652014", ContactCellPhone="0486221011", Annotation="Mr.", Type="Aannemer", TAXLiability= "true", ContactName="Julie van Aalst", ContactEmail="julie.vanaalst@telenet.be", AccountNumber="774165", CellPhone="048622014" },
+                new Customer { FirstName="Harry", LastName="Kerkstoel", Address = add11, CreationDate = DateTime.Now, CompanyName="Kerkstoel NV", Phone="774155", Email="harry@kerkstoel.be", VATNumber="BE4774156361", ContactCellPhone="04984542", Annotation="Mr.", Type="Particulier", TAXLiability= "true", ContactName="Harry Kerkstoel", ContactEmail="harry@kerkstoel.be", AccountNumber="112458", CellPhone="08622105" },
+                new Customer { FirstName="Eline", LastName="Janssens", Address = add12, CreationDate = DateTime.Now, CompanyName="Jannsens Cosmetics", Phone="9822122", Email="Eline@janssens.be", VATNumber="BE8742369", ContactCellPhone="0486995201", Annotation="Mvr.", Type="Aannemer", TAXLiability= "true", ContactName="Eline Janssens", ContactEmail="eline@janssens.be", AccountNumber="45514211", CellPhone="048633521" },
+                new Customer { FirstName="Sara", LastName="Wortel", Address = add13, CreationDate = DateTime.Now, CompanyName="Wortel bvba", Phone="55125245", Email="Sara.wortel@proximus.be", VATNumber="BE4885214", ContactCellPhone="047254189", Annotation="Mvr.", Type="Aannemer", TAXLiability= "false", ContactName="Sara Wortel", ContactEmail="sara.wortel@proximus.be", AccountNumber="320121244", CellPhone="07252456482" }
+
+
+
+
+
+
+
+
             };
 
             foreach (var temp in Customers)

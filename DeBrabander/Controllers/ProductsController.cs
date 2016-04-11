@@ -214,10 +214,10 @@ namespace DeBrabander.Controllers
             List<Company> company = new List<Company>();
             company = db.Companies.ToList();
 
-            List<AllProductsCR> allProductsCR = new List<AllProductsCR>();
+            List<AllProductsCRViewModel> allProductsCR = new List<AllProductsCRViewModel>();
             foreach (var item in allProducts)
             {
-                var allProductCR = new AllProductsCR();
+                var allProductCR = new AllProductsCRViewModel();
                 allProductCR.ProductId = item.ProductId;
                 allProductCR.ProductName = item.ProductName;
                 allProductCR.ProductCode = item.ProductCode;
@@ -234,6 +234,7 @@ namespace DeBrabander.Controllers
                 allProductCR.Description = item.Description;
                 allProductCR.EAN = item.EAN;
                 allProductCR.CategoryId = item.CategoryId;
+           
                 
 
                 allProductsCR.Add(allProductCR);

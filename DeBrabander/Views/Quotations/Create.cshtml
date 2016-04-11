@@ -7,7 +7,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Aanmaak nieuwe Offerte</h2>
+<h2>Nieuwe offerte</h2>
 
 @using (Html.BeginForm("Create", "Quotations", FormMethod.Get))
 {
@@ -123,14 +123,14 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <h3>Offerte info : @Html.TextBox("QuotationInfo")</h3>
-                <input type="submit" value="Create" name="Create" class="btn btn-default" formmethod="post" />
-                <input type="submit" value="AddProducts" name="AddProducts" class="btn btn-default" formmethod="post" />
+                <input type="submit" value="Opslaan" name="Create" class="btn btn-default" formmethod="post" />
+                <input type="submit" value="Artikel toevoegen" name="AddProducts" class="btn btn-default" formmethod="post" />
             </div>
         </div>
 
 
 }
-Page @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) of @Model.customers.PageCount
+Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
 
 @Html.PagedListPager(Model.customers, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }))
 
