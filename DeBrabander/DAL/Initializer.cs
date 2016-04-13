@@ -93,7 +93,8 @@ namespace DeBrabander.DAL
                 new CustomerDeliveryAddress { DeliveryAddressInfo="Werf4", CustomerId = 1, StreetName = "lekenstraat", StreetNumber = 30, PostalCodeNumber = 2600, Town = "boemerskonte" },
                 new CustomerDeliveryAddress { DeliveryAddressInfo="werf2", CustomerId = 2, StreetName = "Boterlaarbaan", StreetNumber = 101, PostalCodeNumber = 2100, Town = "Deurne" },
                 new CustomerDeliveryAddress { DeliveryAddressInfo="werf3", CustomerId = 3, StreetName = "Suikerdijkstraat", StreetNumber = 6, PostalCodeNumber = 2070, Town = "Zwijndrecht"  },
-                new CustomerDeliveryAddress { DeliveryAddressInfo="werf5", CustomerId = 4, StreetName = "rederijstraat", StreetNumber = 77, PostalCodeNumber = 2550, Town = "Edegem"  }
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf5", CustomerId = 4, StreetName = "rederijstraat", StreetNumber = 77, PostalCodeNumber = 2550, Town = "Edegem"  },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf6", CustomerId = 4, StreetName = "Teststraat", StreetNumber = 88, PostalCodeNumber = 1742, Town = "Ternat"  }
             };
 
             foreach (var temp in CustomerDeliveryAddress)

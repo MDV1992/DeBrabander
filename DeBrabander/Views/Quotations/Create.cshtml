@@ -9,6 +9,20 @@
 
 <h2>Nieuwe offerte</h2>
 
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>>
+<script>
+    $(document).ready(function () {
+        $("#select").change(function () {
+            if (this.checked) {
+                $(".adress").show();
+            } else {
+                $(".adress").hide();
+            }
+            
+        });
+    });
+</script>
+
 @using (Html.BeginForm("Create", "Quotations", FormMethod.Get))
 {
     @Html.AntiForgeryToken()
@@ -52,11 +66,11 @@
         @foreach (var item in Model.customers)
         {
             <tr>
-                <td >
-                    @Html.DisplayFor(modelItem => item.LastName)
+                <td>
+                    <input type="checkbox" id="select"> @Html.DisplayFor(modelItem => item.LastName)
                     <br>
-
-                    <table>
+                
+                    <table style="display:none" class="adress">
                         @if (item.CustomerDeliveryAddress.Count > 1)
                         {
                             foreach (var item2 in item.CustomerDeliveryAddress)
@@ -107,8 +121,12 @@
                     @Html.DisplayFor(modelItem => item.CompanyName)
                 </td>
                 <td>
-                    @Html.ActionLink("AddDeliveryAddress", "AddDeliveryAddress", new { id = item.CustomerId })
-                </td>
+                    <abbr title="Weradres toevoegen">
+                        <a href="@Url.Action("AddDeliveryAddress", "AddDeliveryAddress", new { id = item.CustomerId })" class="btn btn-success">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </a>
+                    </abbr>
+            </td>
             </tr>
         }
 

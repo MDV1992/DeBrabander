@@ -47,45 +47,54 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model.quotations) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.QuotationNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpirationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Annotation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.customerDeliveryAddress.DeliveryAddressInfo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalPrice)
-        </td>
-        <td>
-            <a href="@Url.Action("Edit", "Quotations", new { id = item.QuotationId })" class="btn btn-info toggle-more-detail">
-                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-            </a>
-            <a href="@Url.Action("Delete", "Quotations", new { id = item.QuotationId })" class="btn btn-danger">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-            </a>
-            <a href="@Url.Action("AddProducts", "Quotations", new { id = item.QuotationId })" class="btn btn-success">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            </a>    
-            <a href="@Url.Action("CopyQuotation", "Quotations", new { id = item.QuotationId })" class="btn btn-warning">
-                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-            </a>  
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.quotations)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuotationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpirationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Annotation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customerDeliveryAddress.DeliveryAddressInfo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                <abbr title="Overzicht Offerte">
+                    <a href="@Url.Action("Edit", "Quotations", new { id = item.QuotationId })" class="btn btn-info toggle-more-detail">
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                    </a>
+                </abbr>
+                <abbr title="Verwijder Offerte">
+                    <a href="@Url.Action("Delete", "Quotations", new { id = item.QuotationId })" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </a>
+                </abbr>
+                <abbr title="Artikel toevoegen">
+                    <a href="@Url.Action("AddProducts", "Quotations", new { id = item.QuotationId })" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </a>
+                </abbr>
+                <abbr title="Offerte Kopiëren">
+                    <a href="@Url.Action("CopyQuotation", "Quotations", new { id = item.QuotationId })" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                    </a>
+                </abbr>
+            </td>
+        </tr>
+    }
 
 </table>
 <br />
