@@ -9,19 +9,21 @@
 
 <h2>Nieuwe offerte</h2>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
     $(document).ready(function () {
-        $("#select").change(function () {
+        $(".select").change(function () {
+            var id = $(this).attr('data-customer');
             if (this.checked) {
-                $(".adress").show();
+                $(".rowToExpand." + id).show();
             } else {
-                $(".adress").hide();
+                $(".rowToExpand." + id).hide();
             }
-            
+
         });
     });
 </script>
+
 
 @using (Html.BeginForm("Create", "Quotations", FormMethod.Get))
 {
@@ -40,13 +42,14 @@
     </p>
     <table class="table">
         <tr>
+            <th style="display: none">
+                @Html.DisplayNameFor(model => model.customer.CustomerId)
+            </th>
             <th>
                 @Html.ActionLink(Html.DisplayNameFor(model => model.customer.LastName).ToHtmlString(), "Create", new { sortOrder = ViewBag.NameSortParm })
-
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.customer.FirstName)
-
             </th>
             <th>
                 @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "Create", new { sortOrder = ViewBag.TownSortParm })
@@ -65,45 +68,9 @@
 
         @foreach (var item in Model.customers)
         {
-            <tr>
+            <tr class="customer">
                 <td>
-                    <input type="checkbox" id="select"> @Html.DisplayFor(modelItem => item.LastName)
-                    <br>
-                
-                    <table style="display:none" class="adress">
-                        @if (item.CustomerDeliveryAddress.Count > 1)
-                        {
-                            foreach (var item2 in item.CustomerDeliveryAddress)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(ModelItem => item2.DeliveryAddressInfo)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(ModelItem => item2.StreetName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(ModelItem => item2.StreetNumber)
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="DeliveryID" value="@item2.CustomerDeliveryAddressId"> Selecteer deze klant <br>
-                                    </td>
-                                </tr>
-                            }
-                        }
-                        else
-                        {
-                            foreach (var item2 in item.CustomerDeliveryAddress)
-                            {
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="DeliveryID" value="@item2.CustomerDeliveryAddressId"> Selecteer deze klant<br>
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </table>
-
+                    <input type="checkbox" class="select" data-customer="@Html.DisplayFor(modelItem => item.CustomerId)"> @Html.DisplayFor(modelItem => item.LastName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FirstName)
@@ -126,18 +93,54 @@
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                     </abbr>
-            </td>
+                </td>
             </tr>
+            if (item.CustomerDeliveryAddress.Count > 1)
+            {
+                foreach (var item2 in item.CustomerDeliveryAddress)
+                {
+
+                    <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
+                        <td>
+                            
+                        </td>
+                        <td>
+                            <input type="checkbox" name="DeliveryID" value="@item2.CustomerDeliveryAddressId"> Selecteer deze klant <br>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(ModelItem => item2.DeliveryAddressInfo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(ModelItem => item2.StreetName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(ModelItem => item2.StreetNumber)
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                foreach (var item2 in item.CustomerDeliveryAddress)
+                {
+                    <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
+                        <td></td>
+                        <td>
+                            <input type="checkbox" name="DeliveryID" value="@item2.CustomerDeliveryAddressId"> Selecteer deze klant <br>
+                        </td>
+                    </tr>
+                }
+            }
         }
 
     </table>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <h3>Offerte info : @Html.TextBox("QuotationInfo")</h3>
-                <input type="submit" value="Opslaan" name="Create" class="btn btn-default" formmethod="post" />
-                <input type="submit" value="Artikel toevoegen" name="AddProducts" class="btn btn-default" formmethod="post" />
-            </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <h3>Offerte info : @Html.TextBox("QuotationInfo")</h3>
+            <input type="submit" value="Opslaan" name="Create" class="btn btn-default" formmethod="post" />
+            <input type="submit" value="Artikel toevoegen" name="AddProducts" class="btn btn-default" formmethod="post" />
         </div>
+    </div>
 
 
 }
