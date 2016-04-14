@@ -47,6 +47,22 @@
                             </li>
                         </ul>
                     </li>
+                    @* Dropdown voor orders *@
+                    <li class="dropdown">
+                        <a href="#" dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">Orders</a>
+                        <ul class="dropdown-menu" role="menu" id="myTab">
+                            <li role="presentation">
+                                <a href="@Url.Action("Index", "Orders")">Overzicht Orders</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="@Url.Action("Create", "Orders")">Nieuwe order Aanmaken</a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
                     @* Dropdown voor facturen *@
                     <li class="dropdown">
                         <a href="#" dropdown-toggle" data-toggle="dropdown" role="button"
