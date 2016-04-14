@@ -40,7 +40,7 @@ namespace DeBrabander.DAL
 
             var Customers = new List<Customer>
             {
-                new Customer { FirstName="Tom", LastName="Brunson", CompanyName="Brunson NV", Phone="05987415", Email="tom@brunsonnv.be", VATNumber="BE874598745", Address = add1, AccountNumber = "1", CellPhone="0471573796", CreationDate = DateTime.Now, Annotation="Mr.", TAXLiability= "true", Type="Aannemer", ContactName="Tom Brunson", ContactEmail="tom@brunsonnv.be", ContactCellPhone="0497182222"   },
+                new Customer { FirstName="Tom", LastName="Brunson", CompanyName="Brunson NV", Phone="05987415", Email="tom@brunsonnv.be", VATNumber="BE874598745", Address = add1, AccountNumber = "1", CellPhone="0471573796", CreationDate = DateTime.Now, Annotation="Mr.", TAXLiability= "true", Type="Aannemer", ContactName="Tom Brunson", ContactEmail="tom@brunsonnv.be", ContactCellPhone="0497182222"  },
                 new Customer { FirstName="Maarten", LastName="DeVleesSchouwer", CompanyName="DV bvba", Phone="033225555", Email="maarten@dv.be", VATNumber="BE8745987444", Address = add4, AccountNumber="5", ContactCellPhone="0498556677", Annotation="Mr.", CreationDate = DateTime.Now, TAXLiability="false", Type="Particulier", ContactName="Maarten De Vleeschouwer", ContactEmail="maarten@dv.be", CellPhone="045597422" },
                 new Customer { FirstName="Van De Walle", LastName="Michiel", Address = add7, CreationDate = DateTime.Now, CompanyName="Van de Walle NV", Phone="034598722", Email="michiel@vandewalle.be", VATNumber="BE89742251", ContactCellPhone="0497557799", Annotation="Mr.", Type="Aannemer", TAXLiability= "true", ContactName="Michiel Van De Walle", ContactEmail="michiel@vandewalle.be", AccountNumber="874211985", CellPhone="0486995514" },
                 new Customer { FirstName="Glenn", LastName="Gersis", Address = add5, CreationDate = DateTime.Now, CompanyName="Gersis NV", Phone="88554477", Email="Glenn@gersisnv.com", VATNumber="BE158741225", ContactCellPhone="049725814", Annotation="Mr.", Type="Aannemer", TAXLiability= "true", ContactName="Glenn Gersis", ContactEmail="glenn@gersisnv.com", AccountNumber="8574", CellPhone="0497158844" },
@@ -94,7 +94,19 @@ namespace DeBrabander.DAL
                 new CustomerDeliveryAddress { DeliveryAddressInfo="werf2", CustomerId = 2, StreetName = "Boterlaarbaan", StreetNumber = 101, PostalCodeNumber = 2100, Town = "Deurne" },
                 new CustomerDeliveryAddress { DeliveryAddressInfo="werf3", CustomerId = 3, StreetName = "Suikerdijkstraat", StreetNumber = 6, PostalCodeNumber = 2070, Town = "Zwijndrecht"  },
                 new CustomerDeliveryAddress { DeliveryAddressInfo="werf5", CustomerId = 4, StreetName = "rederijstraat", StreetNumber = 77, PostalCodeNumber = 2550, Town = "Edegem"  },
-                new CustomerDeliveryAddress { DeliveryAddressInfo="werf6", CustomerId = 4, StreetName = "Teststraat", StreetNumber = 88, PostalCodeNumber = 1742, Town = "Ternat"  }
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf6", CustomerId = 4, StreetName = "Teststraat", StreetNumber = 88, PostalCodeNumber = 1742, Town = "Ternat"  },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf7", CustomerId = 5, StreetName = "Krijgsbaan", StreetNumber = 26, PostalCodeNumber = 1800, Town = "Vilvoorde"  },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf8", CustomerId = 6, StreetName = "Mechelsesteenweg", StreetNumber = 188, PostalCodeNumber = 2800, Town = "Mechelen"  },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf9", CustomerId = 7, StreetName = "Boterlaarbaan", StreetNumber = 2, PostalCodeNumber = 2100, Town = "Deurne"  },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf10", CustomerId = 8, StreetName = "Beursplein", StreetNumber = 44, PostalCodeNumber = 1000, Town = "Brussel"  },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf11", CustomerId = 9, StreetName = "Lodewijkstraat", StreetNumber = 107, PostalCodeNumber = 2060, Town = "Wommelgem"  },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf12", CustomerId = 10, StreetName = "Nieuwmoersesteenweg", StreetNumber = 95, PostalCodeNumber = 2990, Town = "Wuustwezel"  },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf 13", CustomerId= 11, StreetName = "Stationsstraat", StreetNumber = 9, PostalCodeNumber = 2910, Town = "Essen" },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf 14", CustomerId = 12,  StreetName = "Tulpenlaan", StreetNumber = 62, PostalCodeNumber = 9150, Town = "Kruibeke"},
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf 15", CustomerId = 13, StreetName = "Bisschoppenhoflaan", StreetNumber =284, PostalCodeNumber = 2100, Town = "Deurne" },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf16", CustomerId= 9, StreetName = "Buizerdlaan", StreetNumber = 9, PostalCodeNumber = 2100, Town="Deurne" },
+                new CustomerDeliveryAddress { DeliveryAddressInfo="werf17", CustomerId= 10, StreetName = "Distelvinklaan", StreetNumber = 34, PostalCodeNumber = 2660, Town="Hoboken" }
+
             };
 
             foreach (var temp in CustomerDeliveryAddress)

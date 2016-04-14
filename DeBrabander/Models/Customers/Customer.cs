@@ -15,7 +15,6 @@ namespace DeBrabander.Models
         // wordt weergegeven in de view ipv property naam
         [DisplayName("Naam")]
         public string LastName { get; set; }
-      
         [DisplayName("Voornaam")]
         public string FirstName { get; set; }
         [NotMapped]

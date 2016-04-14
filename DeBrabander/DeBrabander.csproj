@@ -259,6 +259,8 @@
     </Compile>
     <Compile Include="Utils\CustomAuthorizeAttribute.cs" />
     <Compile Include="Utils\SecurityUtil.cs" />
+    <Compile Include="ViewModels\Reports\ProductCR\ProductCRViewModel.cs" />
+    <Compile Include="ViewModels\Reports\CustomerCR\CustomerCRViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryCreateViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryDetailsViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryEditViewModel.cs" />

@@ -244,7 +244,7 @@ namespace DeBrabander.Controllers
                 allProductCR.CategoryId = item.CategoryId;
                 allProductCR.CategoryName = item.Category.CategoryName;
                 allProductCR.VATValue = item.VAT.VATValue;
-                
+                allProductCR.Active = item.Active;
            
                 
 
@@ -280,6 +280,72 @@ namespace DeBrabander.Controllers
             }
         }
 
+        public ActionResult CRProduct(int id)
+        {
+            List<Product> product = new List<Product>();
+            product = db.Products.ToList();
+
+            List<Company> company = new List<Company>();
+            company = db.Companies.ToList();
+
+            List<ProductCRViewModel> ProductCR = new List<ProductCRViewModel>();
+            foreach (var item in product)
+            {
+                var productCR = new ProductCRViewModel();
+                productCR.ProductId = item.ProductId;
+                productCR.ProductName = item.ProductName;
+                productCR.ProductCode = item.ProductCode;
+                productCR.Brand = item.Brand;
+                productCR.Auvibel = item.Auvibel;
+                productCR.Bebat = item.Bebat;
+                productCR.Recupel = item.Recupel;
+                productCR.Reprobel = item.Reprobel;
+                productCR.PurchasePrice = item.PurchasePrice;
+                productCR.PriceExVAT = item.PriceExVAT;
+                productCR.VATPercId = item.VATPercId;
+                productCR.Remark = item.Remark;
+                productCR.Stock = item.Stock;
+                productCR.Description = item.Description;
+                productCR.EAN = item.EAN;
+                productCR.CategoryId = item.CategoryId;
+                productCR.CategoryName = item.Category.CategoryName;
+                productCR.VATValue = item.VAT.VATValue;
+                productCR.Active = item.Active;
+
+
+
+
+                ProductCR.Add(productCR);
+            }
+
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AllProductsMain.rpt"));
+            rd.OpenSubreport("Header.rpt").SetDataSource(company);
+            rd.OpenSubreport("allProductsSub.rpt").SetDataSource(ProductCR);
+            //rd.SetDataSource(company);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "Product_spec.pdf");
+            }
+            catch (Exception ex)
+            {
+                if (ex.Data == null)
+                {
+                    throw;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
 
 
 
