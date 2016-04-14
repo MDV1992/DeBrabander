@@ -59,6 +59,9 @@
         <th>
             @Html.DisplayNameFor(model => model.EAN)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
         <th></th>
     </tr>
 
@@ -108,6 +111,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EAN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
         </td>
         <td>
             @Html.ActionLink("Aanpassen", "Edit", new { id=item.ProductId }) |

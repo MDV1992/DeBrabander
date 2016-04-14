@@ -51,5 +51,7 @@ namespace DeBrabander.ViewModels.Products
         public double VATValue { get; set; }
         
         public Product product { get; set; }
+        [DisplayName("Actief product")]
+        public bool Active { get; set; }
     }
 }

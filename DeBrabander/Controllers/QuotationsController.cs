@@ -356,6 +356,7 @@ namespace DeBrabander.Controllers
             Quotation quotation = new Quotation();
             QuotationAddProductsViewModel qapvm = new QuotationAddProductsViewModel();
             var productList = from p in db.Products select p;
+            productList = productList.Where(p => p.Active.Equals(true));
 
             ViewBag.ProductSortParm = string.IsNullOrEmpty(sortOrder) ? "prod_desc" : "";
 

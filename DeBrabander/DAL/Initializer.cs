@@ -148,12 +148,12 @@ namespace DeBrabander.DAL
 
             var Products = new List<Product>
             {
-                new Product {ProductName="Dakpan", ProductCode="123456M", Remark="test", Description="Grijs", PriceExVAT= 148, Reprobel= 0, Bebat = 1, Auvibel = 22, Recupel = 32, PurchasePrice = 68, Brand = "Brico", CategoryId = 1, VATPercId = 3, Stock = 6, EAN= "123456789" },
-                new Product {ProductName="Vijsje", ProductCode="987562T", Remark="test2", Description="Kruis", PriceExVAT= 6, Reprobel= 0, Bebat = 0, Auvibel = 0, Recupel = 0, PurchasePrice = 62, Brand = "Gamma", CategoryId = 2, VATPercId = 2, Stock = 105, EAN= "9876543210" },
-                new Product {ProductName="Dakraam", ProductCode="584G87", Remark="Grijs", Description="Dubbel glas", PriceExVAT= 6420, Reprobel= 8, Bebat = 0, Auvibel = 0, Recupel = 0, PurchasePrice = 99, Brand = "Belisol", CategoryId = 5, VATPercId = 4, Stock = 3, EAN= "5871254" },
-                new Product {ProductName="Balken (Hout)", ProductCode="HOUT885", Remark="Den", Description="Ongeschaafd", PriceExVAT= 62, Reprobel= 0, Bebat = 0, Auvibel = 0, Recupel = 0, PurchasePrice = 15, Brand = "Crollet", CategoryId = 4, VATPercId = 4, Stock = 201, EAN= "EAN778415" },
-                new Product {ProductName="Roofing", ProductCode="R88745", Remark="Zwart", Description="Roofing", PriceExVAT= 95, Reprobel= 0, Bebat = 15, Auvibel = 0, Recupel = 0, PurchasePrice = 33, Brand = "Sencys", CategoryId = 6, VATPercId = 3, Stock = 56, EAN= "58745221" },
-                new Product {ProductName="Dakgoot", ProductCode="D874154", Remark="Inox", Description="Lang", PriceExVAT= 79, Reprobel= 0, Bebat = 0, Auvibel = 0, Recupel = 0, PurchasePrice = 21, Brand = "Martens", CategoryId = 7, VATPercId = 4, Stock = 12, EAN= "4412570" }
+                new Product {ProductName="Dakpan", ProductCode="123456M", Remark="test", Description="Grijs", PriceExVAT= 148, Reprobel= 0, Bebat = 1, Auvibel = 22, Recupel = 32, PurchasePrice = 68, Brand = "Brico", CategoryId = 1, VATPercId = 3, Stock = 6, EAN= "123456789", Active = true },
+                new Product {ProductName="Vijsje", ProductCode="987562T", Remark="test2", Description="Kruis", PriceExVAT= 6, Reprobel= 0, Bebat = 0, Auvibel = 0, Recupel = 0, PurchasePrice = 62, Brand = "Gamma", CategoryId = 2, VATPercId = 2, Stock = 105, EAN= "9876543210", Active = true },
+                new Product {ProductName="Dakraam", ProductCode="584G87", Remark="Grijs", Description="Dubbel glas", PriceExVAT= 6420, Reprobel= 8, Bebat = 0, Auvibel = 0, Recupel = 0, PurchasePrice = 99, Brand = "Belisol", CategoryId = 5, VATPercId = 4, Stock = 3, EAN= "5871254", Active = true },
+                new Product {ProductName="Balken (Hout)", ProductCode="HOUT885", Remark="Den", Description="Ongeschaafd", PriceExVAT= 62, Reprobel= 0, Bebat = 0, Auvibel = 0, Recupel = 0, PurchasePrice = 15, Brand = "Crollet", CategoryId = 4, VATPercId = 4, Stock = 201, EAN= "EAN778415", Active = true },
+                new Product {ProductName="Roofing", ProductCode="R88745", Remark="Zwart", Description="Roofing", PriceExVAT= 95, Reprobel= 0, Bebat = 15, Auvibel = 0, Recupel = 0, PurchasePrice = 33, Brand = "Sencys", CategoryId = 6, VATPercId = 3, Stock = 56, EAN= "58745221", Active = true },
+                new Product {ProductName="Dakgoot", ProductCode="D874154", Remark="Inox", Description="Lang", PriceExVAT= 79, Reprobel= 0, Bebat = 0, Auvibel = 0, Recupel = 0, PurchasePrice = 21, Brand = "Martens", CategoryId = 7, VATPercId = 4, Stock = 12, EAN= "4412570", Active = true }
 
             };
             foreach (var temp in Products)

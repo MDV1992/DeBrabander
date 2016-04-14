@@ -49,9 +49,15 @@ namespace DeBrabander.Controllers
                 pivm.Stock = prod.Stock;
                 pivm.EAN = prod.EAN;
                 pivm.StockControl = prod.StockControl;
-                productVMList.Add(pivm);
+                pivm.Active = prod.Active;
+                if (pivm.Active == true)
+                {
+                    productVMList.Add(pivm);
+                }
                 
             }
+
+            //productVMList = productVMList.Where(p => p.Active.Equals(true));
 
            
             return View(productVMList);
@@ -92,6 +98,7 @@ namespace DeBrabander.Controllers
             pdvm.Stock = product.Stock;
             pdvm.EAN = product.EAN;
             pdvm.StockControl = product.StockControl;
+            pdvm.Active = product.Active;
 
             return View(pdvm);
         }
@@ -132,6 +139,7 @@ namespace DeBrabander.Controllers
                 prod.VATPercId = product.VATPercId;
                 prod.Stock = product.Stock;
                 prod.EAN = product.EAN;
+                prod.Active = product.Active;
 
                 db.Products.Add(prod);
                 db.SaveChanges();

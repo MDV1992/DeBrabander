@@ -45,6 +45,8 @@ namespace DeBrabander.ViewModels.Products
         public string CategoryName { get; set; }
         [DisplayName("BTW Percentage")]
         public double VATValue { get; set; }
+        [DisplayName("Actief product")]
+        public bool Active { get; set; }
 
     }
 }
