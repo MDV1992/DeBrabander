@@ -18,6 +18,7 @@
         Zoek op offertenummer: &nbsp;@Html.TextBox("searchQuotationNumber", ViewBag.CurrentFilterQuotation as string)
         Zoek op klant: &nbsp;@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string)
         Zoek op Werf: &nbsp;@Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string)
+        Oude Offertes : &nbsp;@Html.CheckBox("searchNonActive", (bool)ViewBag.CurrentFilterNonActive)
         <input type="submit" value="Zoek" />
     </p>
 }
@@ -99,4 +100,4 @@
 </table>
 <br />
 Pagina @(Model.quotations.PageCount < Model.quotations.PageNumber ? 0 : Model.quotations.PageNumber) van de @Model.quotations.PageCount
-@Html.PagedListPager(Model.quotations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterQuotationNumber = ViewBag.CurrentFilterQuotation, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery }))
+@Html.PagedListPager(Model.quotations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterQuotationNumber = ViewBag.CurrentFilterQuotation, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery, currentFilterNonActive = ViewBag.CurrentFilterNonActive }))

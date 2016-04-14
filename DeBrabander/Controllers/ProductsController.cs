@@ -27,6 +27,7 @@ namespace DeBrabander.Controllers
             List<ProductIndexViewModel> productVMList = new List<ProductIndexViewModel>();
             List<Product> products = new List<Product>(db.Products.ToList());
             
+            
             foreach (var prod in products)
             {
                 ProductIndexViewModel pivm = new ProductIndexViewModel();
@@ -56,9 +57,6 @@ namespace DeBrabander.Controllers
                 }
                 
             }
-
-            //productVMList = productVMList.Where(p => p.Active.Equals(true));
-
            
             return View(productVMList);
 
@@ -225,7 +223,7 @@ namespace DeBrabander.Controllers
             List<AllProductsCRViewModel> allProductsCR = new List<AllProductsCRViewModel>();
             foreach (var item in allProducts)
             {
-                var allProductCR = new AllProductsCRViewModel();
+                var allProductCR = new AllProductsCRViewModel();                
                 allProductCR.ProductId = item.ProductId;
                 allProductCR.ProductName = item.ProductName;
                 allProductCR.ProductCode = item.ProductCode;
