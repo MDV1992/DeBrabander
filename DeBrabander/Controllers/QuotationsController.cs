@@ -47,9 +47,11 @@ namespace DeBrabander.Controllers
         private Context db = new Context();
 
         // GET: Quotations
-        public ActionResult Index(string searchQuotationNumber, string currentFilterQuotationNumber ,string searchCustomer, string currentFilterCustomer,string searchDelivery, string currentFilterDelivery, int? page, string sortOrder)
+        public ActionResult Index(string searchQuotationNumber, string currentFilterQuotationNumber ,string searchCustomer, string currentFilterCustomer,string searchDelivery, string currentFilterDelivery, bool? searchNonActive, bool? currentFilterNonActive, int? page, string sortOrder)
         {
             // viewmodel aanmaken + vullen tijdelijke lijst
+            if (searchNonActive == null) { searchNonActive = false; }
+            if (currentFilterNonActive == null) { currentFilterNonActive = false; }
             QuotationIndexViewModel qivm = new QuotationIndexViewModel();
             var quotations = from q in db.Quotations select q;
             Quotation quot = new Quotation();
@@ -70,12 +72,14 @@ namespace DeBrabander.Controllers
                 searchQuotationNumber = currentFilterQuotationNumber;
                 searchCustomer = currentFilterCustomer;
                 searchDelivery = currentFilterDelivery;
+                searchNonActive = currentFilterNonActive;
             }
             ViewBag.CurrentFilterQuotation = searchQuotationNumber;
             ViewBag.CurrentFilterCustomer = searchCustomer;
             ViewBag.CurrentFilterDelivery = searchDelivery;
+            ViewBag.CurrentFilterNonActive = searchNonActive;
 
-            
+
             if (!String.IsNullOrEmpty(searchQuotationNumber))
             {
                 quotations = quotations.Where(q => q.QuotationNumber.ToString().Contains(searchQuotationNumber));
@@ -109,6 +113,12 @@ namespace DeBrabander.Controllers
             var userDefinedInfo = db.UserDefinedSettings.Find(1);
             int pageSize = userDefinedInfo.IndexResultLength;
             int pageNumber = (page ?? 1);
+
+            if (searchNonActive == false ||searchNonActive == null)
+            {
+                quotations = quotations.Where(q => q.Active.Equals(true));
+            }
+
 
             //ViewBag.Quotations = quotations.ToPagedList(pageNumber, pageSize);
             qivm.quotations = quotations.ToPagedList(pageNumber, pageSize);
