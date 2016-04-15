@@ -89,6 +89,7 @@ Voeg een werfadres toe aan klant @Model.customer.FullName
          </tbody>
      </table>
      <h5>Werf Info : @Html.TextBox("DeliveryAddressInfo")</h5>
+     <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
      <input type="submit" value="Voeg werf adres toe" name="AddDeliveryAddress" class="btn btn-default" formmethod="post" />                
  </div>
         

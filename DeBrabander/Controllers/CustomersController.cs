@@ -406,12 +406,13 @@ namespace DeBrabander.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.returnUrl = Request.UrlReferrer;
             return View("AddDeliveryAddress",cavm);
         }
 
 
         [HttpPost]
-        public ActionResult AddDeliveryAddress([ModelBinder(typeof(CustomerBinderAddNewDeliveryAddress))] CustomerAddDeliveryAddressViewModel cadavm, string[] AddressId)
+        public ActionResult AddDeliveryAddress([ModelBinder(typeof(CustomerBinderAddNewDeliveryAddress))] CustomerAddDeliveryAddressViewModel cadavm, string[] AddressId, string returnUrl)
         {
             
             Customer cus = new Customer();
@@ -438,14 +439,14 @@ namespace DeBrabander.Controllers
                     cda.Town = add.Town;
                     cus.CustomerDeliveryAddress.Add(cda);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return Redirect(returnUrl);
                 }
             }
 
             cda = cadavm.deliveryAddress;
             cus.CustomerDeliveryAddress.Add(cda);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Redirect(returnUrl);
 
 
         }
