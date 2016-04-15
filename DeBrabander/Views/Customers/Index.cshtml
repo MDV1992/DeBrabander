@@ -6,9 +6,9 @@
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Klanten overzicht</h2>
-
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/TableRowCollapse.js"></script>
 <p>
     @Html.ActionLink("Nieuwe klant", "Create")
     <a href="@Url.Action("CRAllCustomers")"> Print alle klanten</a>
@@ -40,23 +40,14 @@
         <th>
             @Html.DisplayNameFor(model => model.customer.CompanyName)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.customer.CellPhone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.customer.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.customer.VATNumber)
-        </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model.customers)
     {
-        <tr>
+        <tr class="customer">
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                <input type="checkbox" class="select" data-customer="@Html.DisplayFor(modelItem => item.CustomerId)"> @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
@@ -69,15 +60,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CompanyName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CellPhone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VATNumber)
             </td>
             <td>
                 <abbr title="Klantengegevens aanpassen">
@@ -100,6 +82,34 @@
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </a>
                 </abbr>
+            </td>
+        </tr>
+        <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
+            <th>
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customer.CellPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customer.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customer.VATNumber)
+            </th>
+        </tr>
+        <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
+            <td>
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CellPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VATNumber)
             </td>
         </tr>
     }

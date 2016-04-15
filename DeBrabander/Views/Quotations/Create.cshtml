@@ -10,19 +10,7 @@
 <h2>Nieuwe offerte</h2>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $(".select").change(function () {
-            var id = $(this).attr('data-customer');
-            if (this.checked) {
-                $(".rowToExpand." + id).show();
-            } else {
-                $(".rowToExpand." + id).hide();
-            }
-
-        });
-    });
-</script>
+<script src="~/Scripts/TableRowCollapse.js"></script>
 
 
 @using (Html.BeginForm("Create", "Quotations", FormMethod.Get))
@@ -126,7 +114,7 @@
                     <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
                         <td></td>
                         <td>
-                            <input type="checkbox" name="DeliveryID" checked="true" value="@item2.CustomerDeliveryAddressId"> Selecteer deze klant <br>
+                            <input type="checkbox" name="DeliveryID" value="@item2.CustomerDeliveryAddressId"> Selecteer deze klant <br>
                         </td>
                     </tr>
                 }
