@@ -146,31 +146,53 @@ Page @(Model.products.PageCount < Model.products.PageNumber ? 0 : Model.products
                     </td>
                 </tr>
             }
+            <tr>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.quotation.TotalPrice)
+                </th>
+                <th>
+                </th>
+            </tr>
+            <tr style="border: hidden">
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.quotation.TotalPrice)
+                </td>
+            </tr>
         </table>
     }
-    <table align="right">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.quotation.TotalPrice)
-            </th>
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayFor(model => model.quotation.TotalPrice)
-            </td>
-        </tr>
-
-    </table>
 }
 
 
 
-<div>
+<div style="margin-bottom: 5px;">
     <a href="@Url.Action("Edit", "Quotations", new { id = Model.quotation.QuotationId })" class="btn btn-info">
         Ga naar offerte
     </a>
 </div>
-<br />
 @using (Html.BeginForm("Index", "Quotations"))
 {
     <button type="submit" class="btn btn-info">Ga naar overzicht</button>
