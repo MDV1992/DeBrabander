@@ -22,7 +22,7 @@ namespace DeBrabander.Controllers
         private Context db = new Context();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(bool? searchNonActive)
         {
             List<ProductIndexViewModel> productVMList = new List<ProductIndexViewModel>();
             List<Product> products = new List<Product>(db.Products.ToList());
@@ -51,11 +51,19 @@ namespace DeBrabander.Controllers
                 pivm.EAN = prod.EAN;
                 pivm.StockControl = prod.StockControl;
                 pivm.Active = prod.Active;
-                if (pivm.Active == true)
+                if (searchNonActive == null)
+                {
+                    if (pivm.Active == true)
+                    {
+                        productVMList.Add(pivm);
+                    }
+                }
+                else
                 {
                     productVMList.Add(pivm);
                 }
                 
+
             }
            
             return View(productVMList);

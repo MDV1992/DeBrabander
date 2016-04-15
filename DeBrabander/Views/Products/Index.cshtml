@@ -10,8 +10,16 @@
 <p>
     @Html.ActionLink("Nieuw artikel aanmaken", "Create")
     <a href="@Url.Action("CRAllProducts")"> Print alle Artikelen</a>
-
+    
 </p>
+@using (Html.BeginForm())
+{
+    <p>
+        Oude artikels : &nbsp;@Html.CheckBox("searchNonActive")
+        <input type="submit" value="Zoek" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>

@@ -89,7 +89,7 @@
                 </td>
                 <td>
                     <abbr title="Weradres toevoegen">
-                        <a href="@Url.Action("AddDeliveryAddress", "AddDeliveryAddress", new { id = item.CustomerId })" class="btn btn-success">
+                        <a href="@Url.Action("AddDeliveryAddress", "Customers", new { id = item.CustomerId })" class="btn btn-success">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                     </abbr>
@@ -126,7 +126,7 @@
                     <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
                         <td></td>
                         <td>
-                            <input type="checkbox" name="DeliveryID" value="@item2.CustomerDeliveryAddressId"> Selecteer deze klant <br>
+                            <input type="checkbox" name="DeliveryID" checked="true" value="@item2.CustomerDeliveryAddressId"> Selecteer deze klant <br>
                         </td>
                     </tr>
                 }

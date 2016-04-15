@@ -16,7 +16,7 @@
 {
     <p>
         Zoek op offertenummer: &nbsp;@Html.TextBox("searchQuotationNumber", ViewBag.CurrentFilterQuotation as string)
-        Zoek op klant: &nbsp;@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string)
+        Zoek op klant: &nbsp;@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string) <br>
         Zoek op Werf: &nbsp;@Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string)
         Oude Offertes : &nbsp;@Html.CheckBox("searchNonActive", (bool)ViewBag.CurrentFilterNonActive)
         <input type="submit" value="Zoek" />
