@@ -1,0 +1,152 @@
+﻿@model DeBrabander.Models.InvoiceDetail
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>InvoiceDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Invoice.Annotation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Invoice.Annotation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VAT.VATPercId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VAT.VATPercId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceExVAT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceExVAT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reprobel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reprobel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bebat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bebat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Recupel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recupel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Auvibel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Auvibel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brand)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalExVat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalExVat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalIncVat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalIncVat)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

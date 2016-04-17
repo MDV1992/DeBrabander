@@ -203,6 +203,10 @@
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoiceDetailsController.cs" />
+    <Compile Include="Controllers\InvoicesController.cs" />
+    <Compile Include="Controllers\OrderDetailsController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\QuotationDetailsController.cs" />
     <Compile Include="Controllers\QuotationsController.cs" />
@@ -219,6 +223,10 @@
     <Compile Include="Models\Customers\Address.cs" />
     <Compile Include="Models\Customers\Customer.cs" />
     <Compile Include="Models\Customers\CustomerDeliveryAddress.cs" />
+    <Compile Include="Models\Invoice\Invoice.cs" />
+    <Compile Include="Models\Invoice\InvoiceDetail.cs" />
+    <Compile Include="Models\Order\Order.cs" />
+    <Compile Include="Models\Order\OrderDetail.cs" />
     <Compile Include="Reports\AllProductsMain.cs">
       <DependentUpon>AllProductsMain.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -259,6 +267,12 @@
     </Compile>
     <Compile Include="Utils\CustomAuthorizeAttribute.cs" />
     <Compile Include="Utils\SecurityUtil.cs" />
+    <Compile Include="ViewModels\Invoices\InvoiceCreateViewModel.cs" />
+    <Compile Include="ViewModels\Invoices\InvoiceIndexViewModel.cs" />
+    <Compile Include="ViewModels\Orders\OrderAddProductsViewModel.cs" />
+    <Compile Include="ViewModels\Orders\OrderCreateViewModel.cs" />
+    <Compile Include="ViewModels\Orders\OrderEditViewModel.cs" />
+    <Compile Include="ViewModels\Orders\OrderIndexViewModel.cs" />
     <Compile Include="ViewModels\Reports\ProductCR\ProductCRViewModel.cs" />
     <Compile Include="ViewModels\Reports\CustomerCR\CustomerCRViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryCreateViewModel.cs" />
@@ -339,6 +353,26 @@
     <Content Include="Views\QuotationDetails\Details.cshtml" />
     <Content Include="Views\QuotationDetails\Edit.cshtml" />
     <Content Include="Views\QuotationDetails\Index.cshtml" />
+    <Content Include="Views\Invoices\Create.cshtml" />
+    <Content Include="Views\Invoices\Delete.cshtml" />
+    <Content Include="Views\Invoices\Details.cshtml" />
+    <Content Include="Views\Invoices\Edit.cshtml" />
+    <Content Include="Views\Invoices\Index.cshtml" />
+    <Content Include="Views\InvoiceDetails\Create.cshtml" />
+    <Content Include="Views\InvoiceDetails\Delete.cshtml" />
+    <Content Include="Views\InvoiceDetails\Details.cshtml" />
+    <Content Include="Views\InvoiceDetails\Edit.cshtml" />
+    <Content Include="Views\InvoiceDetails\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\OrderDetails\Create.cshtml" />
+    <Content Include="Views\OrderDetails\Delete.cshtml" />
+    <Content Include="Views\OrderDetails\Details.cshtml" />
+    <Content Include="Views\OrderDetails\Edit.cshtml" />
+    <Content Include="Views\OrderDetails\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
