@@ -280,6 +280,7 @@
     <Compile Include="Utils\CustomAuthorizeAttribute.cs" />
     <Compile Include="Utils\SecurityUtil.cs" />
     <Compile Include="ViewModels\Invoices\InvoiceCreateViewModel.cs" />
+    <Compile Include="ViewModels\Invoices\InvoiceEditViewModel.cs" />
     <Compile Include="ViewModels\Invoices\InvoiceIndexViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderAddProductsViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderCreateViewModel.cs" />

@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
+using DeBrabander.ViewModels.Invoices;
+using PagedList;
 
 namespace DeBrabander.Controllers
 {
@@ -16,9 +18,73 @@ namespace DeBrabander.Controllers
         private Context db = new Context();
 
         // GET: Invoices
-        public ActionResult Index()
+        public ActionResult Index(string searchInvoiceNumber, string currentFilterInvoiceNumber, string searchCustomer, string currentFilterCustomer, string searchDelivery, string currentFilterDelivery, int? page, string sortOrder)
         {
-            return View(db.Invoice.ToList());
+            InvoiceIndexViewModel iivm = new InvoiceIndexViewModel();
+            var invoices = from i in db.Invoice select i;
+            Invoice invoice = new Invoice();
+
+            //ViewBag.CurrentSort = sortOrder;
+
+
+            ViewBag.QuotationSortParm = String.IsNullOrEmpty(sortOrder) ? "quot_desc" : "";
+            ViewBag.CustomerSortParm = sortOrder == "cust" ? "cust_desc" : "cust";
+
+
+            if (searchCustomer != null || searchInvoiceNumber != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchInvoiceNumber = currentFilterInvoiceNumber;
+                searchCustomer = currentFilterCustomer;
+                searchDelivery = currentFilterDelivery;
+            }
+            ViewBag.CurrentFilterInvoice = searchInvoiceNumber;
+            ViewBag.CurrentFilterCustomer = searchCustomer;
+            ViewBag.CurrentFilterDelivery = searchDelivery;
+
+
+            if (!String.IsNullOrEmpty(searchInvoiceNumber))
+            {
+                invoices = invoices.Where(i => i.InvoiceNumber.ToString().Contains(searchInvoiceNumber));
+            }
+            if (!String.IsNullOrEmpty(searchCustomer))
+            {
+                invoices = invoices.Where(i => i.LastName.ToUpper().Contains(searchCustomer.ToUpper()) || i.FirstName.ToUpper().Contains(searchCustomer.ToUpper()));
+            }
+            if (!string.IsNullOrEmpty(searchDelivery))
+            {
+                invoices = invoices.Where(i => i.customerDeliveryAddress.DeliveryAddressInfo.ToUpper().Contains(searchDelivery.ToUpper()) || i.customerDeliveryAddress.StreetName.ToUpper().Contains(searchDelivery.ToUpper()) || i.customerDeliveryAddress.Town.ToUpper().Contains(searchDelivery.ToUpper()));
+            }
+
+
+            switch (sortOrder)
+            {
+                case "quot_desc":
+                    invoices = invoices.OrderByDescending(s => s.InvoiceNumber);
+                    break;
+                case "cust_desc":
+                    invoices = invoices.OrderByDescending(s => s.LastName);
+                    break;
+                case "cust":
+                    invoices = invoices.OrderBy(s => s.LastName);
+                    break;
+                default:
+                    invoices = invoices.OrderBy(s => s.InvoiceNumber);
+                    break;
+            }
+
+            var userDefinedInfo = db.UserDefinedSettings.Find(1);
+            int pageSize = userDefinedInfo.IndexResultLength;
+            int pageNumber = (page ?? 1);
+
+
+            //ViewBag.Quotations = quotations.ToPagedList(pageNumber, pageSize);
+            iivm.invoices = invoices.ToPagedList(pageNumber, pageSize);
+
+            return View(iivm);
         }
 
         // GET: Invoices/Details/5
@@ -66,12 +132,36 @@ namespace DeBrabander.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            // opzoeken van de juiste quotation
             Invoice invoice = db.Invoice.Find(id);
+            // alle klantgegevens ophalen van de offerte
+            var customer = db.Customers.Find(invoice.CustomerId);
+            // info opzoeken van het werfadres
+            Address werfadres = new Address();
+            werfadres.Box = invoice.customerDeliveryAddress.Box;
+            werfadres.PostalCodeNumber = invoice.customerDeliveryAddress.PostalCodeNumber;
+            werfadres.StreetName = invoice.customerDeliveryAddress.StreetName;
+            werfadres.StreetNumber = invoice.customerDeliveryAddress.StreetNumber;
+            werfadres.Town = invoice.customerDeliveryAddress.Town;
+
+            // vullen van viewmodel
+            InvoiceEditViewModel ievm = new InvoiceEditViewModel();
+            ievm.invoice = invoice;
+            ievm.customer = customer;
+            ievm.address = werfadres;
+
+
+
             if (invoice == null)
             {
                 return HttpNotFound();
             }
-            return View(invoice);
+            // omgezet naar model
+            //ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "FullName");
+            //var quotDetList = from q in db.QuotationDetails select q;
+            //quotDetList = quotDetList.Where(q => q.QuotationId == id);
+            //ViewBag.QuotationDetail = quotDetList.ToList();
+            return View(ievm);
         }
 
         // POST: Invoices/Edit/5
