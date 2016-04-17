@@ -141,6 +141,7 @@
     </dl>
 </div>
 <p>
+    @Html.ActionLink("Klantenfiche printen", "CRCustomer", new { id = Model.customer.CustomerId }) |
     @Html.ActionLink("Aanpassen", "Edit", new { id = Model.customer.CustomerId }) |
     @Html.ActionLink("Overzicht klanten", "Index")
 </p>
