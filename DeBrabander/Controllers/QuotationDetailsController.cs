@@ -62,7 +62,7 @@ namespace DeBrabander.Controllers
         // GET: QuotationDetails/Edit/5
         public ActionResult Edit(int? id, int? edit)
         {
-            ViewBag.VAT = new SelectList(db.QuotationDetails, "VATPercId", "VATValue");
+            ViewBag.VAT = new SelectList(db.VATs, "VATPercId", "VATValue");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
