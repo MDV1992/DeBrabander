@@ -13,6 +13,19 @@ using PagedList;
 
 namespace DeBrabander.Controllers
 {
+    public class OrderBinderCreate : IModelBinder
+    {
+        //private Context db2 = new Context();
+        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        {
+            HttpContextBase objContext = controllerContext.HttpContext;
+            OrderCreateViewModel obj = new OrderCreateViewModel();
+            obj.order.Annotation = objContext.Request.Form["OrderInfo"];
+            return obj;
+        }
+    }
+    
+    
     public class OrdersController : Controller
     {
         private Context db = new Context();
@@ -111,9 +124,100 @@ namespace DeBrabander.Controllers
         }
 
         // GET: Orders/Create
-        public ActionResult Create()
+        public ActionResult Create(string sortOrder, string searchStringName, string searchStringTown, string currentFilterName, string currentFilterTown, int? page)
         {
-            return View();
+            // quotation viewmodel + ipaged list users aanmaken + nieuwe quotation voor default stuff
+            OrderCreateViewModel ocvm = new OrderCreateViewModel();
+            var customerList = from a in db.Customers select a;
+            Order order = new Order();
+
+            DefaultOrderInfo(order);
+
+            ocvm.order = order;
+
+
+            //zoeken / sorteren / paging
+            //sorteren  default op "name_desc" 
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.TownSortParm = sortOrder == "town" ? "town_desc" : "town";
+
+
+            // als zoeken leeg is pagina 1 anders 
+            if (searchStringTown != null || searchStringName != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchStringName = currentFilterName;
+                searchStringTown = currentFilterTown;
+            }
+            ViewBag.CurrentFilterName = searchStringName;
+            ViewBag.CurrentFilterTown = searchStringTown;
+
+
+
+            // zoekvelden toepassen op klantenlijst
+            //zoeken op naam (voor of achter en/of gemeente)           
+            if (!String.IsNullOrEmpty(searchStringTown))
+            {
+                customerList = customerList.Where(s => s.Address.Town.ToUpper().Contains(searchStringTown.ToUpper()));
+            }
+
+            // zoeken op postalcode
+            if (!String.IsNullOrEmpty(searchStringName))
+            {
+                customerList = customerList.Where(s => s.LastName.ToUpper().Contains(searchStringName.ToUpper()) ||
+                s.FirstName.ToUpper().Contains(searchStringName.ToUpper()));
+            }
+
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    customerList = customerList.OrderByDescending(s => s.LastName);
+                    break;
+                case "town":
+                    customerList = customerList.OrderBy(s => s.Address.Town);
+                    break;
+                case "town_desc":
+                    customerList = customerList.OrderByDescending(s => s.Address.Town);
+                    break;
+                default:
+                    customerList = customerList.OrderBy(s => s.LastName);
+                    break;
+            }
+
+            var userDefinedInfo = db.UserDefinedSettings.Find(1);
+            int pageSize = userDefinedInfo.DetailsResultLength;
+            int pageNumber = (page ?? 1);
+
+            ocvm.customers = customerList.ToPagedList(pageNumber, pageSize);
+
+
+            return View(ocvm);
+        }
+
+        private Order DefaultOrderInfo(Order order)
+        {
+            //basis info invullen in order
+            //ophalen van lijst orders voor vinden van laatste ordernummer en dan +1 
+            var listOrders = new List<Order>();
+            listOrders = db.Orders.ToList();
+            var userSettings = db.UserDefinedSettings.Find(1);
+            
+
+            int maxOrdernumber = 1;
+            order.OrderNumber = maxOrdernumber;
+            if (listOrders.Count != 0)
+            {
+                maxOrdernumber = listOrders.Max(o => o.OrderNumber);
+                order.OrderNumber = maxOrdernumber + 1;
+            }
+            order.Active = true;
+            order.Date = DateTime.Now;            
+
+            return order;
         }
 
         // POST: Orders/Create
@@ -121,16 +225,55 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OrderId,OrderNumber,TotalPrice,Date,Annotation,Active,CustomerId,LastName,FirstName,CellPhone,Email,StreetName,StreetNumber,Box,PostalCodeNumber,Town")] Order order)
+        [SubmitButton(Name ="CreateOrder")]
+        public ActionResult Create([ModelBinder(typeof(QuotationBinderCreate))]  OrderCreateViewModel ocvm, string[] DeliveryID)
         {
             if (ModelState.IsValid)
             {
+                //aanmaken van quotation / customerdeliveryaddress en customer
+                Order order  = new Order();
+                CustomerDeliveryAddress cda = new CustomerDeliveryAddress();
+                Customer cus = new Customer();
+
+                //ophalen van customerDeliveryAddressID vanuit de array
+                // eventueel nog test inbouwen voor lengte van array (check dat ze niet meer als 1 veld selecteren)
+                int DeliveryId = 1;
+                if (DeliveryID.Length == 1)
+                {
+                    DeliveryId = Int32.Parse(DeliveryID.First());
+                }
+                else
+                {
+                    return RedirectToAction("Create");
+                }
+
+                // ophalen delivery info en van daaruit customer info
+                cda = db.CustomerDeliveryAddresses.Find(DeliveryId);
+                cus = db.Customers.Find(cda.CustomerId);
+
+                // invullen van de klant info in de quotation
+                DefaultOrderInfo(order);
+                order.FirstName = cus.FirstName;
+                order.LastName = cus.LastName;
+                order.Box = cus.Address.Box;
+                order.CellPhone = cus.CellPhone;
+                order.CustomerId = cus.CustomerId;
+                order.Email = cus.Email;
+                order.PostalCodeNumber = cus.Address.PostalCodeNumber;
+                order.StreetName = cus.Address.StreetName;
+                order.StreetNumber = cus.Address.StreetNumber;
+                order.Town = cus.Address.Town;
+                order.Annotation = ocvm.order.Annotation;
+                order.customerDeliveryAddress = db.CustomerDeliveryAddresses.Find(DeliveryId);
+
+                //toevoegen en saven
                 db.Orders.Add(order);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
-            return View(order);
+            return View(ocvm);
         }
 
         // GET: Orders/Edit/5

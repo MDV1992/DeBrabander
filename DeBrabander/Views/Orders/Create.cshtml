@@ -1,154 +1,138 @@
-﻿@model DeBrabander.Models.Order
+﻿@model DeBrabander.ViewModels.Orders.OrderCreateViewModel
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Nieuwe order</h2>
 
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/TableRowCollapse.js"></script>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create","Orders",FormMethod.Get)) 
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Order</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrderNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <div class="hidden">
+        @Html.EditorFor(model => model.order.OrderId, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <h3>order nummer : @Model.order.OrderNumber</h3>
+    <p>
+        <b>Zoeken op:</b> <br />
+        Naam: @Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string)
+        Gemeente: @Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string)
+        <input type="submit" value="Zoek" />
+    </p>
+    <table class="table">
+        <tr>
+            <th style="display: none">
+                @Html.DisplayNameFor(model => model.customer.CustomerId)
+            </th>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.customer.LastName).ToHtmlString(), "Create", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customer.FirstName)
+            </th>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "Create", new { sortOrder = ViewBag.TownSortParm })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customer.Address.StreetName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customer.Address.StreetNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customer.CompanyName)
+            </th>
+            <th></th>
+        </tr>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Annotation, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Annotation, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Annotation, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @foreach (var item in Model.customers)
+        {
+            <tr class="customer">
+                <td>
+                    <input type="checkbox" class="select" data-customer="@Html.DisplayFor(modelItem => item.CustomerId)"> @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Address.Town)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Address.StreetName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Address.StreetNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+                <td>
+                    <abbr title="Werfadres toevoegen">
+                        <a href="@Url.Action("AddDeliveryAddress", "Customers", new { id = item.CustomerId })" class="btn btn-success">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </a>
+                    </abbr>
+                </td>
+            </tr>
+            if (item.CustomerDeliveryAddress.Count > 1)
+            {
+                foreach (var item2 in item.CustomerDeliveryAddress)
+                {
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Active)
-                    @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
+                    <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
+                        <td></td>
+                        <td>
+                            <input type="checkbox" name="DeliveryID" value="@item2.CustomerDeliveryAddressId"> Selecteer deze klant <br>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(ModelItem => item2.DeliveryAddressInfo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(ModelItem => item2.StreetName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(ModelItem => item2.StreetNumber)
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                foreach (var item2 in item.CustomerDeliveryAddress)
+                {
+                    <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
+                        <td></td>
+                        <td>
+                            <input type="checkbox" name="DeliveryID" value="@item2.CustomerDeliveryAddressId"> Selecteer deze klant <br>
+                        </td>
+                    </tr>
+                }
+            }
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CustomerId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CustomerId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CellPhone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CellPhone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CellPhone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StreetName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StreetName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StreetName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StreetNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StreetNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StreetNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Box, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Box, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Box, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PostalCodeNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PostalCodeNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PostalCodeNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Town, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Town, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Town, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+    </table>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <h3>Offerte info : @Html.TextBox("OrderInfo")</h3>
+            <input type="submit" value="Opslaan" name="Create" class="btn btn-default" formmethod="post" />
+            <input type="submit" value="Artikel toevoegen" name="AddProducts" class="btn btn-default" formmethod="post" />
         </div>
     </div>
+
+
 }
+Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
+
+@Html.PagedListPager(Model.customers, page => Url.Action("Create", new { page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }))
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
