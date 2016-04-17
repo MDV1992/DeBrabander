@@ -521,17 +521,15 @@ namespace DeBrabander.Controllers
 
           public ActionResult CRCustomer(int id)
         {
-            List<Customer> customer = new List<Customer>();
-            customer.Add(db.Customers.Find(id));
-
-            List<CustomerDeliveryAddress> DeliveryAdresses = new List<CustomerDeliveryAddress>();
-            DeliveryAdresses.Add(db.CustomerDeliveryAddresses.Find(id));
-
+            var customerList = from a in db.Customers select a;
+            customerList = customerList.Where(c => c.CustomerId.Equals(id));            
+          
             List<Company> company = new List<Company>();
             company = db.Companies.ToList();
 
             List<CustomerCRViewModel> CustomersCR = new List<CustomerCRViewModel>();
-            foreach (var item in customer)
+            List<CustomerDeliveryAdressesCRViewModel> DeliveriesCR = new List<CustomerDeliveryAdressesCRViewModel>();
+            foreach (var item in customerList)
             {
                 var CustomerCR = new CustomerCRViewModel();
                 CustomerCR.FirstName = item.FirstName;
@@ -553,23 +551,21 @@ namespace DeBrabander.Controllers
                 CustomerCR.StreetName = item.Address.StreetName;
                 CustomerCR.StreetNumber = item.Address.StreetNumber;
                 CustomerCR.Town = item.Address.Town;
-                
+                foreach (var item2 in item.CustomerDeliveryAddress)
+                {
+                    var DeliveryCR = new CustomerDeliveryAdressesCRViewModel();
+                    DeliveryCR.CustomerId = item.CustomerId;
+                    DeliveryCR.CustomerDeliveryAddressId = item2.CustomerDeliveryAddressId;
+                    DeliveryCR.StreetName = item2.StreetName;
+                    DeliveryCR.StreetNumber = item2.StreetNumber;
+                    DeliveryCR.Town = item2.Town;
+                    DeliveryCR.PostalCodeNumber = item2.PostalCodeNumber;
+                    DeliveriesCR.Add(DeliveryCR);
+                }
                 CustomersCR.Add(CustomerCR);
             }
 
-            List<CustomerDeliveryAdressesCRViewModel> DeliveriesCR = new List<CustomerDeliveryAdressesCRViewModel>();
-            foreach (var item in DeliveryAdresses)
-            {
-                    var DeliveryCR = new CustomerDeliveryAdressesCRViewModel();
-                    DeliveryCR.CustomerId = item.CustomerId;
-                    DeliveryCR.CustomerDeliveryAddressId = item.CustomerDeliveryAddressId;
-                    DeliveryCR.StreetName = item.StreetName;
-                    DeliveryCR.StreetNumber = item.StreetNumber;
-                    DeliveryCR.Town = item.Town;
-                    DeliveryCR.PostalCodeNumber = item.PostalCodeNumber;
-
-                    DeliveriesCR.Add(DeliveryCR);
-            }
+            
 
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CustomerMain.rpt"));
