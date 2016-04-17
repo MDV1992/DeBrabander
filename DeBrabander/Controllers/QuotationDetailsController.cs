@@ -96,7 +96,7 @@ namespace DeBrabander.Controllers
             VAT tempqd = db.VATs.Find(quotationDetail.VATPercId);
 
             quotationDetail.ProductName = prod.ProductName;
-            quotationDetail.TotalExVat = quotationDetail.PriceExVAT * quotationDetail.Quantity;
+            quotationDetail.TotalExVat = (quotationDetail.PriceExVAT + quotationDetail.Auvibel + quotationDetail.Bebat + quotationDetail.Recupel + quotationDetail.Reprobel) * quotationDetail.Quantity;
             quotationDetail.TotalIncVat = quotationDetail.TotalExVat * (1 + (tempqd.VATValue / 100));
             
             if (ModelState.IsValid)

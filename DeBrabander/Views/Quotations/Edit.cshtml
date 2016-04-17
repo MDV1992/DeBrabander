@@ -10,8 +10,8 @@
 {
     @Html.AntiForgeryToken()
 
-    <div>
-        <table style="float: left">
+    <div class="col-md-4">
+        <table>
             <tr>
                 <td>@Html.DisplayFor(model => model.quotation.QuotationNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
             </tr>
@@ -33,21 +33,43 @@
             <tr>
                 <td>@Html.DisplayFor(model => model.customer.VATNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
             </tr>
-        </table>
-        <table style="width:40%; display:inline-block; float: right">
-            <tr>
-                <td>@Html.DisplayFor(model => model.quotation.customerDeliveryAddress.DeliveryAddressInfo, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.address.StreetName, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.address.StreetNumber, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.address.Box, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.address.PostalCodeNumber, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.address.Town, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
+            <tr></tr>
         </table>
     </div>
+        <div class="col-md-4">
+            @if (Model.customer.ContactName != null)
+                {
+                    <table>
+                        <tr>
+                            <th>Contactgegevens</th>
+                        </tr>
+                        <tr>
+                            <td>@Html.DisplayFor(model => model.customer.ContactName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.DisplayFor(model => model.customer.ContactCellPhone, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.DisplayFor(model => model.customer.ContactEmail, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        </tr>
+                    </table>
+                }
+        </div>
+        <div class="col-md-4">
+            <table>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.quotation.customerDeliveryAddress.DeliveryAddressInfo, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.address.StreetName, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.address.StreetNumber, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.address.Box, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.address.PostalCodeNumber, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.address.Town, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+            </table>
+        </div>
 
-    <br />
+        <br />
     if (Model != null)
     {
         if (Model.quotation.QuotationDetail != null && Model.quotation.QuotationDetail.Count() != 0)
@@ -82,7 +104,7 @@
                     </tr>
 
                     @foreach (var item in Model.quotation.QuotationDetail)
-            {
+                    {
                         <tr>
                             <td>
                                 @item.ProductName
@@ -118,7 +140,7 @@
                                 </abbr>
                             </td>
                         </tr>
-            }
+                    }
                     <tr>
                         <th>
                         </th>
@@ -160,7 +182,7 @@
                     <br /><br /><br />
                     Er zijn geen artikelen op deze offerte geplaatst.
                 </p>
-            </div>     
+            </div>
         }
     }
 

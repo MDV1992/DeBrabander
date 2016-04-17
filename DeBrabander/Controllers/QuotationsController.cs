@@ -549,7 +549,7 @@ namespace DeBrabander.Controllers
             {
                 quotItem.Quantity++;
             }
-            quotItem.TotalExVat = quotItem.PriceExVAT * quotItem.Quantity;
+            quotItem.TotalExVat = (quotItem.PriceExVAT + quotItem.Auvibel + quotItem.Bebat + quotItem.Recupel + quotItem.Reprobel) * quotItem.Quantity;
             //Berekent totaal per lijn van producten inc BTW
             quotItem.TotalIncVat = quotItem.TotalExVat * (1 + (quotItem.VAT.VATValue / 100));
             CalculateTotalPriceinc(quotationId);
