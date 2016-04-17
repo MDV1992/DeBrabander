@@ -21,12 +21,12 @@ namespace DeBrabander.DAL
     {
         public Context() : base("DefaultConnection")
         {
-          Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
+            Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
         }
 
         static Context()
         {
-        //  Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
+          //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
         }
 
         public DbSet<UserAccount> UserAccounts { get; set; }
@@ -38,6 +38,10 @@ namespace DeBrabander.DAL
         public DbSet<VAT> VATs { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<QuotationDetail> QuotationDetails { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Invoice> Invoice { get; set; }
+        public DbSet<InvoiceDetail> InvoiceDetails { get; set; }
 
         public DbSet<CustomerDeliveryAddress> CustomerDeliveryAddresses { get; set; }
 
@@ -50,5 +54,7 @@ namespace DeBrabander.DAL
         public System.Data.Entity.DbSet<DeBrabander.Models.Company> Companies { get; set; }
 
         public System.Data.Entity.DbSet<DeBrabander.Models.UserDefinedSetting> UserDefinedSettings { get; set; }
+
+       
     }
 }
