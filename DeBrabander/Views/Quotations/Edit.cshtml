@@ -78,7 +78,8 @@
                 <table class="table">
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.quotationDetail.ProductName)
+                            @*@Html.DisplayNameFor(model => model.quotationDetail.ProductName)*@
+                            Artikel
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.quotationDetail.Quantity)
@@ -87,16 +88,20 @@
                             @Html.DisplayNameFor(model => model.quotationDetail.Description)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.quotationDetail.PriceExVAT)
+                            @*@Html.DisplayNameFor(model => model.quotationDetail.PriceExVAT)*@
+                            Prijs ex BTW
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.quotationDetail.VAT.VATValue)
+                            @*@Html.DisplayNameFor(model => model.quotationDetail.VAT.VATValue)*@
+                            BTW
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.quotationDetail.TotalExVat)
+                            @*@Html.DisplayNameFor(model => model.quotationDetail.TotalExVat)*@
+                            Tot. ex BTW
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.quotationDetail.TotalIncVat)
+                            @*@Html.DisplayNameFor(model => model.quotationDetail.TotalIncVat)*@
+                            Tot. inc BTW
                         </th>
                         <th>
 
@@ -106,28 +111,28 @@
                     @foreach (var item in Model.quotation.QuotationDetail)
                     {
                         <tr>
-                            <td>
+                            <td class="col-md-1">
                                 @item.ProductName
                             </td>
-                            <td>
+                            <td class="col-md-1">
                                 @item.Quantity
                             </td>
-                            <td>
+                            <td class="col-md-4">
                                 @item.Description
                             </td>
-                            <td>
+                            <td class="col-md-1">
                                 @item.PriceExVAT
                             </td>
-                            <td>
+                            <td class="col-md-1">
                                 @item.VAT.VATValue%
                             </td>
-                            <td>
+                            <td class="col-md-1">
                                 @item.TotalExVat
                             </td>
-                            <td>
+                            <td class="col-md-1">
                                 @item.TotalIncVat
                             </td>
-                            <td>
+                            <td class="col-md-2">
                                 <abbr title="Aantal aanpassen">
                                     <a href="@Url.Action("Edit", "QuotationDetails", new { id = item.QuotationDetailId })" class="btn btn-primary">
                                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
