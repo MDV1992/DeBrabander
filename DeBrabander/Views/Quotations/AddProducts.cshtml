@@ -12,13 +12,14 @@
     @Html.AntiForgeryToken()
 
     <div>
-        @using (Html.BeginForm("AddProducts", "Quotations", FormMethod.Get))
+        @using (Html.BeginForm("AddProducts", "Quotations", FormMethod.Get, new { id = Model.quotation.QuotationId }))
         {
             <b>Zoeken op:</b>
             <p>
                 Product Naam / Product Code: @Html.TextBox("searchString", ViewBag.CurrentFilterSearchString as string)
-                Categorie: @Html.DropDownList("CategoryID", (SelectList)ViewBag.CategoryID)
-                <input type="submit" value="Zoek" />
+                Categorie: @Html.DropDownList("CategoryID", (SelectList)ViewBag.CategoryID, "")
+                @Html.TextBox("id", Model.quotation.QuotationId, new { @class = "hidden" })
+                <input type="submit" value="Zoek"/>
             </p>
         }
     </div>
@@ -39,31 +40,39 @@
             </th>
         </tr>
 
-        @foreach (var item in Model.products)
+        @if (Model.products.Count() == 0)
         {
             <tr>
-                <td>
-
-                    @item.ProductName
-                </td>
-                <td>
-                    @item.ProductCode
-                </td>
-                <td>
-                    @item.Brand
-                </td>
-                <td>
-                    <abbr title="Artikel toevoegen">
-                        <a href="@Url.Action("AddProductToQuotation", "Quotations", new { productId = item.ProductId, quotationId = Model.quotation.QuotationId })" class="btn btn-success">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </a>
-                    </abbr>
-
-                </td>
-
+                <td colspan="3">Er voldoen geen artikelen aan je zoekopdracht</td>
             </tr>
         }
+        else
+        {
+            foreach (var item in Model.products)
+            {
+                <tr>
+                    <td>
 
+                        @item.ProductName
+                    </td>
+                    <td>
+                        @item.ProductCode
+                    </td>
+                    <td>
+                        @item.Brand
+                    </td>
+                    <td>
+                        <abbr title="Artikel toevoegen">
+                            <a href="@Url.Action("AddProductToQuotation", "Quotations", new { productId = item.ProductId, quotationId = Model.quotation.QuotationId })" class="btn btn-success">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            </a>
+                        </abbr>
+
+                    </td>
+
+                </tr>
+            }
+        }
     </table>
 }
 Page @(Model.products.PageCount < Model.products.PageNumber ? 0 : Model.products.PageNumber) of @Model.products.PageCount
@@ -166,18 +175,12 @@ Page @(Model.products.PageCount < Model.products.PageNumber ? 0 : Model.products
                 </th>
             </tr>
             <tr style="border: hidden">
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td>
                     @Html.DisplayFor(model => model.quotation.TotalPrice)
                 </td>
@@ -185,7 +188,6 @@ Page @(Model.products.PageCount < Model.products.PageNumber ? 0 : Model.products
         </table>
     }
 }
-
 
 
 <div style="margin-bottom: 5px;">
