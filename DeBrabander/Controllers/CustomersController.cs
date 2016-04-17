@@ -496,7 +496,7 @@ namespace DeBrabander.Controllers
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
-            
+
 
             try
             {
@@ -516,7 +516,90 @@ namespace DeBrabander.Controllers
                 }
 
             }
+        }
 
+
+          public ActionResult CRCustomer(int id)
+        {
+            List<Customer> customer = new List<Customer>();
+            customer.Add(db.Customers.Find(id));
+
+            List<CustomerDeliveryAddress> DeliveryAdresses = new List<CustomerDeliveryAddress>();
+            DeliveryAdresses.Add(db.CustomerDeliveryAddresses.Find(id));
+
+            List<Company> company = new List<Company>();
+            company = db.Companies.ToList();
+
+            List<CustomerCRViewModel> CustomersCR = new List<CustomerCRViewModel>();
+            foreach (var item in customer)
+            {
+                var CustomerCR = new CustomerCRViewModel();
+                CustomerCR.FirstName = item.FirstName;
+                CustomerCR.LastName = item.LastName;
+                CustomerCR.CompanyName = item.CompanyName;
+                CustomerCR.Phone = item.Phone;
+                CustomerCR.CellPhone = item.CellPhone;
+                CustomerCR.VATNumber = item.VATNumber;
+                CustomerCR.ContactName = item.ContactName;
+                CustomerCR.ContactEmail = item.ContactEmail;
+                CustomerCR.ContactCellPhone = item.ContactCellPhone;
+                CustomerCR.Type = item.Type;
+                CustomerCR.TAXLiability = item.TAXLiability;
+                CustomerCR.AccountNumber = item.AccountNumber;
+                CustomerCR.Annotation = item.Annotation;
+                CustomerCR.Email = item.Email;
+                CustomerCR.CustomerId = item.CustomerId;
+                CustomerCR.AddressId = item.Address.AddressId;
+                CustomerCR.StreetName = item.Address.StreetName;
+                CustomerCR.StreetNumber = item.Address.StreetNumber;
+                CustomerCR.Town = item.Address.Town;
+                
+                CustomersCR.Add(CustomerCR);
+            }
+
+            List<CustomerDeliveryAdressesCRViewModel> DeliveriesCR = new List<CustomerDeliveryAdressesCRViewModel>();
+            foreach (var item in DeliveryAdresses)
+            {
+                    var DeliveryCR = new CustomerDeliveryAdressesCRViewModel();
+                    DeliveryCR.CustomerId = item.CustomerId;
+                    DeliveryCR.CustomerDeliveryAddressId = item.CustomerDeliveryAddressId;
+                    DeliveryCR.StreetName = item.StreetName;
+                    DeliveryCR.StreetNumber = item.StreetNumber;
+                    DeliveryCR.Town = item.Town;
+                    DeliveryCR.PostalCodeNumber = item.PostalCodeNumber;
+
+                    DeliveriesCR.Add(DeliveryCR);
+            }
+
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CustomerMain.rpt"));
+            rd.OpenSubreport("Header.rpt").SetDataSource(company);
+            rd.OpenSubreport("CustomerSub.rpt").SetDataSource(CustomersCR);
+            rd.OpenSubreport("DeliveryAddressesCR.rpt").SetDataSource(DeliveriesCR);
+            //rd.SetDataSource(company);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "Customer.pdf");
+            }
+            catch (Exception ex)
+            {
+                if (ex.Data == null)
+                {
+                    throw;
+                }
+                else
+                {
+                    throw;
+                }
+
+            }
 
 
         }

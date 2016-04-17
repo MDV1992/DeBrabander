@@ -290,7 +290,7 @@ namespace DeBrabander.Controllers
         public ActionResult CRProduct(int id)
         {
             List<Product> product = new List<Product>();
-            var prod = db.Products.Find(id);
+           // var prod = db.Products.Find(id);
             product.Add(db.Products.Find(id));
 
             List<Company> company = new List<Company>();
