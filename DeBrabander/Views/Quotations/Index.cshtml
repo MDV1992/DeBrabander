@@ -93,6 +93,11 @@
                         <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
                     </a>
                 </abbr>
+                <abbr title="Bestelling aanmaken">
+                    <a href="@Url.Action("CreateOrder", "Quotations", new { id = item.QuotationId })" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-barcode" aria-hidden="true"></span>
+                    </a>
+                </abbr>
             </td>
         </tr>
     }
