@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using DeBrabander.Models;
 
-namespace DeBrabander.ViewModels
+namespace DeBrabander.ViewModels.Orders
 {
     public class OrderEditViewModel
     {

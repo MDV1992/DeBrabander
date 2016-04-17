@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
+using DeBrabander.ViewModels.Orders;
+using PagedList;
 
 namespace DeBrabander.Controllers
 {
@@ -16,9 +18,81 @@ namespace DeBrabander.Controllers
         private Context db = new Context();
 
         // GET: Orders
-        public ActionResult Index()
+        public ActionResult Index(string searchOrderNumber, string currentFilterOrderNumber, string searchCustomer, string currentFilterCustomer, string searchDelivery, string currentFilterDelivery, bool? searchNonActive, bool? currentFilterNonActive, int? page, string sortOrder)
         {
-            return View(db.Orders.ToList());
+            // viewmodel aanmaken + vullen tijdelijke lijst
+            if (searchNonActive == null) { searchNonActive = false; }
+            if (currentFilterNonActive == null) { currentFilterNonActive = false; }
+            OrderIndexViewModel oivm = new OrderIndexViewModel();
+            var orders = from o in db.Orders select o;
+            Order order = new Order();
+
+            
+            ViewBag.OrderSortParm = String.IsNullOrEmpty(sortOrder) ? "order_desc" : "";
+            ViewBag.CustomerSortParm = sortOrder == "cust" ? "cust_desc" : "cust";
+
+
+            if (searchCustomer != null || searchOrderNumber != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchOrderNumber = currentFilterOrderNumber;
+                searchCustomer = currentFilterCustomer;
+                searchDelivery = currentFilterDelivery;
+                searchNonActive = currentFilterNonActive;
+            }
+            ViewBag.CurrentFilterQuotation = searchOrderNumber;
+            ViewBag.CurrentFilterCustomer = searchCustomer;
+            ViewBag.CurrentFilterDelivery = searchDelivery;
+            ViewBag.CurrentFilterNonActive = searchNonActive;
+
+
+            if (!String.IsNullOrEmpty(searchOrderNumber))
+            {
+                orders = orders.Where(o => o.OrderNumber.ToString().Contains(searchOrderNumber));
+            }
+            if (!String.IsNullOrEmpty(searchCustomer))
+            {
+                orders = orders.Where(o => o.LastName.ToUpper().Contains(searchCustomer.ToUpper()) || o.FirstName.ToUpper().Contains(searchCustomer.ToUpper()));
+            }
+            if (!string.IsNullOrEmpty(searchDelivery))
+            {
+                orders = orders.Where(o => o.customerDeliveryAddress.DeliveryAddressInfo.ToUpper().Contains(searchDelivery.ToUpper()) || o.customerDeliveryAddress.StreetName.ToUpper().Contains(searchDelivery.ToUpper()) || o.customerDeliveryAddress.Town.ToUpper().Contains(searchDelivery.ToUpper()));
+            }
+
+
+            switch (sortOrder)
+            {
+                case "order_desc":
+                    orders = orders.OrderByDescending(o => o.OrderNumber);
+                    break;
+                case "cust_desc":
+                    orders = orders.OrderByDescending(o => o.LastName);
+                    break;
+                case "cust":
+                    orders = orders.OrderBy(o => o.LastName);
+                    break;
+                default:
+                    orders = orders.OrderBy(o => o.OrderNumber);
+                    break;
+            }
+
+            var userDefinedInfo = db.UserDefinedSettings.Find(1);
+            int pageSize = userDefinedInfo.IndexResultLength;
+            int pageNumber = (page ?? 1);
+
+            if (searchNonActive == false || searchNonActive == null)
+            {
+                orders = orders.Where(o => o.Active.Equals(true));
+            }
+
+
+            //ViewBag.Quotations = quotations.ToPagedList(pageNumber, pageSize);
+            oivm.orders = orders.ToPagedList(pageNumber, pageSize);
+
+            return View(oivm);
         }
 
         // GET: Orders/Details/5
