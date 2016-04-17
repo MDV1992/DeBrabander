@@ -88,6 +88,7 @@ namespace DeBrabander.Controllers
             VAT vat = db.VATs.Find(VId);
 
             ProductDetailsViewModel pdvm = new ProductDetailsViewModel();
+            pdvm.ProductId = product.ProductId;
             pdvm.ProductName = product.ProductName;
             pdvm.ProductCode = product.ProductCode;
             pdvm.Remark = product.Remark;
@@ -289,45 +290,46 @@ namespace DeBrabander.Controllers
         public ActionResult CRProduct(int id)
         {
             List<Product> product = new List<Product>();
-            product = db.Products.ToList();
+            var prod = db.Products.Find(id);
+            product.Add(db.Products.Find(id));
 
             List<Company> company = new List<Company>();
             company = db.Companies.ToList();
-
+            
             List<ProductCRViewModel> ProductCR = new List<ProductCRViewModel>();
             foreach (var item in product)
             {
-                var productCR = new ProductCRViewModel();
-                productCR.ProductId = item.ProductId;
-                productCR.ProductName = item.ProductName;
-                productCR.ProductCode = item.ProductCode;
-                productCR.Brand = item.Brand;
-                productCR.Auvibel = item.Auvibel;
-                productCR.Bebat = item.Bebat;
-                productCR.Recupel = item.Recupel;
-                productCR.Reprobel = item.Reprobel;
-                productCR.PurchasePrice = item.PurchasePrice;
-                productCR.PriceExVAT = item.PriceExVAT;
-                productCR.VATPercId = item.VATPercId;
-                productCR.Remark = item.Remark;
-                productCR.Stock = item.Stock;
-                productCR.Description = item.Description;
-                productCR.EAN = item.EAN;
-                productCR.CategoryId = item.CategoryId;
-                productCR.CategoryName = item.Category.CategoryName;
-                productCR.VATValue = item.VAT.VATValue;
-                productCR.Active = item.Active;
+                    var productCR = new ProductCRViewModel();
+                    productCR.ProductId = item.ProductId;
+                    productCR.ProductName = item.ProductName;
+                    productCR.ProductCode = item.ProductCode;
+                    productCR.Brand = item.Brand;
+                    productCR.Auvibel = item.Auvibel;
+                    productCR.Bebat = item.Bebat;
+                    productCR.Recupel = item.Recupel;
+                    productCR.Reprobel = item.Reprobel;
+                    productCR.PurchasePrice = item.PurchasePrice;
+                    productCR.PriceExVAT = item.PriceExVAT;
+                    productCR.VATPercId = item.VATPercId;
+                    productCR.Remark = item.Remark;
+                    productCR.Stock = item.Stock;
+                    productCR.Description = item.Description;
+                    productCR.EAN = item.EAN;
+                    productCR.CategoryId = item.CategoryId;
+                    productCR.CategoryName = item.Category.CategoryName;
+                    productCR.VATValue = item.VAT.VATValue;
+                    productCR.Active = item.Active;
 
-
-
-
-                ProductCR.Add(productCR);
+                    ProductCR.Add(productCR);
+      
             }
 
+
+
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AllProductsMain.rpt"));
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ProductMain.rpt"));
             rd.OpenSubreport("Header.rpt").SetDataSource(company);
-            rd.OpenSubreport("allProductsSub.rpt").SetDataSource(ProductCR);
+            rd.OpenSubreport("ProductSub.rpt").SetDataSource(ProductCR);
             //rd.SetDataSource(company);
             Response.Buffer = false;
             Response.ClearContent();
