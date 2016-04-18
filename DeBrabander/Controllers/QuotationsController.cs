@@ -613,8 +613,7 @@ namespace DeBrabander.Controllers
             Order order = new Order();
             Quotation quot = new Quotation();
             quot = db.Quotations.Find(Id);
-            var quotDet = db.QuotationDetails.Find(Id);
-
+            
             order.Annotation = quot.Annotation + " - Order van Offerte " + quot.QuotationNumber;
             order.Box = quot.Box;
             order.CellPhone = quot.CellPhone;
@@ -633,32 +632,31 @@ namespace DeBrabander.Controllers
             db.Orders.Add(order);
             db.SaveChanges();
 
-            //temp
-            var delivery = db.CustomerDeliveryAddresses.Find(quot.customerDeliveryAddress.CustomerDeliveryAddressId);
+            
 
-
-            order.customerDeliveryAddress = delivery;
+            order.customerDeliveryAddress = quot.customerDeliveryAddress;
             // Fout bevindt zich hier
             //order.OrderDetail = quot.QuotationDetail;           
 
-            foreach (var item in order.OrderDetail)
+            foreach (var item in quot.QuotationDetail)
             {
-                item.Quantity = quotDet.Quantity;
-                item.PriceExVAT = quotDet.PriceExVAT;
-                item.TotalExVat = quotDet.TotalExVat;
-                item.TotalIncVat = quotDet.TotalIncVat;
-                item.Auvibel = quotDet.Auvibel;
-                item.Bebat = quotDet.Bebat;
-                item.Brand = quotDet.Brand;
-                item.CategoryId = quotDet.CategoryId;
-                item.Description = quotDet.Description;
-                item.ProductCode = quotDet.ProductCode;
-                item.ProductName = quotDet.ProductName;
-                item.Recupel = quotDet.Recupel;
-                item.Reprobel = quotDet.Reprobel;
-                item.VATPercId = quotDet.VATPercId;
-                item.ProductId = quotDet.ProductId;
-                db.OrderDetails.Add(item);
+                var od = new OrderDetail();
+                od.Quantity = item.Quantity;
+                od.PriceExVAT = item.PriceExVAT;
+                od.TotalExVat = item.TotalExVat;
+                od.TotalIncVat = item.TotalIncVat;
+                od.Auvibel = item.Auvibel;
+                od.Bebat = item.Bebat;
+                od.Brand = item.Brand;
+                od.CategoryId = item.CategoryId;
+                od.Description = item.Description;
+                od.ProductCode = item.ProductCode;
+                od.ProductName = item.ProductName;
+                od.Recupel = item.Recupel;
+                od.Reprobel = item.Reprobel;
+                od.VATPercId = item.VATPercId;
+                od.ProductId = item.ProductId;
+                order.OrderDetail.Add(od);
             }
 
             db.SaveChanges();
