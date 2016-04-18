@@ -124,7 +124,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.VATPercId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.VATPercId, (SelectList)ViewBag.VAT, "Kies een BTW-waarde", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.VATPercId, (SelectList)ViewBag.VAT, "Kies een BTW-waarde", new { @class = "btn btn-default dropdown-toggle" })
                 @Html.ValidationMessageFor(model => model.VATPercId, "", new { @class = "text-danger" })
             </div>
         </div>

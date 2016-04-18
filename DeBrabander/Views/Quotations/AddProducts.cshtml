@@ -17,7 +17,7 @@
             <b>Zoeken op:</b>
             <p>
                 Product Naam / Product Code: @Html.TextBox("searchString", ViewBag.CurrentFilterSearchString as string)
-                Categorie: @Html.DropDownList("CategoryID", (SelectList)ViewBag.CategoryID, "")
+                Categorie: @Html.DropDownList("CategoryID", (SelectList)ViewBag.CategoryID, "", new {@class="btn btn-default dropdown-toggle"})
                 @Html.TextBox("id", Model.quotation.QuotationId, new { @class = "hidden" })
                 <input type="submit" value="Zoek"/>
             </p>

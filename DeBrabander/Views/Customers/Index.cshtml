@@ -17,9 +17,8 @@
 {
     <p>
         <b>Zoeken op:</b> <br />
-        Naam: @Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string) 
-         Gemeente: @Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string)
-        <input type="submit" value="Zoek" />
+        Naam: @Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string, new {@class="form-control"}) Gemeente: @Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string, new { @class = "form-control" })
+        <input type="submit" value="Zoek"  class="btn btn-default"/>
     </p>
 }
 <table class="table">
