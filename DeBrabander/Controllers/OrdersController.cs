@@ -330,6 +330,141 @@ namespace DeBrabander.Controllers
             return View(ocvm);
         }
 
+        public ActionResult AddProducts(int? id, int? page, string searchString, string currentFilterSearchString, string categoryId, string currentFilterCategoryId, string sortOrder)
+        {
+            if (id == null)
+            {
+                id = (int)TempData["id"];
+            }
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = new Order();
+            OrderAddProductsViewModel oapvm = new OrderAddProductsViewModel();
+            var productList = from p in db.Products select p;
+            productList = productList.Where(p => p.Active.Equals(true));
+
+            ViewBag.ProductSortParm = string.IsNullOrEmpty(sortOrder) ? "prod_desc" : "";
+
+
+            //aanmaken product list + filtering
+
+
+            //paging
+            if (searchString != null || categoryId != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilterSearchString;
+                categoryId = currentFilterCategoryId;
+            }
+            ViewBag.CurrentFilterSearchString = searchString;
+            ViewBag.CurrentFilterCategoryId = categoryId;
+
+
+            // Zoekfunctie
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                productList = productList.Where(x => x.ProductName.ToUpper().Contains(searchString.ToUpper()) || x.ProductCode.ToUpper().Contains(searchString.ToUpper()));
+            }
+            if (!String.IsNullOrEmpty(categoryId))
+            {
+                int catId = int.Parse(categoryId);
+                productList = productList.Where(x => x.CategoryId == catId);
+            }
+
+            switch (sortOrder)
+            {
+                case "prod_dec":
+                    productList = productList.OrderByDescending(p => p.ProductName);
+                    break;
+                default:
+                    productList = productList.OrderBy(p => p.ProductName);
+                    break;
+            }
+
+
+            var userDefinedInfo = db.UserDefinedSettings.Find(1);
+            int pageSize = userDefinedInfo.DetailsResultLength;
+            int pageNumber = (page ?? 1);
+            oapvm.products = productList.ToPagedList(pageNumber, pageSize);
+
+
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryID", "CategoryName", categoryId);
+
+
+
+            order = db.Orders.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            oapvm.order = order;
+            CalculateTotalPriceinc(id);
+
+            return View("AddProducts", oapvm);
+        }
+        public ActionResult AddProductToOrder(int? orderId, int? productId)
+        {
+            // find op order en product
+            var orderItem = db.OrderDetails.SingleOrDefault(o => o.OrderId == orderId && o.ProductId == productId);
+            Product prod = db.Products.Find(productId);
+
+            // nieuwe quotation detail
+            if (orderItem == null)
+            {
+                orderItem = new OrderDetail
+                {
+                    ProductId = (int)productId,
+                    OrderId = (int)orderId,
+                    Quantity = 1,
+                    Auvibel = prod.Auvibel,
+                    Bebat = prod.Bebat,
+                    CategoryId = prod.CategoryId,
+                    Brand = prod.Brand,
+                    Description = prod.Description,
+                    PriceExVAT = prod.PriceExVAT,
+                    ProductCode = prod.ProductCode,
+                    ProductName = prod.ProductName,
+                    Recupel = prod.Recupel,
+                    Reprobel = prod.Reprobel,
+                    VATPercId = prod.VATPercId,
+                };
+                orderItem.VAT = db.VATs.Find(orderItem.VATPercId);
+                db.OrderDetails.Add(orderItem);
+            }
+            else
+            {
+                orderItem.Quantity++;
+            }
+            orderItem.TotalExVat = (orderItem.PriceExVAT + orderItem.Auvibel + orderItem.Bebat + orderItem.Recupel + orderItem.Reprobel) * orderItem.Quantity;
+            //Berekent totaal per lijn van producten inc BTW
+            orderItem.TotalIncVat = orderItem.TotalExVat * (1 + (orderItem.VAT.VATValue / 100));
+            CalculateTotalPriceinc(orderId);
+            db.SaveChanges();
+
+            return RedirectToAction("AddProducts", new { id = orderId });
+        }
+
+        private void CalculateTotalPriceinc(int? orderId)
+        {
+            
+            double totalPriceOrder = 0;
+            Order order = db.Orders.Find(orderId);
+            foreach (var od in order.OrderDetail)
+            {
+                totalPriceOrder = order.OrderDetail.Sum(x => x.TotalIncVat);
+            }
+            order.TotalPrice = totalPriceOrder;
+            db.SaveChanges();
+
+        }
+    
+
         // GET: Orders/Edit/5
         public ActionResult Edit(int? id)
         {
