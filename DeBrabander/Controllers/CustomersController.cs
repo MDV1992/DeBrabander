@@ -521,9 +521,11 @@ namespace DeBrabander.Controllers
 
           public ActionResult CRCustomer(int id)
         {
-            var customerList = from a in db.Customers select a;
-            customerList = customerList.Where(c => c.CustomerId.Equals(id));            
-          
+            var customervar = from a in db.Customers select a;
+            customervar = customervar.Where(c => c.CustomerId.Equals(id));
+
+           List<Customer> customerList = customervar.ToList();
+
             List<Company> company = new List<Company>();
             company = db.Companies.ToList();
 
