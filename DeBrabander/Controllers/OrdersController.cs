@@ -24,8 +24,7 @@ namespace DeBrabander.Controllers
             return obj;
         }
     }
-    
-    
+
     public class OrdersController : Controller
     {
         private Context db = new Context();
@@ -226,7 +225,7 @@ namespace DeBrabander.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SubmitButton(Name ="CreateOrder")]
-        public ActionResult Create([ModelBinder(typeof(QuotationBinderCreate))]  OrderCreateViewModel ocvm, string[] DeliveryID)
+        public ActionResult Create([ModelBinder(typeof(OrderBinderCreate))]  OrderCreateViewModel ocvm, string[] DeliveryID)
         {
             if (ModelState.IsValid)
             {
@@ -273,6 +272,61 @@ namespace DeBrabander.Controllers
                 return RedirectToAction("Index");
             }
 
+            return View(ocvm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [SubmitButton(Name = "AddProductsOrder")]
+        public ActionResult CreateAndAddProducts([ModelBinder(typeof(OrderBinderCreate))]  OrderCreateViewModel ocvm, string[] DeliveryID)
+        {
+            if (ModelState.IsValid)
+            {
+                //aanmaken van quotation / customerdeliveryaddress en customer
+                Order order = new Order();
+                CustomerDeliveryAddress cda = new CustomerDeliveryAddress();
+                Customer cus = new Customer();
+
+                //ophalen van customerDeliveryAddressID vanuit de array
+                // eventueel nog test inbouwen voor lengte van array (check dat ze niet meer als 1 veld selecteren)
+                int DeliveryId = 1;
+                if (DeliveryID.Length == 1)
+                {
+                    DeliveryId = Int32.Parse(DeliveryID.First());
+                }
+                else
+                {
+                    return RedirectToAction("Create");
+                }
+
+                // ophalen delivery info en van daaruit customer info
+                cda = db.CustomerDeliveryAddresses.Find(DeliveryId);
+                cus = db.Customers.Find(cda.CustomerId);
+
+                // invullen van de klant info in de quotation
+                DefaultOrderInfo(order);
+                order.FirstName = cus.FirstName;
+                order.LastName = cus.LastName;
+                order.Box = cus.Address.Box;
+                order.CellPhone = cus.CellPhone;
+                order.CustomerId = cus.CustomerId;
+                order.Email = cus.Email;
+                order.PostalCodeNumber = cus.Address.PostalCodeNumber;
+                order.StreetName = cus.Address.StreetName;
+                order.StreetNumber = cus.Address.StreetNumber;
+                order.Town = cus.Address.Town;
+                order.Annotation = ocvm.order.Annotation;
+                order.customerDeliveryAddress = db.CustomerDeliveryAddresses.Find(DeliveryId);
+
+                //toevoegen en saven
+                db.Orders.Add(order);
+                db.SaveChanges();
+
+                int id = order.OrderId;
+                TempData["id"] = id;
+                return RedirectToAction("AddProducts");
+
+            }
             return View(ocvm);
         }
 
