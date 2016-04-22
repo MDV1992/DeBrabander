@@ -77,7 +77,7 @@ namespace DeBrabander.Controllers
                 return HttpNotFound();
             }
             ViewBag.OrderId = new SelectList(db.Orders, "OrderId", "Annotation", orderDetail.OrderId);
-            ViewBag.VATPercId = new SelectList(db.VATs, "VATPercId", "VATPercId", orderDetail.VATPercId);
+            ViewBag.VAT = new SelectList(db.VATs, "VATPercId", "VATValue");
             return View(orderDetail);
         }
 
