@@ -10,7 +10,8 @@ namespace DeBrabander.ViewModels.Orders
     {
         public Quotation quotation = new Quotation();
         public Order order = new Order();
-        public Customer customer = new Customer();        
+        public Customer customer = new Customer();
+        public Address address = new Address();      
         public OrderDetail orderDetail = new OrderDetail();
         public Product product = new Product();
     }

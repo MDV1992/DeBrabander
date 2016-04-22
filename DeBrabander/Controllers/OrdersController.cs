@@ -473,11 +473,24 @@ namespace DeBrabander.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Order order = db.Orders.Find(id);
+            var customer = db.Customers.Find(order.CustomerId);
+            Address werfadres = new Address();
+            werfadres.Box = order.customerDeliveryAddress.Box;
+            werfadres.PostalCodeNumber = order.customerDeliveryAddress.PostalCodeNumber;
+            werfadres.StreetName = order.customerDeliveryAddress.StreetName;
+            werfadres.StreetNumber = order.customerDeliveryAddress.StreetNumber;
+            werfadres.Town = order.customerDeliveryAddress.Town;
+
+            OrderEditViewModel oevm = new OrderEditViewModel();
+            oevm.order = order;
+            oevm.customer = customer;
+            oevm.address = werfadres;
+
             if (order == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(oevm);
         }
 
         // POST: Orders/Edit/5
