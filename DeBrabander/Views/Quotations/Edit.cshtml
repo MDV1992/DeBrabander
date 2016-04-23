@@ -78,7 +78,7 @@
         if (Model.quotation.QuotationDetail != null && Model.quotation.QuotationDetail.Count() != 0)
         {
             <div>
-                <table class="table">
+                <table class="table table-striped">
                     <tr>
                         <th>
                             @*@Html.DisplayNameFor(model => model.quotationDetail.ProductName)*@
@@ -178,6 +178,7 @@
                         <td>
                             @Html.DisplayFor(model => model.quotation.TotalPrice)
                         </td>
+                        <td></td>
                     </tr>
                 </table>
             </div>

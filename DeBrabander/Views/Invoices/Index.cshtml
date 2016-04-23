@@ -19,7 +19,7 @@
         <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px"/>
     </div>
 }
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             @Html.ActionLink(Html.DisplayNameFor(model => model.invoice.InvoiceNumber).ToHtmlString(), "Index", new { sortOrder = ViewBag.QuotationSortParm })
@@ -65,25 +65,25 @@
             </td>
             <td>
                 @*<abbr title="Overzicht Offerte">
-                    <a href="@Url.Action("Edit", "Quotations", new { id = item.QuotationId })" class="btn btn-info toggle-more-detail">
-                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                    </a>
-                </abbr>
-                <abbr title="Verwijder Offerte">
-                    <a href="@Url.Action("Delete", "Quotations", new { id = item.QuotationId })" class="btn btn-danger">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </a>
-                </abbr>
-                <abbr title="Artikel toevoegen">
-                    <a href="@Url.Action("AddProducts", "Quotations", new { id = item.QuotationId })" class="btn btn-success">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </a>
-                </abbr>
-                <abbr title="Offerte Kopiëren">
-                    <a href="@Url.Action("CopyQuotation", "Quotations", new { id = item.QuotationId })" class="btn btn-warning">
-                        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-                    </a>
-                </abbr>*@
+                        <a href="@Url.Action("Edit", "Quotations", new { id = item.QuotationId })" class="btn btn-info toggle-more-detail">
+                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                        </a>
+                    </abbr>
+                    <abbr title="Verwijder Offerte">
+                        <a href="@Url.Action("Delete", "Quotations", new { id = item.QuotationId })" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </abbr>
+                    <abbr title="Artikel toevoegen">
+                        <a href="@Url.Action("AddProducts", "Quotations", new { id = item.QuotationId })" class="btn btn-success">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </a>
+                    </abbr>
+                    <abbr title="Offerte Kopiëren">
+                        <a href="@Url.Action("CopyQuotation", "Quotations", new { id = item.QuotationId })" class="btn btn-warning">
+                            <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                        </a>
+                    </abbr>*@
             </td>
         </tr>
     }

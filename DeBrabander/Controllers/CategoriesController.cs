@@ -95,6 +95,7 @@ namespace DeBrabander.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.returnUrl = Request.UrlReferrer;
             return View(cevm);
         }
 
@@ -103,7 +104,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryId,CategoryName")] CategoryEditViewModel category)
+        public ActionResult Edit([Bind(Include = "CategoryId,CategoryName")] CategoryEditViewModel category, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -113,7 +114,7 @@ namespace DeBrabander.Controllers
 
                 db.Entry(cat).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Redirect(returnUrl);
             }
             return View(category);
         }

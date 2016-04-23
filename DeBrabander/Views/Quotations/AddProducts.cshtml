@@ -24,7 +24,7 @@
         }
     </div>
 
-    <table class="table">
+    <table class="table table-striped">
         <tr>
             <th>
                 @Html.ActionLink(Html.DisplayNameFor(Model => Model.product.ProductName).ToHtmlString(), "addProduct", new { sortOrder = ViewBag.ProductSortParm })
@@ -107,7 +107,7 @@ Page @(Model.products.PageCount < Model.products.PageNumber ? 0 : Model.products
 {
     if (Model.quotation.QuotationDetail != null && Model.quotation.QuotationDetail.Count != 0)
     {
-        <table class="table">
+        <table class="table table-striped">
             <tr>
                 <th>
                     @*@Html.DisplayNameFor(model => model.quotationDetail.ProductName)*@
@@ -207,6 +207,7 @@ Page @(Model.products.PageCount < Model.products.PageNumber ? 0 : Model.products
                 <td>
                     @Html.DisplayFor(model => model.quotation.TotalPrice)
                 </td>
+                <td></td>
             </tr>
         </table>
     }
