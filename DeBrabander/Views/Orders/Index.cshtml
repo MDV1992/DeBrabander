@@ -15,13 +15,13 @@
 
 @using (Html.BeginForm())
 {
-    <p>
-        Zoek op klant: &nbsp;@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string)
-        Zoek op Ordernummer: &nbsp;@Html.TextBox("searchOrderNumber", ViewBag.CurrentFilterOrder as string)  <br>
-        Zoek op werf: &nbsp;@Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string)
-        Oude orders : &nbsp;@Html.CheckBox("searchNonActive", (bool)ViewBag.CurrentFilterNonActive)
-        <input type="submit" value="Zoek" />
-    </p>
+    <div style="margin-bottom: 5px;">
+        @*Zoek op klant: &nbsp;*@@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })
+        @*Zoek op offertenummer: &nbsp;*@@Html.TextBox("searchOrderNumber", ViewBag.CurrentFilterOrder as string, new { @class = "form-control", placeholder = "Zoek op ordernummer", @style = "margin: 3px;" })
+        @*Zoek op werf: &nbsp;*@@Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string, new { @class = "form-control", placeholder = "Zoek op werf", @style = "margin: 3px;" })
+        Oude orders : &nbsp;@Html.CheckBox("searchNonActive", (bool)ViewBag.CurrentFilterNonActive)<br>
+        <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px" />
+    </div>
 }
 <table class="table">
     <tr>

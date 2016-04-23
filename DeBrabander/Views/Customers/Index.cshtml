@@ -15,11 +15,16 @@
 </p>
 @using (Html.BeginForm("Index", "Customers", FormMethod.Get))
 {
-    <p>
+    @*<p>
         <b>Zoeken op:</b> <br />
         Naam: @Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string, new {@class="form-control"}) Gemeente: @Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string, new { @class = "form-control" })
         <input type="submit" value="Zoek"  class="btn btn-default" style="margin-top: 4px;"/>
-    </p>
+    </p>*@
+    <div style="margin-bottom: 5px;">
+        @*Zoek op klant: &nbsp;*@@Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string, new { @class = "form-control", placeholder = "Zoeken op naam", @style = "margin: 3px;" })
+        @*Zoek op offertenummer: &nbsp;*@@Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string, new { @class = "form-control", placeholder = "Zoek op gemeente", @style = "margin: 3px;" })
+        <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px" />
+    </div>
 }
 <table class="table">
     <tr>

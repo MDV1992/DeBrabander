@@ -14,9 +14,9 @@
 {
     <div style="margin-bottom: 5px;">
         @*Zoek op klant: &nbsp;*@@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })
-        @*Zoek op offertenummer: &nbsp;*@@Html.TextBox("searchQuotationNumber", ViewBag.CurrentFilterQuotation as string, new { @class = "form-control", placeholder = "Zoek op offertenummer", @style = "margin: 3px;" })
+        @*Zoek op offertenummer: &nbsp;*@@Html.TextBox("searchInvoiceNumber", ViewBag.currentFilterInvoiceNumber as string, new { @class = "form-control", placeholder = "Zoek op factuurnummer", @style = "margin: 3px;" })
         @*Zoek op werf: &nbsp;*@@Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string, new { @class = "form-control", placeholder = "Zoek op werf", @style = "margin: 3px;" })
-        <input type="submit" value="Zoek"/>
+        <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px"/>
     </div>
 }
 <table class="table">
