@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DeBrabander.DAL;
+using DeBrabander.ViewModels.Settings;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,10 +11,14 @@ namespace DeBrabander.Controllers
 {
     public class SettingsController : Controller
     {
+        private Context db = new Context();
         // GET: Settings
         public ActionResult Index()
         {
-            return View();
+            SettingsViewModel svm = new SettingsViewModel();
+            var categoryList = from c in db.Categories select c;
+            svm.categorys = categoryList.ToList();
+            return View(svm);
         }
 
         //[HttpPost]

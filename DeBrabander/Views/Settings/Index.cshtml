@@ -1,5 +1,5 @@
-﻿
-@{
+﻿@model DeBrabander.ViewModels.Settings.SettingsViewModel
+    @{
     ViewBag.Title = "Index";
 }
 
@@ -9,6 +9,56 @@
     <tr>
         <td>
             <a href="@Url.Action("Index", "Categories")" class="btn btn-default">Categorie</a>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Categorie Modal</button>
+
+            <!-- Modal -->
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                @Html.ActionLink("Nieuwe categorie aanmaken", "Create", "Categories")
+                            </p>
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.category.CategoryName)
+                                    </th>
+                                    <th></th>
+                                </tr>
+
+                                @foreach (var item in Model.categorys)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CategoryName)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Edit", "Categories", new { id = item.CategoryId })" class="btn btn-info">
+                                                Aanpassen
+                                            </a>
+                                            <a href="@Url.Action("Delete", "Categories", new { id = item.CategoryId })" class="btn btn-info">
+                                                Verwijderen
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </td>
         <td>
             <a href="@Url.Action("Index", "VATs")" class="btn btn-default">BTW</a>
