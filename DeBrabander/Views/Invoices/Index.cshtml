@@ -12,12 +12,12 @@
 
 @using (Html.BeginForm())
 {
-    <p>
-        Zoek op klant: &nbsp;@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string)
-        Zoek op offertenummer: &nbsp;@Html.TextBox("searchInvoiceNumber", ViewBag.CurrentFilterInvoice as string) <br>
-        Zoek op werf: &nbsp;@Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string)
-        <input type="submit" value="Zoek" />
-    </p>
+    <div style="margin-bottom: 5px;">
+        @*Zoek op klant: &nbsp;*@@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })
+        @*Zoek op offertenummer: &nbsp;*@@Html.TextBox("searchQuotationNumber", ViewBag.CurrentFilterQuotation as string, new { @class = "form-control", placeholder = "Zoek op offertenummer", @style = "margin: 3px;" })
+        @*Zoek op werf: &nbsp;*@@Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string, new { @class = "form-control", placeholder = "Zoek op werf", @style = "margin: 3px;" })
+        <input type="submit" value="Zoek"/>
+    </div>
 }
 <table class="table">
     <tr>
