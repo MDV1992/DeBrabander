@@ -11,20 +11,32 @@
 <script src="~/Scripts/TableRowCollapse.js"></script>
 <p>
     @Html.ActionLink("Nieuwe klant", "Create")
-    <a href="@Url.Action("CRAllCustomers")"> Print alle klanten</a>
+    <abbr title="Print alle kranten">
+        <a href="@Url.Action("CRAllCustomers")" class="btn btn-danger">
+            <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+        </a>
+    </abbr>
 </p>
 @using (Html.BeginForm("Index", "Customers", FormMethod.Get))
 {
     @*<p>
-        <b>Zoeken op:</b> <br />
-        Naam: @Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string, new {@class="form-control"}) Gemeente: @Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string, new { @class = "form-control" })
-        <input type="submit" value="Zoek"  class="btn btn-default" style="margin-top: 4px;"/>
-    </p>*@
-    <div style="margin-bottom: 5px;">
-        @*Zoek op klant: &nbsp;*@@Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string, new { @class = "form-control", placeholder = "Zoeken op naam", @style = "margin: 3px;" })
-        @*Zoek op offertenummer: &nbsp;*@@Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string, new { @class = "form-control", placeholder = "Zoek op gemeente", @style = "margin: 3px;" })
-        <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px" />
+            <b>Zoeken op:</b> <br />
+            Naam: @Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string, new {@class="form-control"}) Gemeente: @Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string, new { @class = "form-control" })
+            <input type="submit" value="Zoek"  class="btn btn-default" style="margin-top: 4px;"/>
+        </p>*@
+    <div class="col-md-12 ">
+        <div style="margin-bottom: 5px;" class="col-md-10">
+            @*Zoek op klant: &nbsp;*@@Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string, new { @class = "form-control", placeholder = "Zoeken op naam", @style = "margin: 3px;" })
+            @*Zoek op offertenummer: &nbsp;*@@Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string, new { @class = "form-control", placeholder = "Zoek op gemeente", @style = "margin: 3px;" })
+            <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px" />
+        </div>
+        <div class="col-md-2">
+            Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
+            @Html.PagedListPager(Model.customers, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }))
+        </div>
     </div>
+
+
 }
 <table class="table table-striped">
     <tr>
@@ -118,5 +130,5 @@
 
 </table>
 <br />
-Pagina @(Model.customers.PageCount<Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
-@Html.PagedListPager(Model.customers,page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown}))
+Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
+@Html.PagedListPager(Model.customers, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }))
