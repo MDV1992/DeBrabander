@@ -523,8 +523,9 @@ namespace DeBrabander.Controllers
         {
             var customervar = from a in db.Customers select a;
             customervar = customervar.Where(c => c.CustomerId.Equals(id));
-
-           List<Customer> customerList = customervar.ToList();
+            
+            //expliciete conversie was nodig, Anders conection error nadien op item.adresses.etc
+            List<Customer> customerList = customervar.ToList();
 
             List<Company> company = new List<Company>();
             company = db.Companies.ToList();

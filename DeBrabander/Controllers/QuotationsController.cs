@@ -10,7 +10,10 @@ using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
 using DeBrabander.ViewModels.Quotations;
+using DeBrabander.ViewModels;
+using CrystalDecisions.CrystalReports.Engine;
 using PagedList;
+using System.IO;
 
 namespace DeBrabander.Controllers
 {
@@ -676,6 +679,69 @@ namespace DeBrabander.Controllers
             db.SaveChanges();
 
         }
+
+
+        public ActionResult CRAllQuotations(int? id)
+        {
+            List<Quotation> allQuotations = new List<Quotation>();
+            allQuotations = db.Quotations.ToList();
+
+            List<Company> company = new List<Company>();
+            company = db.Companies.ToList();
+
+            List<AllQuotationsCRViewModel> allQuotationsCR = new List<AllQuotationsCRViewModel>();
+            foreach (var item in allQuotations)
+            {
+                var allQuotationCR = new AllQuotationsCRViewModel();
+                allQuotationCR.QuotationId = item.QuotationId;
+                allQuotationCR.QuotationNumber = item.QuotationNumber;
+                allQuotationCR.Active = item.Active;
+                allQuotationCR.ExpirationDate = item.ExpirationDate;
+                allQuotationCR.Date = item.Date;
+                allQuotationCR.CustomerId = item.CustomerId;
+                allQuotationCR.Annotation = item.Annotation;
+                allQuotationCR.FirstName = item.FirstName;
+                allQuotationCR.LastName = item.LastName;
+                allQuotationCR.StreetName = item.StreetName;
+                allQuotationCR.StreetNumber = item.StreetNumber;
+                allQuotationCR.Town = item.Town;
+                allQuotationCR.PostalCodeNumber = item.PostalCodeNumber;
+                allQuotationCR.Box = item.Box;
+                allQuotationCR.TotalPrice = item.TotalPrice;
+
+                allQuotationsCR.Add(allQuotationCR);
+            }
+
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AllQuotationsMain.rpt"));
+            rd.OpenSubreport("Header.rpt").SetDataSource(company);
+            rd.OpenSubreport("allQuotationsSub.rpt").SetDataSource(allQuotationsCR);
+            //rd.SetDataSource(company);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "All_Quotations.pdf");
+            }
+            catch (Exception ex)
+            {
+                if (ex.Data == null)
+                {
+                    throw;
+                }
+                else
+                {
+                    throw;
+                }
+
+            }
+        }
+
 
         protected override void Dispose(bool disposing)
         {
