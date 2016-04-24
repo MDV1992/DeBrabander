@@ -4,25 +4,20 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "De Brabander";
 }
 <h2>Klanten overzicht</h2>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/TableRowCollapse.js"></script>
 @using (Html.BeginForm("Index", "Customers", FormMethod.Get))
 {
-    @*<p>
-            <b>Zoeken op:</b> <br />
-            Naam: @Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string, new {@class="form-control"}) Gemeente: @Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string, new { @class = "form-control" })
-            <input type="submit" value="Zoek"  class="btn btn-default" style="margin-top: 4px;"/>
-        </p>*@
-    <div class="col-md-12 ">
-        <div style="margin-bottom: 5px;" class="col-md-10">
+    <div class="col-md-12">
+        <div class="col-md-6">
             @*Zoek op klant: &nbsp;*@@Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string, new { @class = "form-control", placeholder = "Zoeken op naam", @style = "margin: 3px;" })
             @*Zoek op offertenummer: &nbsp;*@@Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string, new { @class = "form-control", placeholder = "Zoek op gemeente", @style = "margin: 3px;" })
             <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px" />
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 col-md-offset-4">
             <p>
                 <abbr title="Nieuwe klant aanmaken">
                     <a href="@Url.Action("Create", "Customers")" class="btn btn-info">
@@ -42,98 +37,100 @@
 
 
 }
-<table class="table table-striped">
-    <tr>
-        <th>
-            @Html.ActionLink(Html.DisplayNameFor(model => model.customer.LastName).ToHtmlString(), "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.customer.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.customer.Address.StreetName) + Nr.
-        </th>
-        <th>
+<div class="col-md-12">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.customer.LastName).ToHtmlString(), "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customer.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customer.Address.StreetName) + Nr.
+            </th>
+            <th>
 
-            @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "Index", new { sortOrder = ViewBag.TownSortParm })
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.customer.CompanyName)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.customers)
-    {
-        <tr class="customer">
-            <td>
-                <input type="checkbox" class="select" data-customer="@Html.DisplayFor(modelItem => item.CustomerId)"> @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelitem => item.Address.StreetName)
-                @Html.DisplayFor(modelitem => item.Address.StreetNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelitem => item.Address.Town)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompanyName)
-            </td>
-            <td>
-                <abbr title="Klantengegevens aanpassen">
-                    <a href="@Url.Action("Edit", "Customers", new { id = item.CustomerId })" class="btn btn-primary toggle-more-detail">
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    </a>
-                </abbr>
-                <abbr title="Overzicht klantengegevens">
-                    <a href="@Url.Action("Details", "Customers", new { id = item.CustomerId })" class="btn btn-info toggle-more-detail">
-                        <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-                    </a>
-                </abbr>
-                <abbr title="Klantengegevens aanpassen">
-                    <a href="@Url.Action("Delete", "Customers", new { id = item.CustomerId })" class="btn btn-danger toggle-more-detail">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </a>
-                </abbr>
-                <abbr title="Werfadres toevoegen">
-                    <a href="@Url.Action("AddDeliveryAddress", "Customers", new { id = item.CustomerId })" class="btn btn-success toggle-more-detail">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </a>
-                </abbr>
-            </td>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "Index", new { sortOrder = ViewBag.TownSortParm })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customer.CompanyName)
+            </th>
+            <th></th>
         </tr>
-        <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
-            <th>
 
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.customer.CellPhone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.customer.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.customer.VATNumber)
-            </th>
-        </tr>
-        <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
-            <td></td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CellPhone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VATNumber)
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model.customers)
+        {
+            <tr class="customer">
+                <td>
+                    <input type="checkbox" class="select" data-customer="@Html.DisplayFor(modelItem => item.CustomerId)"> @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Address.StreetName)
+                    @Html.DisplayFor(modelitem => item.Address.StreetNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Address.Town)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+                <td>
+                    <abbr title="Klantengegevens aanpassen">
+                        <a href="@Url.Action("Edit", "Customers", new { id = item.CustomerId })" class="btn btn-primary toggle-more-detail">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </a>
+                    </abbr>
+                    <abbr title="Overzicht klantengegevens">
+                        <a href="@Url.Action("Details", "Customers", new { id = item.CustomerId })" class="btn btn-info toggle-more-detail">
+                            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                        </a>
+                    </abbr>
+                    <abbr title="Klantengegevens aanpassen">
+                        <a href="@Url.Action("Delete", "Customers", new { id = item.CustomerId })" class="btn btn-danger toggle-more-detail">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </abbr>
+                    <abbr title="Werfadres toevoegen">
+                        <a href="@Url.Action("AddDeliveryAddress", "Customers", new { id = item.CustomerId })" class="btn btn-success toggle-more-detail">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </a>
+                    </abbr>
+                </td>
+            </tr>
+            <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
+                <th>
 
-</table>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.customer.CellPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.customer.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.customer.VATNumber)
+                </th>
+            </tr>
+            <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
+                <td></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CellPhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VATNumber)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
 <br />
 <div class="col-md-2 col-md-offset-10">
     Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount

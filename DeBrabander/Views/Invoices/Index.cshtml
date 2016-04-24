@@ -4,7 +4,7 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "De Brabander";
 }
 <h2>Factuur overzicht</h2>
 <link href="~/Content/Site.css" rel="stylesheet" />
@@ -12,83 +12,93 @@
 
 @using (Html.BeginForm())
 {
-    <div style="margin-bottom: 5px;">
-        @*Zoek op klant: &nbsp;*@@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })
-        @*Zoek op offertenummer: &nbsp;*@@Html.TextBox("searchInvoiceNumber", ViewBag.currentFilterInvoiceNumber as string, new { @class = "form-control", placeholder = "Zoek op factuurnummer", @style = "margin: 3px;" })
-        @*Zoek op werf: &nbsp;*@@Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string, new { @class = "form-control", placeholder = "Zoek op werf", @style = "margin: 3px;" })
-        <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px"/>
+    <div class="col-md-12">
+        <div class="col-md-6">
+            @*Zoek op klant: &nbsp;*@@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })
+            @*Zoek op offertenummer: &nbsp;*@@Html.TextBox("searchInvoiceNumber", ViewBag.currentFilterInvoiceNumber as string, new { @class = "form-control", placeholder = "Zoek op factuurnummer", @style = "margin: 3px;" })
+            @*Zoek op werf: &nbsp;*@@Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string, new { @class = "form-control", placeholder = "Zoek op werf", @style = "margin: 3px;" })
+            <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px" />
+        </div>
+        <div class="col-md-2 col-md-offset-4">
+            Pagina @(Model.invoices.PageCount < Model.invoices.PageNumber ? 0 : Model.invoices.PageNumber) van de @Model.invoices.PageCount
+            @Html.PagedListPager(Model.invoices, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterInvoiceNumber = ViewBag.CurrentFilterInvoice, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery }))
+        </div>
     </div>
 }
-<table class="table table-striped">
-    <tr>
-        <th>
-            @Html.ActionLink(Html.DisplayNameFor(model => model.invoice.InvoiceNumber).ToHtmlString(), "Index", new { sortOrder = ViewBag.QuotationSortParm })
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.invoice.Date)
-        </th>
-        <th>
-            @Html.ActionLink(Html.DisplayNameFor(model => model.invoice.FullName).ToHtmlString(), "Index", new { sortOrder = ViewBag.CustomerSortParm })
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.invoice.Annotation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.invoice.customerDeliveryAddress.DeliveryAddressInfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.invoice.TotalPrice)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.invoices)
-    {
+<div class="col-md-12">
+    <table class="table table-striped">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.InvoiceNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Annotation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.customerDeliveryAddress.DeliveryAddressInfo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalPrice)
-            </td>
-            <td>
-                @*<abbr title="Overzicht Offerte">
-                        <a href="@Url.Action("Edit", "Quotations", new { id = item.QuotationId })" class="btn btn-info toggle-more-detail">
-                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                        </a>
-                    </abbr>
-                    <abbr title="Verwijder Offerte">
-                        <a href="@Url.Action("Delete", "Quotations", new { id = item.QuotationId })" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </a>
-                    </abbr>
-                    <abbr title="Artikel toevoegen">
-                        <a href="@Url.Action("AddProducts", "Quotations", new { id = item.QuotationId })" class="btn btn-success">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </a>
-                    </abbr>
-                    <abbr title="Offerte Kopiëren">
-                        <a href="@Url.Action("CopyQuotation", "Quotations", new { id = item.QuotationId })" class="btn btn-warning">
-                            <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-                        </a>
-                    </abbr>*@
-            </td>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.invoice.InvoiceNumber).ToHtmlString(), "Index", new { sortOrder = ViewBag.QuotationSortParm })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.invoice.Date)
+            </th>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.invoice.FullName).ToHtmlString(), "Index", new { sortOrder = ViewBag.CustomerSortParm })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.invoice.Annotation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.invoice.customerDeliveryAddress.DeliveryAddressInfo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.invoice.TotalPrice)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model.invoices)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvoiceNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Annotation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.customerDeliveryAddress.DeliveryAddressInfo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @*<abbr title="Overzicht Offerte">
+                            <a href="@Url.Action("Edit", "Quotations", new { id = item.QuotationId })" class="btn btn-info toggle-more-detail">
+                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                            </a>
+                        </abbr>
+                        <abbr title="Verwijder Offerte">
+                            <a href="@Url.Action("Delete", "Quotations", new { id = item.QuotationId })" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </a>
+                        </abbr>
+                        <abbr title="Artikel toevoegen">
+                            <a href="@Url.Action("AddProducts", "Quotations", new { id = item.QuotationId })" class="btn btn-success">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            </a>
+                        </abbr>
+                        <abbr title="Offerte Kopiëren">
+                            <a href="@Url.Action("CopyQuotation", "Quotations", new { id = item.QuotationId })" class="btn btn-warning">
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                            </a>
+                        </abbr>*@
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
 <br />
-Pagina @(Model.invoices.PageCount < Model.invoices.PageNumber ? 0 : Model.invoices.PageNumber) van de @Model.invoices.PageCount
-@Html.PagedListPager(Model.invoices, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterInvoiceNumber = ViewBag.CurrentFilterInvoice, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery}))
+<div class="col-md-2 col-md-offset-10">
+    Pagina @(Model.invoices.PageCount < Model.invoices.PageNumber ? 0 : Model.invoices.PageNumber) van de @Model.invoices.PageCount
+    @Html.PagedListPager(Model.invoices, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterInvoiceNumber = ViewBag.CurrentFilterInvoice, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery }))
+</div>
