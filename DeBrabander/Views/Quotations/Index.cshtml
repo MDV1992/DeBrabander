@@ -104,3 +104,8 @@
 <br />
 Pagina @(Model.quotations.PageCount < Model.quotations.PageNumber ? 0 : Model.quotations.PageNumber) van de @Model.quotations.PageCount
 @Html.PagedListPager(Model.quotations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterQuotationNumber = ViewBag.CurrentFilterQuotation, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery, currentFilterNonActive = ViewBag.CurrentFilterNonActive }))
+<div style="margin-bottom: 5px;">
+    <a href="@Url.Action("Create", "Quotations")" class="btn btn-info">
+        Nieuwe offerte aanmaken
+    </a>
+</div>
