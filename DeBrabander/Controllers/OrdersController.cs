@@ -540,33 +540,36 @@ namespace DeBrabander.Controllers
 
         public ActionResult CRAllOrders(int? id)
         {
-            List<Order> allOrders = new List<Order>();
-            allOrders = db.Orders.ToList();
+            var allOrdersvar = from a in db.Orders select a;
+            allOrdersvar = allOrdersvar.Where(o => o.Active.Equals(true));
+
+            List<Order> ActiveOrderlist = allOrdersvar.ToList();
 
             List<Company> company = new List<Company>();
             company = db.Companies.ToList();
 
             List<AllOrdersCRViewModel> allOrdersCR = new List<AllOrdersCRViewModel>();
-            foreach (var item in allOrders)
+            foreach (var item in ActiveOrderlist)
             {
-                var allOrderCR = new AllOrdersCRViewModel();
-                allOrderCR.OrderId = item.OrderId;
-                allOrderCR.OrderNumber = item.OrderNumber;
-                allOrderCR.Active = item.Active;
-                allOrderCR.Date = item.Date;
-                allOrderCR.Annotation = item.Annotation;
-                allOrderCR.FirstName = item.FirstName;
-                allOrderCR.LastName = item.LastName;
-                allOrderCR.Email = item.Email;
-                allOrderCR.StreetName = item.StreetName;
-                allOrderCR.StreetNumber = item.StreetNumber;
-                allOrderCR.Box = item.Box;
-                allOrderCR.CellPhone = item.CellPhone;
-                allOrderCR.PostalCodeNumber = item.PostalCodeNumber;
-                allOrderCR.Town = item.Town;
-                allOrderCR.TotalPrice = item.TotalPrice;
+                    var allOrderCR = new AllOrdersCRViewModel();
+                    allOrderCR.OrderId = item.OrderId;
+                    allOrderCR.OrderNumber = item.OrderNumber;
+                    allOrderCR.Active = item.Active;
+                    allOrderCR.Date = item.Date;
+                    allOrderCR.CustomerId = item.CustomerId;
+                    allOrderCR.Annotation = item.Annotation;
+                    allOrderCR.FirstName = item.FirstName;
+                    allOrderCR.LastName = item.LastName;
+                    allOrderCR.Email = item.Email;
+                    allOrderCR.StreetName = item.StreetName;
+                    allOrderCR.StreetNumber = item.StreetNumber;
+                    allOrderCR.Box = item.Box;
+                    allOrderCR.CellPhone = item.CellPhone;
+                    allOrderCR.PostalCodeNumber = item.PostalCodeNumber;
+                    allOrderCR.Town = item.Town;
+                    allOrderCR.TotalPrice = item.TotalPrice;
 
-                allOrdersCR.Add(allOrderCR);
+                    allOrdersCR.Add(allOrderCR);
             }
 
             ReportDocument rd = new ReportDocument();
