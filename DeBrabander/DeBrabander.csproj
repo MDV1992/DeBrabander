@@ -237,6 +237,18 @@
     <Compile Include="Models\Invoice\InvoiceDetail.cs" />
     <Compile Include="Models\Order\Order.cs" />
     <Compile Include="Models\Order\OrderDetail.cs" />
+    <Compile Include="Reports\AllOrdersMain.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AllOrdersMain.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\allOrdersSub.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>allOrdersSub.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\AllProductsMain.cs">
       <DependentUpon>AllProductsMain.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -327,6 +339,7 @@
     <Compile Include="ViewModels\Orders\OrderEditViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderIndexViewModel.cs" />
     <Compile Include="ViewModels\Reports\CustomerCR\CustomerDeliveryAdressesCRViewModel.cs" />
+    <Compile Include="ViewModels\Reports\OrderCR\AllOrdersCRViewModel.cs" />
     <Compile Include="ViewModels\Reports\ProductCR\ProductCRViewModel.cs" />
     <Compile Include="ViewModels\Reports\CustomerCR\CustomerCRViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryCreateViewModel.cs" />
@@ -444,6 +457,14 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\AllOrdersMain.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AllOrdersMain.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\allOrdersSub.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>allOrdersSub.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\AllProductsMain.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AllProductsMain.cs</LastGenOutput>

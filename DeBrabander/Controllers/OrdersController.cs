@@ -9,6 +9,9 @@ using System.Web.Mvc;
 using DeBrabander.DAL;
 using DeBrabander.Models;
 using DeBrabander.ViewModels.Orders;
+using DeBrabander.ViewModels;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
 using PagedList;
 
 namespace DeBrabander.Controllers
@@ -534,6 +537,72 @@ namespace DeBrabander.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult CRAllOrders(int? id)
+        {
+            var allOrdersvar = from a in db.Orders select a;
+            allOrdersvar = allOrdersvar.Where(o => o.Active.Equals(true));
+
+            List<Order> ActiveOrderlist = allOrdersvar.ToList();
+
+            List<Company> company = new List<Company>();
+            company = db.Companies.ToList();
+
+            List<AllOrdersCRViewModel> allOrdersCR = new List<AllOrdersCRViewModel>();
+            foreach (var item in ActiveOrderlist)
+            {
+                    var allOrderCR = new AllOrdersCRViewModel();
+                    allOrderCR.OrderId = item.OrderId;
+                    allOrderCR.OrderNumber = item.OrderNumber;
+                    allOrderCR.Active = item.Active;
+                    allOrderCR.Date = item.Date;
+                    allOrderCR.CustomerId = item.CustomerId;
+                    allOrderCR.Annotation = item.Annotation;
+                    allOrderCR.FirstName = item.FirstName;
+                    allOrderCR.LastName = item.LastName;
+                    allOrderCR.Email = item.Email;
+                    allOrderCR.StreetName = item.StreetName;
+                    allOrderCR.StreetNumber = item.StreetNumber;
+                    allOrderCR.Box = item.Box;
+                    allOrderCR.CellPhone = item.CellPhone;
+                    allOrderCR.PostalCodeNumber = item.PostalCodeNumber;
+                    allOrderCR.Town = item.Town;
+                    allOrderCR.TotalPrice = item.TotalPrice;
+
+                    allOrdersCR.Add(allOrderCR);
+            }
+
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AllQuotationsMain.rpt"));
+            rd.OpenSubreport("Header.rpt").SetDataSource(company);
+            rd.OpenSubreport("allQuotationsSub.rpt").SetDataSource(allOrdersCR);
+            //rd.SetDataSource(company);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "All_Orders.pdf");
+            }
+            catch (Exception ex)
+            {
+                if (ex.Data == null)
+                {
+                    throw;
+                }
+                else
+                {
+                    throw;
+                }
+
+            }
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

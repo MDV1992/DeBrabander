@@ -10,7 +10,8 @@
 <h2>Orders overzicht</h2>
 <link href="~/Content/Site.css" rel="stylesheet" />
 <p>
-    @Html.ActionLink("Nieuwe order aanmaken", "Create")
+    @Html.ActionLink("Nieuwe order aanmaken", "Create") |
+    <a href="@Url.Action("CRAllOrders")"> Print alle offertes</a>
 </p>
 
 @using (Html.BeginForm())
