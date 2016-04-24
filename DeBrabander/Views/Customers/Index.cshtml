@@ -9,14 +9,6 @@
 <h2>Klanten overzicht</h2>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/TableRowCollapse.js"></script>
-<p>
-    @Html.ActionLink("Nieuwe klant", "Create")
-    <abbr title="Print alle kranten">
-        <a href="@Url.Action("CRAllCustomers")" class="btn btn-danger">
-            <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
-        </a>
-    </abbr>
-</p>
 @using (Html.BeginForm("Index", "Customers", FormMethod.Get))
 {
     @*<p>
@@ -31,6 +23,18 @@
             <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px" />
         </div>
         <div class="col-md-2">
+            <p>
+                <abbr title="Nieuwe klant aanmaken">
+                    <a href="@Url.Action("Create", "Customers")" class="btn btn-info">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    </a>
+                </abbr>
+                <abbr title="Print alle kranten">
+                    <a href="@Url.Action("CRAllCustomers")" class="btn btn-info">
+                        <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                    </a>
+                </abbr>
+            </p>
             Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
             @Html.PagedListPager(Model.customers, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }))
         </div>
@@ -47,7 +51,7 @@
             @Html.DisplayNameFor(model => model.customer.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.customer.Address.StreetName)
+            @Html.DisplayNameFor(model => model.customer.Address.StreetName) + Nr.
         </th>
         <th>
 
@@ -70,6 +74,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelitem => item.Address.StreetName)
+                @Html.DisplayFor(modelitem => item.Address.StreetNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelitem => item.Address.Town)
@@ -130,5 +135,7 @@
 
 </table>
 <br />
-Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
-@Html.PagedListPager(Model.customers, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }))
+<div class="col-md-2 col-md-offset-10">
+    Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
+    @Html.PagedListPager(Model.customers, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }))
+</div>
