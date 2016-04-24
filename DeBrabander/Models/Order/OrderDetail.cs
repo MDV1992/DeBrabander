@@ -41,13 +41,9 @@ namespace DeBrabander.Models
         public double TotalExVat { get; set; }
         [DisplayName("Totaal Inclusief BTW")]
         public double TotalIncVat { get; set; }
-        public virtual Order Order { get; set; }
+        
         public virtual VAT VAT { get; set; }
 
-        public void CalculateTotal()
-        {
-            TotalExVat = (PriceExVAT + ((PriceExVAT / 100) * VAT.VATValue)) * Quantity;
-            Order.TotalPrice = Order.OrderDetail.Sum(x => x.TotalExVat);
-        }
+ 
     }
 }

@@ -18,8 +18,8 @@ namespace DeBrabander.Controllers
         // GET: OrderDetails
         public ActionResult Index()
         {
-            var orderDetails = db.OrderDetails.Include(o => o.Order).Include(o => o.VAT);
-            return View(orderDetails.ToList());
+            var orderDetails = db.OrderDetails.ToList();
+            return View(orderDetails);
         }
 
         // GET: OrderDetails/Details/5

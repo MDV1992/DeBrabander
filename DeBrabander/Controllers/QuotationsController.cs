@@ -589,22 +589,35 @@ namespace DeBrabander.Controllers
             db.SaveChanges();
 
             //temp
-            var delivery = db.CustomerDeliveryAddresses.Find(quotOld.customerDeliveryAddress.CustomerDeliveryAddressId);
-
-            
+            var delivery = db.CustomerDeliveryAddresses.Find(quotOld.customerDeliveryAddress.CustomerDeliveryAddressId);            
             quotNew.customerDeliveryAddress = delivery;
-            
-            quotNew.QuotationDetail = quotOld.QuotationDetail;
 
-            foreach (var item in quotNew.QuotationDetail)
+            
+            
+
+            foreach (var item in quotOld.QuotationDetail)
             {
-                item.Quantity = 1;
-                item.PriceExVAT = 0;
-                item.TotalExVat = 0;
-                item.TotalIncVat = 0;
-                item.QuotationId = quotNew.QuotationId;
-                //db.QuotationDetails.Add(item);
-                
+
+                var qd = new QuotationDetail();
+                qd.Quantity = item.Quantity;
+                qd.PriceExVAT = item.PriceExVAT;
+                qd.TotalExVat = item.TotalExVat;
+                qd.TotalIncVat = item.TotalIncVat;
+                qd.Auvibel = item.Auvibel;
+                qd.Bebat = item.Bebat;
+                qd.Brand = item.Brand;
+                qd.CategoryId = item.CategoryId;
+                qd.Description = item.Description;
+                qd.ProductCode = item.ProductCode;
+                qd.ProductName = item.ProductName;
+                qd.Recupel = item.Recupel;
+                qd.Reprobel = item.Reprobel;
+                qd.VATPercId = item.VATPercId;
+                qd.ProductId = item.ProductId;
+                qd.QuotationId = quotNew.QuotationId;
+                qd.VAT = item.VAT;
+                db.QuotationDetails.Add(qd);
+
             }
 
             db.SaveChanges();

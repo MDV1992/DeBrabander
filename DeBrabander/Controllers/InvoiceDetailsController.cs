@@ -18,8 +18,8 @@ namespace DeBrabander.Controllers
         // GET: InvoiceDetails
         public ActionResult Index()
         {
-            var invoiceDetails = db.InvoiceDetails.Include(i => i.Invoice).Include(i => i.VAT);
-            return View(invoiceDetails.ToList());
+            var invoiceDetails = db.InvoiceDetails.ToList();
+            return View(invoiceDetails);
         }
 
         // GET: InvoiceDetails/Details/5
