@@ -2,14 +2,14 @@
 @using PagedList.Mvc;
 @using PagedList;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
+ 
 @{
     ViewBag.Title = "AddDeliveryAddress";
 }
 Voeg een werfadres toe aan klant @Model.customer.FullName
 
 
-
+<div class="row">
 @using (Html.BeginForm("AddDeliveryAddress", "Customers", FormMethod.Get))
 {
     <h2>Selecteer een reeds bestaand adres</h2>
@@ -18,82 +18,134 @@ Voeg een werfadres toe aan klant @Model.customer.FullName
         Find by postalcode: @Html.TextBox("SearchStringPostal", ViewBag.CurrentFilterPostal as string) <input type="submit" value="Search" />
     </p>
 
-        <table class="table">
+    <table class="table table-striped">
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.TownSortParm })
+            </th>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.PostalCodeNumber).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.PostalCodeSortParm })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customer.Address.StreetName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customer.Address.StreetNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customer.Address.Box)
+            </th>
+        </tr>
+
+        @foreach (var item in ViewBag.Addressess)
+        {
             <tr>
-                <th>
-
-                </th>
-                <th>
-                    @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.TownSortParm })
-                </th>
-                <th>
-                    @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.PostalCodeNumber).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.PostalCodeSortParm })
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.customer.Address.StreetName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.customer.Address.StreetNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.customer.Address.Box)
-                </th>
+                <td>
+                    <input type="checkbox" name="AddressId" value="@item.AddressId"> Selecteer dit adres<br>
+                </td>
+                <td>
+                    @item.Town
+                </td>
+                <td>
+                    @item.PostalCodeNumber
+                </td>
+                <td>
+                    @item.StreetName
+                </td>
+                <td>
+                    @item.StreetNumber
+                </td>
+                <td>
+                    @item.Box
+                </td>
             </tr>
+        }
+    </table>
 
-            @foreach (var item in ViewBag.Addressess)
-            {
+    @*<div class="col-lg-pull-0">
+            <h3>Of maak een nieuw werfadres aan</h3>
+            <table>
                 <tr>
-                    <td>
-                        <input type="checkbox" name="AddressId" value="@item.AddressId"> Selecteer dit adres<br>
-                    </td>
-                    <td>
-                        @item.Town
-                    </td>
-                    <td>
-                        @item.PostalCodeNumber
-                    </td>
-                    <td>
-                        @item.StreetName
-                    </td>
-                    <td>
-                        @item.StreetNumber
-                    </td>
-                    <td>
-                        @item.Box
-                    </td>
+                    <th colspan="2">
+                        Of maak een nieuw werfadres aan
+                    </th>
                 </tr>
-            }
-        </table>
-       
- <div class="col-lg-pull-0">
-     <h3>Of maak een nieuw werfadres aan</h3>
-     <table>
-         <tr>
-             <th colspan="2">
-                 Of maak een nieuw werfadres aan
-             </th>
-         </tr>
-         <tbody>
-             <tr>
-                 <td>Gemeente :&nbsp;&nbsp; @Html.TextBox("Town", Model.customer.Address.Town)  </td>
-                 <td>&nbsp;&nbsp;&nbsp;&nbsp;PostCode :&nbsp;&nbsp;&nbsp;&nbsp; @Html.TextBox("PostalCodeNumber", Model.customer.Address.PostalCodeNumber, new { type = "number" })</td> 
-             </tr>
-             <tr>
-                 <td>Straatnaam:&nbsp; @Html.TextBox("StreetName", Model.customer.Address.StreetName) </td>
-                 <td>&nbsp;&nbsp;&nbsp;&nbsp;Huisnummer: @Html.TextBox("StreetNumber",Model.customer.Address.StreetNumber,new { type = "number" }) </td>
-             </tr>
-             <tr>
-                 <td>busnummer: @Html.TextBox("Box", Model.customer.Address.Box, new { type = "number" })</td>
-                 <td>@Html.Hidden("CustomerId", Model.customer.CustomerId) </td>
-             </tr>
-         </tbody>
-     </table>
-     <h5>Werf Info : @Html.TextBox("DeliveryAddressInfo")</h5>
-     <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
-     <input type="submit" value="Voeg werf adres toe" name="AddDeliveryAddress" class="btn btn-default" formmethod="post" />                
- </div>
-        
-}
+                <tbody>
+                    <tr>
+                        <td>Gemeente :&nbsp;&nbsp; @Html.TextBox("Town", Model.customer.Address.Town)  </td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;PostCode :&nbsp;&nbsp;&nbsp;&nbsp; @Html.TextBox("PostalCodeNumber", Model.customer.Address.PostalCodeNumber, new { type = "number" })</td>
+                    </tr>
+                    <tr>
+                        <td>Straatnaam:&nbsp; @Html.TextBox("StreetName", Model.customer.Address.StreetName) </td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Huisnummer: @Html.TextBox("StreetNumber", Model.customer.Address.StreetNumber, new { type = "number" }) </td>
+                    </tr>
+                    <tr>
+                        <td>busnummer: @Html.TextBox("Box", Model.customer.Address.Box, new { type = "number" })</td>
+                        <td>@Html.Hidden("CustomerId", Model.customer.CustomerId) </td>
+                    </tr>
+                </tbody>
+            </table>
 
-Page @(ViewBag.Addressess.PageCount < ViewBag.Addressess.PageNumber ? 0 : ViewBag.Addressess.PageNumber) of @ViewBag.Addressess.PageCount
-@Html.PagedListPager((IPagedList)ViewBag.Addressess, page => Url.Action("AddDeliveryAddress", new { page, sortOrder = ViewBag.CurrentSort, currentFilterTown = ViewBag.CurrentFilterTown, currentFilterPostal = ViewBag.CurrentFilterPostal }))
+            <h5>Werf Info : @Html.TextBox("DeliveryAddressInfo")</h5>
+            <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+            <input type="submit" value="Voeg werf adres toe" name="AddDeliveryAddress" class="btn btn-default" formmethod="post" />
+        </div>*@
+
+    <div id="AddDeliveryAdress" class="row">
+        <div class="row" style="margin-bottom: 4px;">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">Gemeente: </span>
+                    @Html.TextBox("Town", Model.customer.Address.Town, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">Postcode: </span>
+                    @Html.TextBox("PostalCodeNumber", Model.customer.Address.PostalCodeNumber, new { @class = "form-control", type = "number" })
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 4px;">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">Straatnaam: </span>
+                    @Html.TextBox("StreetName", Model.customer.Address.StreetName, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">Huisnummer: </span>
+                    @Html.TextBox("StreetNumber", Model.customer.Address.StreetNumber, new { @class = "form-control", type = "number" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">Bus: </span>
+                    @Html.TextBox("Box", Model.customer.Address.Box, new { @class = "form-control", type = "number" })
+                    @Html.Hidden("CustomerId", Model.customer.CustomerId)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">Werfinfo: </span>
+                    @Html.TextBox("DeliveryAddressInfo", "", new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="row col-md-4" style="margin-top: 3px;">
+            <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+            <input type="submit" value="Voeg werf adres toe" name="AddDeliveryAddress" class="btn btn-default" formmethod="post" />
+        </div>
+    </div>
+    <div class="row col-md-4">
+            Page @(ViewBag.Addressess.PageCount < ViewBag.Addressess.PageNumber ? 0 : ViewBag.Addressess.PageNumber) of @ViewBag.Addressess.PageCount
+            @Html.PagedListPager((IPagedList)ViewBag.Addressess, page => Url.Action("AddDeliveryAddress", new { page, sortOrder = ViewBag.CurrentSort, currentFilterTown = ViewBag.CurrentFilterTown, currentFilterPostal = ViewBag.CurrentFilterPostal }))
+        </div>
+}
+</div>
