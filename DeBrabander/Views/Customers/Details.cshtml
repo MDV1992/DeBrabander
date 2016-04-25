@@ -9,139 +9,158 @@
 <div>
     <h4>Customer</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.LastName)
-        </dt>
+    <div class="col-md-12 row">
+        <div class="col-md-6">
+            <h4><b>Klantgegevens</b></h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.customer.LastName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.customer.LastName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.Annotation)
+                    @Html.DisplayFor(model => model.customer.FirstName)
+                    @Html.DisplayFor(model => model.customer.LastName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.FirstName)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.customer.Phone)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.customer.FirstName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.Phone)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.CompanyName)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.customer.CellPhone)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.customer.CompanyName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.CellPhone)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.Phone)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.customer.Email)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.customer.Phone)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.Email)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.CellPhone)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.customer.AccountNumber)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.customer.CellPhone)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.AccountNumber)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.Email)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.customer.Type)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.customer.Email)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.Type)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.VATNumber)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.customer.TAXLiability)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.customer.VATNumber)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.TAXLiability)
+                </dd>
+            </dl>
+        </div>
+        @*Bedrijfsgegevens*@
+        <div class="col-md-6">
+            <h4><b>Bedrijfsgegevens</b></h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.customer.CompanyName)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.AccountNumber)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.CompanyName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.customer.AccountNumber)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.customer.VATNumber)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.Annotation)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.VATNumber)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    @*Contactpersoon gegevens*@
+    <div class="row col-md-12">
+        <div class="col-md-6">
+            <h4><b>Contactpersoon</b></h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.customer.ContactName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.customer.Annotation)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.ContactName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.ContactName)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.customer.ContactEmail)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.customer.ContactName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.ContactEmail)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.ContactEmail)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.customer.ContactCellPhone)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.customer.ContactEmail)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.ContactCellPhone)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.ContactCellPhone)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.customer.CreationDate)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.customer.ContactCellPhone)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.CreationDate)
+                </dd>
+            </dl>
+        </div>
+        @*Adresgegevens, facturatiegegevens*@
+        <div class="col-md-6">
+            <h4><b>Facturatiegegevens</b></h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.customer.Address.StreetName)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.CreationDate)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.Address.StreetName)
+                    @Html.DisplayFor(model => model.customer.Address.StreetNumber)
+                </dd>
+                <dt>
+                    Gemeente
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.customer.CreationDate)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.customer.Address.PostalCodeNumber)
+                    @Html.DisplayFor(model => model.customer.Address.Town)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.customer.Type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.Address.StreetName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.customer.Address.StreetName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.customer.TAXLiability)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.customer.TAXLiability)
-        </dd>
-
-    </dl>
+            </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Klantenfiche printen", "CRCustomer", new { id = Model.customer.CustomerId }) |
-    @Html.ActionLink("Aanpassen", "Edit", new { id = Model.customer.CustomerId }) |
-    @Html.ActionLink("Overzicht klanten", "Index")
-</p>
+<div class="row col-md-12">
+    <p>
+        @Html.ActionLink("Klantenfiche printen", "CRCustomer", new { id = Model.customer.CustomerId }) |
+        @Html.ActionLink("Aanpassen", "Edit", new { id = Model.customer.CustomerId }) |
+        @Html.ActionLink("Overzicht klanten", "Index")
+    </p>
+</div>
