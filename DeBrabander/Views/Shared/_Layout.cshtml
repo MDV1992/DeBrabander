@@ -87,7 +87,7 @@
                         </ul>
                     </li>
                     @* Dropdown voor login *@
-                    <li class="dropdown">
+                    @*<li class="dropdown">
                         <a href="#" dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-expanded="false">Aanmelden</a>
                         <ul class="dropdown-menu" role="menu" id="myTab">
@@ -98,10 +98,12 @@
                                 <a href="@Url.Action("Register", "UserAccount")">Nieuwe Gebruiker Aanmaken</a>
                             </li>
                         </ul>
-                    </li>
+                    </li>*@
+                 </ul>
+                <ul class="nav navbar-nav navbar-right">
                     @*Instellingen*@
                     <li>@Html.ActionLink("Instellingen", "Index", "Settings")</li>
-                 </ul>
+                </ul>
                 </div>  
         </div>
     </div>
