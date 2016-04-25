@@ -4,7 +4,7 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
  
 @{
-    ViewBag.Title = "AddDeliveryAddress";
+    ViewBag.Title = "De Brabander";
 }
 Voeg een werfadres toe aan klant @Model.customer.FullName
 
@@ -64,9 +64,13 @@ Voeg een werfadres toe aan klant @Model.customer.FullName
         </table>
     </div>
 
-    <div class="row col-md-offset-9 col-md-3">
-        Page @(ViewBag.Addressess.PageCount < ViewBag.Addressess.PageNumber ? 0 : ViewBag.Addressess.PageNumber) of @ViewBag.Addressess.PageCount
-        @Html.PagedListPager((IPagedList)ViewBag.Addressess, page => Url.Action("AddDeliveryAddress", new { page, sortOrder = ViewBag.CurrentSort, currentFilterTown = ViewBag.CurrentFilterTown, currentFilterPostal = ViewBag.CurrentFilterPostal }))
+    <div class="row">
+        <div class="col-md-offset-10 col-md-2">
+            Page @(ViewBag.Addressess.PageCount < ViewBag.Addressess.PageNumber ? 0 : ViewBag.Addressess.PageNumber) of @ViewBag.Addressess.PageCount
+        </div>
+        <div class="col-md-offset-8 col-md-4">
+            @Html.PagedListPager((IPagedList)ViewBag.Addressess, page => Url.Action("AddDeliveryAddress", new { @class = "pagination pagination-sm", page, sortOrder = ViewBag.CurrentSort, currentFilterTown = ViewBag.CurrentFilterTown, currentFilterPostal = ViewBag.CurrentFilterPostal }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+        </div>
     </div>
 
     @*<div class="col-lg-pull-0">
