@@ -11,6 +11,7 @@
 
 @using (Html.BeginForm())
 {
+    <h3 style="color: red">@ViewBag.Error</h3>
     <div class="col-md-12">
         <div class="col-md-6" style="margin-bottom: 5px;">
             @*Zoek op klant: &nbsp;*@@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })

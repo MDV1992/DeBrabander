@@ -59,6 +59,8 @@ namespace DeBrabander.Controllers
             var quotations = from q in db.Quotations select q;
             Quotation quot = new Quotation();
 
+
+            ViewBag.Error =  TempData["error"];
             //ViewBag.CurrentSort = sortOrder;
 
 
@@ -568,59 +570,67 @@ namespace DeBrabander.Controllers
             Quotation quotOld = new Quotation();
             quotOld = db.Quotations.Find(Id);
 
-            quotNew.Annotation = quotOld.Annotation + " - Copy";
-            quotNew.Active = quotOld.Active;
-            quotNew.Box = quotOld.Box;
-            quotNew.CellPhone = quotOld.CellPhone;
-            quotNew.CustomerId = quotOld.CustomerId;
-            quotNew.Date = quotOld.Date;
-            quotNew.Email = quotOld.Email;
-            quotNew.ExpirationDate = quotOld.ExpirationDate;
-            quotNew.FirstName = quotOld.FirstName;
-            quotNew.LastName = quotOld.LastName;
-            quotNew.PostalCodeNumber = quotOld.PostalCodeNumber;
-            quotNew.QuotationNumber = quotOld.QuotationNumber;
-            quotNew.StreetName = quotOld.StreetName;
-            quotNew.StreetNumber = quotOld.StreetNumber;
-            quotNew.TotalPrice = 0;
-            quotNew.Town = quotOld.Town;           
-
-            db.Quotations.Add(quotNew);
-            db.SaveChanges();
-
-            //temp
-            var delivery = db.CustomerDeliveryAddresses.Find(quotOld.customerDeliveryAddress.CustomerDeliveryAddressId);            
-            quotNew.customerDeliveryAddress = delivery;
-
-            
+            //check of er al een copy is
+            List<Quotation> quotlist = db.Quotations.ToList();
+            var checkQuotNumber  = quotlist.Where(q => q.QuotationNumber == quotOld.QuotationNumber);
             
 
-            foreach (var item in quotOld.QuotationDetail)
+            if (checkQuotNumber.Count() == 1)
             {
+                quotNew.Annotation = quotOld.Annotation + " - Copy";
+                quotNew.Active = quotOld.Active;
+                quotNew.Box = quotOld.Box;
+                quotNew.CellPhone = quotOld.CellPhone;
+                quotNew.CustomerId = quotOld.CustomerId;
+                quotNew.Date = quotOld.Date;
+                quotNew.Email = quotOld.Email;
+                quotNew.ExpirationDate = quotOld.ExpirationDate;
+                quotNew.FirstName = quotOld.FirstName;
+                quotNew.LastName = quotOld.LastName;
+                quotNew.PostalCodeNumber = quotOld.PostalCodeNumber;
+                quotNew.QuotationNumber = quotOld.QuotationNumber;
+                quotNew.StreetName = quotOld.StreetName;
+                quotNew.StreetNumber = quotOld.StreetNumber;
+                quotNew.TotalPrice = 0;
+                quotNew.Town = quotOld.Town;
 
-                var qd = new QuotationDetail();
-                qd.Quantity = item.Quantity;
-                qd.PriceExVAT = item.PriceExVAT;
-                qd.TotalExVat = item.TotalExVat;
-                qd.TotalIncVat = item.TotalIncVat;
-                qd.Auvibel = item.Auvibel;
-                qd.Bebat = item.Bebat;
-                qd.Brand = item.Brand;
-                qd.CategoryId = item.CategoryId;
-                qd.Description = item.Description;
-                qd.ProductCode = item.ProductCode;
-                qd.ProductName = item.ProductName;
-                qd.Recupel = item.Recupel;
-                qd.Reprobel = item.Reprobel;
-                qd.VATPercId = item.VATPercId;
-                qd.ProductId = item.ProductId;
-                qd.QuotationId = quotNew.QuotationId;
-                qd.VAT = item.VAT;
-                db.QuotationDetails.Add(qd);
+                db.Quotations.Add(quotNew);
+                db.SaveChanges();
 
+                var delivery = db.CustomerDeliveryAddresses.Find(quotOld.customerDeliveryAddress.CustomerDeliveryAddressId);
+                quotNew.customerDeliveryAddress = delivery;
+
+                foreach (var item in quotOld.QuotationDetail)
+                {
+
+                    var qd = new QuotationDetail();
+                    qd.Quantity = item.Quantity;
+                    qd.PriceExVAT = item.PriceExVAT;
+                    qd.TotalExVat = item.TotalExVat;
+                    qd.TotalIncVat = item.TotalIncVat;
+                    qd.Auvibel = item.Auvibel;
+                    qd.Bebat = item.Bebat;
+                    qd.Brand = item.Brand;
+                    qd.CategoryId = item.CategoryId;
+                    qd.Description = item.Description;
+                    qd.ProductCode = item.ProductCode;
+                    qd.ProductName = item.ProductName;
+                    qd.Recupel = item.Recupel;
+                    qd.Reprobel = item.Reprobel;
+                    qd.VATPercId = item.VATPercId;
+                    qd.ProductId = item.ProductId;
+                    qd.QuotationId = quotNew.QuotationId;
+                    qd.VAT = item.VAT;
+                    db.QuotationDetails.Add(qd);
+
+                }
+
+                db.SaveChanges();
             }
-
-            db.SaveChanges();
+            else
+            {
+                TempData["error"] = "Er is reeds een copy van deze offerte";
+            }
             return RedirectToAction("index");
         }
 
@@ -639,7 +649,6 @@ namespace DeBrabander.Controllers
             order.FirstName = quot.FirstName;
             order.LastName = quot.LastName;
             order.PostalCodeNumber = quot.PostalCodeNumber;
-            order.OrderNumber = quot.QuotationNumber;
             order.StreetName = quot.StreetName;
             order.StreetNumber = quot.StreetNumber;
             order.TotalPrice = quot.TotalPrice;
@@ -651,8 +660,18 @@ namespace DeBrabander.Controllers
             
 
             order.customerDeliveryAddress = quot.customerDeliveryAddress;
-            // Fout bevindt zich hier
-            //order.OrderDetail = quot.QuotationDetail;           
+
+            //find highest order number
+            int maxOrderNumber = 1;
+            order.OrderNumber = maxOrderNumber;
+            var listOrders = db.Orders.ToList();
+
+            if (listOrders.Count != 0)
+            {
+                maxOrderNumber = listOrders.Max(o => o.OrderNumber);
+                order.OrderNumber = maxOrderNumber + 1;
+            }
+
 
             foreach (var item in quot.QuotationDetail)
             {
@@ -672,7 +691,8 @@ namespace DeBrabander.Controllers
                 od.Reprobel = item.Reprobel;
                 od.VATPercId = item.VATPercId;
                 od.ProductId = item.ProductId;
-                order.OrderDetail.Add(od);
+                od.VAT = item.VAT;
+                db.OrderDetails.Add(od);
             }
 
             db.SaveChanges();
