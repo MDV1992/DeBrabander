@@ -1,10 +1,18 @@
 ﻿@model DeBrabander.ViewModels.Settings.SettingsViewModel
-    @{
+@{
     ViewBag.Title = "Index";
 }
 
 <h2>Instellingen</h2>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#saveCreateBtn").on("click", function () {
+            alert('U heeft een nieuwe categorie toegevoegd.');
+        });
 
+    });
+</script>
 <table>
     <tr>
         <td>
@@ -23,34 +31,96 @@
                         </div>
                         <div class="modal-body">
                             <p>
-                                @Html.ActionLink("Nieuwe categorie aanmaken", "Create", "Categories")
+                                <a href="#edit" class="btn btn-info">
+                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                </a>
                             </p>
-                            <table class="table">
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.category.CategoryName)
-                                    </th>
-                                    <th></th>
-                                </tr>
+                            <ul class="nav nav-tabs" id="tabContent">
+                                <li class="active"><a data-toggle="tab" href="#overview">Overzicht</a></li>
+                                <li><a data-toggle="tab" href="#create">Nieuwe categorie aanmaken</a></li>
+                                @*<li><a data-toggle="tab" href="#edit">Categorie aanpassen</a></li>*@
+                            </ul>
 
-                                @foreach (var item in Model.categorys)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.CategoryName)
-                                        </td>
-                                        <td>
-                                            <a href="@Url.Action("Edit", "Categories", new { id = item.CategoryId })" class="btn btn-info">
-                                                Aanpassen
-                                            </a>
-                                            <a href="@Url.Action("Delete", "Categories", new { id = item.CategoryId })" class="btn btn-info">
-                                                Verwijderen
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="overview">
+                                    <table class="table">
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.category.CategoryName)
+                                            </th>
+                                            <th></th>
+                                        </tr>
 
-                            </table>
+                                        @foreach (var item in Model.categorys)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.CategoryName)
+                                                </td>
+                                                <td>
+                                                    <a data-toggle="tab" href="#edit, " class="btn btn-info @Html.DisplayFor(modelItem => item.CategoryId)">
+                                                        Aanpassen
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </table>
+                                </div>
+                                <div class="tab-pane" id="create">
+                                    @using (Html.BeginForm("Create","Categories", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <div class="form-horizontal">
+
+                                            <hr />
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.category.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.category.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.category.CategoryName, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-offset-2 col-md-10">
+                                                    <input type="submit" value="Opslaan" class="btn btn-default" id="saveCreateBtn"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="tab-pane" id="edit">
+                                    @using (Html.BeginForm("Edit", "Categories", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <div class="form-horizontal">
+                                            <h4>Categorie Aanpassen</h4>
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.HiddenFor(model => model.category.CategoryId)
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.category.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.category.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.category.CategoryName, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-offset-2 col-md-10">
+                                                    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+                                                    <input type="submit" value="Opslaan" class="btn btn-default" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -64,17 +134,17 @@
             <a href="@Url.Action("Index", "VATs")" class="btn btn-default">BTW</a>
         </td>
         <td>
-        <a href="@Url.Action("Edit/1", "Companies")" class="btn btn-default">Bedrijfsgegevens</a>
-            
-       </td>
-        
+            <a href="@Url.Action("Edit/1", "Companies")" class="btn btn-default">Bedrijfsgegevens</a>
+
+        </td>
+
     </tr>
     <tr>
         <td>
             <a href="@Url.Action("Edit/1", "UserDefinedSettings")" class="btn btn-default">Scherm instellingen</a>
         </td>
         <td>
-         <a href="@Url.Action("Edit/1", "UserDefinedSettings")" class="btn btn-default">Emtpy</a>
+            <a href="@Url.Action("Edit/1", "UserDefinedSettings")" class="btn btn-default">Emtpy</a>
         </td>
         <td>
             <a href="@Url.Action("Edit/1", "UserDefinedSettings")" class="btn btn-default">Emtpy</a>

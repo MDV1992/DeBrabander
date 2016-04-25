@@ -56,6 +56,7 @@ namespace DeBrabander.Controllers
         // GET: Categories/Create
         public ActionResult Create()
         {
+            ViewBag.returnUrl = Request.UrlReferrer;
             return View();
         }
 
@@ -64,7 +65,7 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryId,CategoryName")] CategoryCreateViewModel category)
+        public ActionResult Create([Bind(Include = "CategoryId,CategoryName")] CategoryCreateViewModel category, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +74,7 @@ namespace DeBrabander.Controllers
 
                 db.Categories.Add(cat);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Settings");
             }
 
             return View(category);
