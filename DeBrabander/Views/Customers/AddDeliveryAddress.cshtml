@@ -8,8 +8,6 @@
 }
 Voeg een werfadres toe aan klant @Model.customer.FullName
 
-
-<div class="row">
 @using (Html.BeginForm("AddDeliveryAddress", "Customers", FormMethod.Get))
 {
     <h2>Selecteer een reeds bestaand adres</h2>
@@ -17,53 +15,59 @@ Voeg een werfadres toe aan klant @Model.customer.FullName
         Find by Town - Address : @Html.TextBox("SearchStringTown", ViewBag.CurrentFilterTown as string)
         Find by postalcode: @Html.TextBox("SearchStringPostal", ViewBag.CurrentFilterPostal as string) <input type="submit" value="Search" />
     </p>
-
-    <table class="table table-striped">
-        <tr>
-            <th>
-
-            </th>
-            <th>
-                @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.TownSortParm })
-            </th>
-            <th>
-                @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.PostalCodeNumber).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.PostalCodeSortParm })
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.customer.Address.StreetName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.customer.Address.StreetNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.customer.Address.Box)
-            </th>
-        </tr>
-
-        @foreach (var item in ViewBag.Addressess)
-        {
+    <div class="row">
+        <table class="table table-striped">
             <tr>
-                <td>
-                    <input type="checkbox" name="AddressId" value="@item.AddressId"> Selecteer dit adres<br>
-                </td>
-                <td>
-                    @item.Town
-                </td>
-                <td>
-                    @item.PostalCodeNumber
-                </td>
-                <td>
-                    @item.StreetName
-                </td>
-                <td>
-                    @item.StreetNumber
-                </td>
-                <td>
-                    @item.Box
-                </td>
+                <th>
+
+                </th>
+                <th>
+                    @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.TownSortParm })
+                </th>
+                <th>
+                    @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.PostalCodeNumber).ToHtmlString(), "AddDeliveryAddress", new { sortOrder = ViewBag.PostalCodeSortParm })
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.customer.Address.StreetName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.customer.Address.StreetNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.customer.Address.Box)
+                </th>
             </tr>
-        }
-    </table>
+
+            @foreach (var item in ViewBag.Addressess)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" name="AddressId" value="@item.AddressId"> Selecteer dit adres<br>
+                    </td>
+                    <td>
+                        @item.Town
+                    </td>
+                    <td>
+                        @item.PostalCodeNumber
+                    </td>
+                    <td>
+                        @item.StreetName
+                    </td>
+                    <td>
+                        @item.StreetNumber
+                    </td>
+                    <td>
+                        @item.Box
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div class="row col-md-offset-9 col-md-3">
+        Page @(ViewBag.Addressess.PageCount < ViewBag.Addressess.PageNumber ? 0 : ViewBag.Addressess.PageNumber) of @ViewBag.Addressess.PageCount
+        @Html.PagedListPager((IPagedList)ViewBag.Addressess, page => Url.Action("AddDeliveryAddress", new { page, sortOrder = ViewBag.CurrentSort, currentFilterTown = ViewBag.CurrentFilterTown, currentFilterPostal = ViewBag.CurrentFilterPostal }))
+    </div>
 
     @*<div class="col-lg-pull-0">
             <h3>Of maak een nieuw werfadres aan</h3>
@@ -143,9 +147,4 @@ Voeg een werfadres toe aan klant @Model.customer.FullName
             <input type="submit" value="Voeg werf adres toe" name="AddDeliveryAddress" class="btn btn-default" formmethod="post" />
         </div>
     </div>
-    <div class="row col-md-4">
-            Page @(ViewBag.Addressess.PageCount < ViewBag.Addressess.PageNumber ? 0 : ViewBag.Addressess.PageNumber) of @ViewBag.Addressess.PageCount
-            @Html.PagedListPager((IPagedList)ViewBag.Addressess, page => Url.Action("AddDeliveryAddress", new { page, sortOrder = ViewBag.CurrentSort, currentFilterTown = ViewBag.CurrentFilterTown, currentFilterPostal = ViewBag.CurrentFilterPostal }))
-        </div>
 }
-</div>
