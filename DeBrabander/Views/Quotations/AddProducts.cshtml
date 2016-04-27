@@ -94,7 +94,7 @@
     </table>
 }
 Page @(Model.products.PageCount < Model.products.PageNumber ? 0 : Model.products.PageNumber) of @Model.products.PageCount
-@Html.PagedListPager(Model.products, page => Url.Action("AddProducts", new { page, currentFilterSearchString = ViewBag.CurrentFilterSearchString, currentFilterCategoryId = ViewBag.CurrentFilterCategoryId }))
+@Html.PagedListPager(Model.products, page => Url.Action("AddProducts", new { id = Model.quotation.QuotationId, page, currentFilterSearchString = ViewBag.CurrentFilterSearchString, currentFilterCategoryId = ViewBag.CurrentFilterCategoryId }))
 
 <div>
     <table align="center"></table>
