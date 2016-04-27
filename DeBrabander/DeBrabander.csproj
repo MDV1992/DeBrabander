@@ -226,6 +226,7 @@
     <Compile Include="Controllers\VATsController.cs" />
     <Compile Include="DAL\Context.cs" />
     <Compile Include="DAL\Initializer.cs" />
+    <Compile Include="DAL\PagedListRenderOptions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
