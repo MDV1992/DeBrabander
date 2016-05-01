@@ -330,6 +330,24 @@
       <DependentUpon>ProductSub.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\Quotation\Main.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Main.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Quotation\SingleQHeader.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SingleQHeader.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Quotation\SingleQuotationHeader.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SingleQuotationHeader.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utils\CustomAuthorizeAttribute.cs" />
     <Compile Include="Utils\SecurityUtil.cs" />
     <Compile Include="ViewModels\Invoices\InvoiceCreateViewModel.cs" />
@@ -363,6 +381,8 @@
     <Compile Include="ViewModels\Reports\CustomerCR\AllCustomersCRViewModel.cs" />
     <Compile Include="ViewModels\Reports\ProductCR\AllProductsCRViewModel.cs" />
     <Compile Include="ViewModels\Reports\QuotationCR\AllQuotationsCRViewModel.cs" />
+    <Compile Include="ViewModels\Reports\QuotationCR\SingleQuotationBodyCRViewModel.cs" />
+    <Compile Include="ViewModels\Reports\QuotationCR\SingleQuotationHeaderCRViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
     <Compile Include="ViewModels\Vats\VatCreateViewModel.cs" />
     <Compile Include="ViewModels\Vats\VatDetailsViewModel.cs" />
@@ -513,6 +533,18 @@
     <EmbeddedResource Include="Reports\ProductSub.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ProductSub.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Quotation\Main.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Main.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Quotation\SingleQHeader.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SingleQHeader.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Quotation\SingleQuotationHeader.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SingleQuotationHeader.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

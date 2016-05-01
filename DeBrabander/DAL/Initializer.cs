@@ -189,7 +189,8 @@ namespace DeBrabander.DAL
             comp.BIC = "KREDBEBB";
             comp.Phone = "03 288 00 99";
             comp.Mobile = "0477 318 372";
-            
+            comp.Website = "www.debrabanderdakwerken.be";
+
             context.Companies.Add(comp);
 
 
