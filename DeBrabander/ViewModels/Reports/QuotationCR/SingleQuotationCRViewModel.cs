@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DeBrabander.ViewModels
 {
-    public class SingleQuotationHeaderCRViewModel
+    public class SingleQuotationCRViewModel
     {
         //company info
         public int CompanyId { get; set; }
@@ -49,8 +49,23 @@ namespace DeBrabander.ViewModels
         public string DeliveryAddressInfo { get; set; }
         public string StreetNameNumberBox { get; set; }
         public string PostalCodeNumberTown { get; set; }
-        
 
+
+        //Details
+        public int QuotationDetailId { get; set; }
+        public int Quantity { get; set; }
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public string ProductCode { get; set; }
+        public string Description { get; set; }
+        public double PriceExVAT { get; set; }
+        public double Reprobel { get; set; }
+        public double Bebat { get; set; }
+        public double Recupel { get; set; }
+        public double Auvibel { get; set; }
+        public string Brand { get; set; }
+        public string CategoryName { get; set; }
+        public int VATValue { get; set; }
 
     }
 }

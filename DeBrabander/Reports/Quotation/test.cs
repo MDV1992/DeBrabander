@@ -16,14 +16,14 @@ namespace DeBrabander.Reports.Quotation {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class SingleQHeader : ReportClass {
+    public class test : ReportClass {
         
-        public SingleQHeader() {
+        public test() {
         }
         
         public override string ResourceName {
             get {
-                return "SingleQHeader.rpt";
+                return "test.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace DeBrabander.Reports.Quotation {
         
         public override string FullResourceName {
             get {
-                return "DeBrabander.Reports.Quotation.SingleQHeader.rpt";
+                return "DeBrabander.Reports.Quotation.test.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace DeBrabander.Reports.Quotation {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedSingleQHeader : Component, ICachedReport {
+    public class Cachedtest : Component, ICachedReport {
         
-        public CachedSingleQHeader() {
+        public Cachedtest() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace DeBrabander.Reports.Quotation {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            SingleQHeader rpt = new SingleQHeader();
+            test rpt = new test();
             rpt.Site = this.Site;
             return rpt;
         }

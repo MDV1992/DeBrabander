@@ -777,89 +777,85 @@ namespace DeBrabander.Controllers
 
         public ActionResult CRQuotation(int id)
         {
-            //header + info
-            List<SingleQuotationHeaderCRViewModel> CRSingleQuotationHeaderListVM = new List<SingleQuotationHeaderCRViewModel>();
-            SingleQuotationHeaderCRViewModel CRSQH = new SingleQuotationHeaderCRViewModel();
+            
+            //Lijsten maken en vullen
+            List<SingleQuotationCRViewModel> CRSingleQuotationHeaderListVM = new List<SingleQuotationCRViewModel>();
+            SingleQuotationCRViewModel CRSQH = new SingleQuotationCRViewModel();
+
             Quotation quotation = db.Quotations.Find(id);
             Company company = db.Companies.Find(1);
             Customer cus = db.Customers.Find(quotation.CustomerId);
 
-            //Body + info reeds aanwezig in quotation object
-            List<SingleQuotationBodyCRViewModel> CRSingQuotationBodyListVM = new List<SingleQuotationBodyCRViewModel>();
-
-            //vulling Header
-            CRSQH.Annotation = quotation.Annotation;
+            
+            //vulling Header info
+            //company
             CRSQH.BIC = company.BIC;
-            CRSQH.Box = quotation.Box;
-            CRSQH.CellPhone = quotation.CellPhone;
             CRSQH.CompanyId = company.CompanyId;
             CRSQH.CompanyName = company.CompanyName;
-            CRSQH.ContactCellPhone = cus.ContactCellPhone;
-            CRSQH.ContactEmail = cus.ContactEmail;
-            CRSQH.ContactName = cus.ContactName;
             CRSQH.Country = company.Country;
-            CRSQH.CustomerId = quotation.CustomerId;
-            CRSQH.Date = quotation.Date;
-            CRSQH.DeliveryAddressInfo = quotation.customerDeliveryAddress.DeliveryAddressInfo;
             CRSQH.District = company.District;
             CRSQH.EmailCompany = company.Email;
-            CRSQH.EmailCustomer = quotation.Email;
-            CRSQH.ExpirationDate = quotation.ExpirationDate;
-            CRSQH.FirstName = quotation.FirstName;
             CRSQH.Iban = company.Iban;
-            CRSQH.LastName = quotation.LastName;
             CRSQH.Mobile = company.Mobile;
             CRSQH.Phone = company.Phone;
             CRSQH.Postalcode = company.Postalcode;
+            CRSQH.Street = company.Street;
+            CRSQH.VatNumber = company.VatNumber;
+            CRSQH.Website = company.Website;
+
+            //quotation
+            CRSQH.Annotation = quotation.Annotation;
+            CRSQH.Box = quotation.Box;
+            CRSQH.CellPhone = quotation.CellPhone;
+            CRSQH.CustomerId = quotation.CustomerId;
+            CRSQH.Date = quotation.Date;
+            CRSQH.EmailCustomer = quotation.Email;
+            CRSQH.ExpirationDate = quotation.ExpirationDate;
+            CRSQH.FirstName = quotation.FirstName;
+            CRSQH.LastName = quotation.LastName;
             CRSQH.PostalCodeNumber = quotation.PostalCodeNumber;
-            CRSQH.PostalCodeNumberTown = quotation.customerDeliveryAddress.PostalCodeNumber + " " + quotation.customerDeliveryAddress.Town;
             CRSQH.QuotationId = quotation.QuotationId;
             CRSQH.QuotationNumber = quotation.QuotationNumber;
-            CRSQH.Street = company.Street;
             CRSQH.StreetName = quotation.StreetName;
-            CRSQH.StreetNameNumberBox = quotation.customerDeliveryAddress.StreetName + " " + quotation.customerDeliveryAddress.StreetNumber + " " + quotation.customerDeliveryAddress.Box;
             CRSQH.StreetNumber = quotation.StreetNumber;
             CRSQH.TotalPrice = quotation.TotalPrice;
             CRSQH.Town = quotation.Town;
-            CRSQH.VatNumber = company.VatNumber;
             CRSQH.VATnumberCustomer = cus.VATNumber;
-            CRSQH.Website = company.Website;
 
-            CRSingleQuotationHeaderListVM.Add(CRSQH);
+            //customer contact info
+            CRSQH.ContactCellPhone = cus.ContactCellPhone;
+            CRSQH.ContactEmail = cus.ContactEmail;
+            CRSQH.ContactName = cus.ContactName;
+            
+            //delivery info
+            CRSQH.DeliveryAddressInfo = quotation.customerDeliveryAddress.DeliveryAddressInfo;
+            CRSQH.PostalCodeNumberTown = quotation.customerDeliveryAddress.PostalCodeNumber + " " + quotation.customerDeliveryAddress.Town;
+            CRSQH.StreetNameNumberBox = quotation.customerDeliveryAddress.StreetName + " " + quotation.customerDeliveryAddress.StreetNumber + " " + quotation.customerDeliveryAddress.Box;
 
-            //CRSQH.CompanyName = "blabla";
-            //CRSQH.Street = "test";
-            //CRSQH.Postalcode = "1234";
-
-
-            //List<AllQuotationsCRViewModel> allQuotationsCR = new List<AllQuotationsCRViewModel>();
-            //foreach (var item in CRSingleQuotationHeaderListVM)
-            //{
-            //    var allQuotationCR = new AllQuotationsCRViewModel();
-            //    allQuotationCR.QuotationId = item.QuotationId;
-            //    allQuotationCR.QuotationNumber = item.QuotationNumber;
-
-            //    allQuotationCR.ExpirationDate = item.ExpirationDate;
-            //    allQuotationCR.Date = item.Date;
-            //    allQuotationCR.CustomerId = item.CustomerId;
-            //    allQuotationCR.Annotation = item.Annotation;
-            //    allQuotationCR.FirstName = item.FirstName;
-            //    allQuotationCR.LastName = item.LastName;
-            //    allQuotationCR.StreetName = item.StreetName;
-            //    allQuotationCR.StreetNumber = item.StreetNumber;
-            //    allQuotationCR.Town = item.Town;
-            //    allQuotationCR.PostalCodeNumber = item.PostalCodeNumber;
-            //    allQuotationCR.Box = item.Box;
-            //    allQuotationCR.TotalPrice = item.TotalPrice;
-
-            //    allQuotationsCR.Add(allQuotationCR);
-            //}
+            //vulling details info
+            foreach (var item in quotation.QuotationDetail)
+            {
+                CRSQH.ProductCode = item.ProductCode;
+                CRSQH.PriceExVAT= item.PriceExVAT;
+                CRSQH.Quantity = item.Quantity;
+                CRSQH.Description = item.Description;
+                CRSQH.VATValue = Convert.ToInt16(item.VAT.VATValue);
+                CRSQH.Auvibel = item.Auvibel;
+                CRSQH.Recupel = item.Recupel;
+                CRSQH.Reprobel = item.Reprobel;
+                CRSQH.Bebat = item.Bebat;
+                CRSQH.ProductCode = item.ProductCode;
+                CRSQH.ProductName = item.ProductName;
+                CRSingleQuotationHeaderListVM.Add(CRSQH);
+                SingleQuotationCRViewModel empty = new SingleQuotationCRViewModel();
+                CRSQH = empty;
+            }
+            
+            
 
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Reports/Quotation"), "Main.rpt"));
-            rd.OpenSubreport("SingleQuotationHeader.rpt").SetDataSource(CRSingleQuotationHeaderListVM);
-            //rd.OpenSubreport("allQuotationsSub.rpt").SetDataSource(allQuotationsCR);
-            //rd.SetDataSource(company);
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/Quotation"), "SingleQuotationHeader.rpt"));
+            rd.SetDataSource(CRSingleQuotationHeaderListVM);
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
@@ -869,7 +865,8 @@ namespace DeBrabander.Controllers
             {
                 Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
                 stream.Seek(0, SeekOrigin.Begin);
-                return File(stream, "application/pdf", "All_Quotations.pdf");
+                string pdfName = "Offerte - "+quotation.QuotationNumber+ " - "  + quotation.FullName.ToString()+".pdf";
+                return File(stream, "application/pdf", pdfName);
             }
             catch (Exception ex)
             {
