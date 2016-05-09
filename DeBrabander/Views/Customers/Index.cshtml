@@ -38,11 +38,11 @@
             <div class="col-md-6">
                 <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px" />
             </div>
-            <div class="col-md-3 col-md-offset-3">
+            <div class="col-md-2 col-md-offset-4">
                 Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
             </div>
-            <div class="col-md-4 col-md-offset-2">
-                @Html.PagedListPager(Model.customers, page => Url.Action("Index", new { @class = "pagination pagination-sm", page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+            <div class="col-md-2 col-md-offset-4">
+                @Html.PagedListPager(Model.customers, page => Url.Action("Index", new { @class = "pagination pagination-sm", page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }), PagedList.PagedListRenderOptions.tomsLayout)
             </div>
         </div>
     </div>
@@ -153,10 +153,10 @@
 </div>
 <br />
 <div class="row">
-    <div class="col-md-3 col-md-offset-9">
+    <div class="col-md-2 col-md-offset-10">
         Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
     </div>
-    <div class="col-md-4 col-md-offset-8">
-        @Html.PagedListPager(Model.customers, page => Url.Action("Index", new { @class = "pagination pagination-sm", page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    <div class="col-md-2 col-md-offset-10">
+        @Html.PagedListPager(Model.customers, page => Url.Action("Index", new { @class = "pagination pagination-sm", page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }), PagedList.PagedListRenderOptions.tomsLayout)
     </div>
 </div>
