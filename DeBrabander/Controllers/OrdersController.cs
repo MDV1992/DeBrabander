@@ -602,6 +602,72 @@ namespace DeBrabander.Controllers
             }
         }
 
+        public ActionResult CreateInvoice(int? Id)
+        {
+            Order order = new Order();
+            Invoice invoice = new Invoice();
+            order = db.Orders.Find(Id);
+
+            invoice.Annotation = order.Annotation + " - Factuur van order " + order.OrderNumber;
+            invoice.Box = order.Box;
+            invoice.CellPhone = order.CellPhone;
+            invoice.CustomerId = order.CustomerId;
+            invoice.Date = order.Date;
+            invoice.Email = order.Email;
+            invoice.FirstName = order.FirstName;
+            invoice.LastName = order.LastName;
+            invoice.PostalCodeNumber = order.PostalCodeNumber;
+            invoice.StreetName = order.StreetName;
+            invoice.StreetNumber = order.StreetNumber;
+            invoice.TotalPrice = order.TotalPrice;
+            invoice.Town = order.Town;
+
+            db.Invoice.Add(invoice);
+            db.SaveChanges();
+
+
+
+            invoice.customerDeliveryAddress = order.customerDeliveryAddress;
+
+            //find highest order number
+            int maxInvoiceNumber = 1;
+            invoice.InvoiceNumber = maxInvoiceNumber;
+            var listInvoices = db.Invoice.ToList();
+
+            if (listInvoices.Count != 0)
+            {
+                maxInvoiceNumber = listInvoices.Max(i => i.InvoiceNumber);
+                invoice.InvoiceNumber = maxInvoiceNumber + 1;
+            }
+
+
+            foreach (var item in order.OrderDetail)
+            {
+                var id = new InvoiceDetail();
+                id.InvoiceId = invoice.InvoiceId;
+                id.Quantity = item.Quantity;
+                id.PriceExVAT = item.PriceExVAT;
+                id.TotalExVat = item.TotalExVat;
+                id.TotalIncVat = item.TotalIncVat;
+                id.Auvibel = item.Auvibel;
+                id.Bebat = item.Bebat;
+                id.Brand = item.Brand;
+                id.CategoryId = item.CategoryId;
+                id.Description = item.Description;
+                id.ProductCode = item.ProductCode;
+                id.ProductName = item.ProductName;
+                id.Recupel = item.Recupel;
+                id.Reprobel = item.Reprobel;
+                id.VATPercId = item.VATPercId;
+                id.ProductId = item.ProductId;
+                id.VAT = item.VAT;
+                db.InvoiceDetails.Add(id);
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("Index", "Invoices");
+        }
+
 
 
         protected override void Dispose(bool disposing)

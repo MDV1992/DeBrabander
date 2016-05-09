@@ -99,6 +99,11 @@
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                     </abbr>
+                    <abbr title="Factuur aanmaken">
+                        <a href="@Url.Action("CreateInvoice", "Orders", new { id = item.OrderId })" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-barcode" aria-hidden="true"></span>
+                        </a>
+                    </abbr>
                 </td>
             </tr>
         }
