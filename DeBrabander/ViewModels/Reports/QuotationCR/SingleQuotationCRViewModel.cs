@@ -51,7 +51,7 @@ namespace DeBrabander.ViewModels
         public string PostalCodeNumberTown { get; set; }
 
 
-        //Details
+        //Details QD
         public int QuotationDetailId { get; set; }
         public int Quantity { get; set; }
         public int ProductId { get; set; }

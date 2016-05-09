@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DeBrabander.Reports.Quotation {
+namespace DeBrabander.Reports.Customer {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -16,14 +16,14 @@ namespace DeBrabander.Reports.Quotation {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class test : ReportClass {
+    public class CrystalReport1 : ReportClass {
         
-        public test() {
+        public CrystalReport1() {
         }
         
         public override string ResourceName {
             get {
-                return "test.rpt";
+                return "CrystalReport1.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace DeBrabander.Reports.Quotation {
         
         public override string FullResourceName {
             get {
-                return "DeBrabander.Reports.Quotation.test.rpt";
+                return "DeBrabander.Reports.Customer.CrystalReport1.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace DeBrabander.Reports.Quotation {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class Cachedtest : Component, ICachedReport {
+    public class CachedCrystalReport1 : Component, ICachedReport {
         
-        public Cachedtest() {
+        public CachedCrystalReport1() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace DeBrabander.Reports.Quotation {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            test rpt = new test();
+            CrystalReport1 rpt = new CrystalReport1();
             rpt.Site = this.Site;
             return rpt;
         }

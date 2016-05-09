@@ -64,7 +64,7 @@ namespace DeBrabander.Controllers
             //ViewBag.CurrentSort = sortOrder;
 
 
-            ViewBag.QuotationSortParm = String.IsNullOrEmpty(sortOrder) ? "quot_desc" : "";
+            ViewBag.QuotationSortParm = String.IsNullOrEmpty(sortOrder) ? "quot_asc" : "";
             ViewBag.CustomerSortParm = sortOrder=="cust" ? "cust_desc" : "cust";
 
 
@@ -101,8 +101,8 @@ namespace DeBrabander.Controllers
            
             switch(sortOrder)
             {
-                case "quot_desc":
-                    quotations = quotations.OrderByDescending(s => s.QuotationNumber);
+                case "quot_asc":
+                    quotations = quotations.OrderBy(s => s.QuotationNumber);
                     break;
                 case "cust_desc":
                     quotations = quotations.OrderByDescending(s => s.LastName);
@@ -111,7 +111,7 @@ namespace DeBrabander.Controllers
                     quotations = quotations.OrderBy(s => s.LastName);
                     break;
                 default:
-                    quotations = quotations.OrderBy(s => s.QuotationNumber);
+                    quotations = quotations.OrderByDescending(s => s.QuotationNumber);
                     break;
             }
 
@@ -676,6 +676,7 @@ namespace DeBrabander.Controllers
             foreach (var item in quot.QuotationDetail)
             {
                 var od = new OrderDetail();
+                od.OrderId = order.OrderId;
                 od.Quantity = item.Quantity;
                 od.PriceExVAT = item.PriceExVAT;
                 od.TotalExVat = item.TotalExVat;
