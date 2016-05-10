@@ -621,6 +621,7 @@ namespace DeBrabander.Controllers
             invoice.StreetNumber = order.StreetNumber;
             invoice.TotalPrice = order.TotalPrice;
             invoice.Town = order.Town;
+            invoice.Active = true;
 
             db.Invoice.Add(invoice);
             db.SaveChanges();

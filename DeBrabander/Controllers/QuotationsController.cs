@@ -653,6 +653,7 @@ namespace DeBrabander.Controllers
             order.StreetNumber = quot.StreetNumber;
             order.TotalPrice = quot.TotalPrice;
             order.Town = quot.Town;
+            order.Active = true;
 
             db.Orders.Add(order);
             db.SaveChanges();
