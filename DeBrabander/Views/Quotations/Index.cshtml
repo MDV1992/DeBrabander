@@ -14,9 +14,9 @@
     <h3 style="color: red">@ViewBag.Error</h3>
     <div class="col-md-12">
         <div class="col-md-6" style="margin-bottom: 5px;">
-            @*Zoek op klant: &nbsp;*@@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })
-            @*Zoek op offertenummer: &nbsp;*@@Html.TextBox("searchQuotationNumber", ViewBag.CurrentFilterQuotation as string, new { @class = "form-control", placeholder = "Zoek op offertenummer", @style = "margin: 3px;" })
-            @*Zoek op werf: &nbsp;*@@Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string, new { @class = "form-control", placeholder = "Zoek op werf", @style = "margin: 3px;" })
+            @Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })
+            @Html.TextBox("searchQuotationNumber", ViewBag.CurrentFilterQuotation as string, new { @class = "form-control", placeholder = "Zoek op offertenummer", @style = "margin: 3px;" })
+            @Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string, new { @class = "form-control", placeholder = "Zoek op werf", @style = "margin: 3px;" })
             Oude Offertes : &nbsp;@Html.CheckBox("searchNonActive", (bool)ViewBag.CurrentFilterNonActive)<br>
             <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px" />
         </div>
@@ -28,8 +28,12 @@
                     </a>
                 </abbr>
             </p>
-            Pagina @(Model.quotations.PageCount < Model.quotations.PageNumber ? 0 : Model.quotations.PageNumber) van de @Model.quotations.PageCount
-            @Html.PagedListPager(Model.quotations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterQuotationNumber = ViewBag.CurrentFilterQuotation, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery, currentFilterNonActive = ViewBag.CurrentFilterNonActive }))
+            <div>
+                Pagina @(Model.quotations.PageCount < Model.quotations.PageNumber ? 0 : Model.quotations.PageNumber) van de @Model.quotations.PageCount
+            </div>
+            <div>
+                @Html.PagedListPager(Model.quotations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterQuotationNumber = ViewBag.CurrentFilterQuotation, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery, currentFilterNonActive = ViewBag.CurrentFilterNonActive }), PagedList.PagedListRenderOptions.tomsLayout)
+            </div>
         </div>
     </div>
 }
@@ -123,8 +127,12 @@
 </div>
 <br />
 <div class="col-md-2 col-md-offset-10">
-    Pagina @(Model.quotations.PageCount < Model.quotations.PageNumber ? 0 : Model.quotations.PageNumber) van de @Model.quotations.PageCount
-    @Html.PagedListPager(Model.quotations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterQuotationNumber = ViewBag.CurrentFilterQuotation, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery, currentFilterNonActive = ViewBag.CurrentFilterNonActive }))
+    <div>
+        Pagina @(Model.quotations.PageCount < Model.quotations.PageNumber ? 0 : Model.quotations.PageNumber) van de @Model.quotations.PageCount
+    </div>
+    <div>
+        @Html.PagedListPager(Model.quotations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterQuotationNumber = ViewBag.CurrentFilterQuotation, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery, currentFilterNonActive = ViewBag.CurrentFilterNonActive }), PagedList.PagedListRenderOptions.tomsLayout)
+    </div>
 </div>
 <div style="margin-bottom: 5px;">
     <a href="@Url.Action("Create", "Quotations")" class="btn btn-info">

@@ -20,8 +20,12 @@
             <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px" />
         </div>
         <div class="col-md-2 col-md-offset-4">
-            Pagina @(Model.invoices.PageCount < Model.invoices.PageNumber ? 0 : Model.invoices.PageNumber) van de @Model.invoices.PageCount
-            @Html.PagedListPager(Model.invoices, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterInvoiceNumber = ViewBag.CurrentFilterInvoice, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery }))
+            <div>
+                Pagina @(Model.invoices.PageCount < Model.invoices.PageNumber ? 0 : Model.invoices.PageNumber) van de @Model.invoices.PageCount
+            </div>
+            <div>
+                @Html.PagedListPager(Model.invoices, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterInvoiceNumber = ViewBag.CurrentFilterInvoice, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery }), PagedList.PagedListRenderOptions.tomsLayout)
+            </div>
         </div>
     </div>
 }
@@ -99,6 +103,10 @@
 </div>
 <br />
 <div class="col-md-2 col-md-offset-10">
-    Pagina @(Model.invoices.PageCount < Model.invoices.PageNumber ? 0 : Model.invoices.PageNumber) van de @Model.invoices.PageCount
-    @Html.PagedListPager(Model.invoices, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterInvoiceNumber = ViewBag.CurrentFilterInvoice, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery }))
+    <div>
+        Pagina @(Model.invoices.PageCount < Model.invoices.PageNumber ? 0 : Model.invoices.PageNumber) van de @Model.invoices.PageCount
+    </div>
+    <div>
+        @Html.PagedListPager(Model.invoices, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterInvoiceNumber = ViewBag.CurrentFilterInvoice, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery }), PagedList.PagedListRenderOptions.tomsLayout)
+    </div>
 </div>
