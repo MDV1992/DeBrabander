@@ -3,7 +3,7 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "De Brabander";
 }
 
 <h2>Nieuwe order</h2>
@@ -11,7 +11,7 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/TableRowCollapse.js"></script>
 
-@using (Html.BeginForm("Create","Orders",FormMethod.Get)) 
+@using (Html.BeginForm("Create", "Orders", FormMethod.Get))
 {
     @Html.AntiForgeryToken()
 
@@ -20,118 +20,141 @@
     </div>
 
     <h3>order nummer : @Model.order.OrderNumber</h3>
-    <p>
-        <b>Zoeken op:</b> <br />
-        Naam: @Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string)
-        Gemeente: @Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string)
-        <input type="submit" value="Zoek" />
-    </p>
-    <table class="table">
-        <tr>
-            <th style="display: none">
-                @Html.DisplayNameFor(model => model.customer.CustomerId)
-            </th>
-            <th>
-                @Html.ActionLink(Html.DisplayNameFor(model => model.customer.LastName).ToHtmlString(), "Create", new { sortOrder = ViewBag.NameSortParm })
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.customer.FirstName)
-            </th>
-            <th>
-                @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "Create", new { sortOrder = ViewBag.TownSortParm })
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.customer.Address.StreetName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.customer.Address.StreetNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.customer.CompanyName)
-            </th>
-            <th></th>
-        </tr>
 
-        @foreach (var item in Model.customers)
-        {
-            <tr class="customer">
-                <td>
-                    <input type="checkbox" class="select" data-customer="@Html.DisplayFor(modelItem => item.CustomerId)"> @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelitem => item.Address.Town)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelitem => item.Address.StreetName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelitem => item.Address.StreetNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyName)
-                </td>
-                <td>
-                    <abbr title="Werfadres toevoegen">
-                        <a href="@Url.Action("AddDeliveryAddress", "Customers", new { id = item.CustomerId })" class="btn btn-success">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </a>
-                    </abbr>
-                </td>
-            </tr>
-            if (item.CustomerDeliveryAddress.Count > 1)
-            {
-                foreach (var item2 in item.CustomerDeliveryAddress)
-                {
-
-                    <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
-                        <td></td>
-                        <td>
-                            <input type="checkbox" name="DeliveryID" value="@item2.CustomerDeliveryAddressId"> Selecteer deze klant <br>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(ModelItem => item2.DeliveryAddressInfo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(ModelItem => item2.StreetName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(ModelItem => item2.StreetNumber)
-                        </td>
-                    </tr>
-                }
-            }
-            else
-            {
-                foreach (var item2 in item.CustomerDeliveryAddress)
-                {
-                    <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
-                        <td></td>
-                        <td>
-                            <input type="checkbox" name="DeliveryID" value="@item2.CustomerDeliveryAddressId"> Selecteer deze klant <br>
-                        </td>
-                    </tr>
-                }
-            }
-        }
-
-    </table>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <h3>Order info : @Html.TextBox("OrderInfo")</h3>
-            <input type="submit" value="Opslaan" name="CreateOrder" class="btn btn-default" formmethod="post" />
-            <input type="submit" value="Artikel toevoegen" name="AddProductsOrder" class="btn btn-default" formmethod="post" />
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.TextBox("searchStringName", ViewBag.CurrentFilterName as string, new { @class = "form-control", placeholder = "Zoeken op naam", @style = "margin: 3px;" })
+            </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.TextBox("searchStringTown", ViewBag.CurrentFilterTown as string, new { @class = "form-control", placeholder = "Zoek op gemeente", @style = "margin: 3px;" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px" />
+            </div>
+            <div class="col-md-2 col-md-offset-4">
+                Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
+            </div>
+            <div class="col-md-2 col-md-offset-4">
+                @Html.PagedListPager(Model.customers, page => Url.Action("Create", new { @class = "pagination pagination-sm", page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }), PagedList.PagedListRenderOptions.tomsLayout)
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th style="display: none">
+                    @Html.DisplayNameFor(model => model.customer.CustomerId)
+                </th>
+                <th>
+                    @Html.ActionLink(Html.DisplayNameFor(model => model.customer.LastName).ToHtmlString(), "Create", new { sortOrder = ViewBag.NameSortParm })
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.customer.FirstName)
+                </th>
+                <th>
+                    @Html.ActionLink(Html.DisplayNameFor(model => model.customer.Address.Town).ToHtmlString(), "Create", new { sortOrder = ViewBag.TownSortParm })
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.customer.Address.StreetName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.customer.Address.StreetNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.customer.CompanyName)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.customers)
+            {
+                <tr class="customer">
+                    <td>
+                        <input type="checkbox" class="select" data-customer="@Html.DisplayFor(modelItem => item.CustomerId)"> @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Address.Town)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Address.StreetName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Address.StreetNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyName)
+                    </td>
+                    <td>
+                        <abbr title="Werfadres toevoegen">
+                            <a href="@Url.Action("AddDeliveryAddress", "Customers", new { id = item.CustomerId })" class="btn btn-success">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            </a>
+                        </abbr>
+                    </td>
+                </tr>
+                if (item.CustomerDeliveryAddress.Count > 1)
+                {
+                    foreach (var item2 in item.CustomerDeliveryAddress)
+                    {
+
+                        <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
+                            <td></td>
+                            <td>
+                                <input type="checkbox" name="DeliveryID" value="@item2.CustomerDeliveryAddressId"> Selecteer deze klant <br>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(ModelItem => item2.DeliveryAddressInfo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(ModelItem => item2.StreetName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(ModelItem => item2.StreetNumber)
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    foreach (var item2 in item.CustomerDeliveryAddress)
+                    {
+                        <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.CustomerId)">
+                            <td></td>
+                            <td>
+                                <input type="checkbox" name="DeliveryID" value="@item2.CustomerDeliveryAddressId"> Selecteer deze klant <br>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+
+        </table>
+    </div>
+    <div class="col-md-12">
+        <h3>Order info : @Html.TextBox("OrderInfo")</h3>
+        <input type="submit" value="Opslaan" name="CreateOrder" class="btn btn-default" formmethod="post" />
+        <input type="submit" value="Artikel toevoegen" name="AddProductsOrder" class="btn btn-default" formmethod="post" />
     </div>
 
 
 }
-Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
 
-@Html.PagedListPager(Model.customers, page => Url.Action("Create", new { page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }))
-
+<div class="row">
+    <div class="col-md-2 col-md-offset-10">
+        Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
+    </div>
+    <div class="col-md-2 col-md-offset-10">
+        @Html.PagedListPager(Model.customers, page => Url.Action("Create", new { @class = "pagination pagination-sm", page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }), PagedList.PagedListRenderOptions.tomsLayout)
+    </div>
+</div>
 
 <div>
     @Html.ActionLink("Back to List", "Index")

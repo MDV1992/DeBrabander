@@ -1,63 +1,60 @@
 ﻿@model DeBrabander.ViewModels.Orders.OrderEditViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "De Brabander";
 }
-
-<h2>Edit</h2>
-
 
 <h2>Overzicht Bestelling Nr.@Model.order.OrderNumber van @Model.customer.FullName</h2>
 <br />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    <div class="col-md-4">
-        <table>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.CompanyName, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.FullName, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.Address.StreetName, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.customer.Address.StreetNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.Address.PostalCodeNumber, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.customer.Address.Town, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.CellPhone, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.Email, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.VATNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr></tr>
-        </table>
-    </div>
-    <div class="col-md-4">
-        @if (Model.customer.ContactName != null)
-                {
+    <div class="row">
+        <div class="col-md-4">
             <table>
                 <tr>
-                    <th>Contact gegevens</th>
+                    <td>@Html.DisplayFor(model => model.customer.CompanyName, new { htmlAttributes = new { @class = "form-control" } })</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayFor(model => model.customer.ContactName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                    <td>@Html.DisplayFor(model => model.customer.FullName, new { htmlAttributes = new { @class = "form-control" } })</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayFor(model => model.customer.ContactCellPhone, new { htmlAttributes = new { @class = "form-control" } })</td>
+                    <td>@Html.DisplayFor(model => model.customer.Address.StreetName, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.customer.Address.StreetNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayFor(model => model.customer.ContactEmail, new { htmlAttributes = new { @class = "form-control" } })</td>
+                    <td>@Html.DisplayFor(model => model.customer.Address.PostalCodeNumber, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.customer.Address.Town, new { htmlAttributes = new { @class = "form-control" } })</td>
                 </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.customer.CellPhone, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.customer.Email, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.customer.VATNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr></tr>
             </table>
-        }
-    </div>
+        </div>
+        <div class="col-md-4">
+            @if (Model.customer.ContactName != null)
+                {
+                <table>
+                    <tr>
+                        <th>Contact gegevens</th>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.customer.ContactName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.customer.ContactCellPhone, new { htmlAttributes = new { @class = "form-control" } })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.customer.ContactEmail, new { htmlAttributes = new { @class = "form-control" } })</td>
+                    </tr>
+                </table>
+            }
+        </div>
         <div class="col-md-4">
             <table>
                 <tr>
@@ -74,14 +71,14 @@
                 </tr>
             </table>
         </div>
-
+        </div>
         <br />
     if (Model != null)
     {
         if (Model.order.OrderDetail != null && Model.order.OrderDetail.Count() != 0)
         {
             <div>
-                <table class="table">
+                <table class="table table-striped">
                     <tr>
                         <th>
                             Artikel
@@ -148,23 +145,16 @@
                         </tr>
                     }
                     <tr>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                         <th>
                             @Html.DisplayNameFor(model => model.order.TotalPrice)
                         </th>
-                        <th>
-                        </th>
+                        <th></th>
                     </tr>
                     <tr style="border: hidden">
                         <td></td>
@@ -176,6 +166,7 @@
                         <td>
                             @Html.DisplayFor(model => model.order.TotalPrice)
                         </td>
+                        <td></td>
                     </tr>
                 </table>
             </div>

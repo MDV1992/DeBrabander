@@ -1,7 +1,7 @@
 ﻿@model DeBrabander.ViewModels.Quotations.QuotationEditViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "De Brabander";
 }
 
 <h2>Overzicht Offerte Nr.@Model.quotation.QuotationNumber van @Model.customer.FullName</h2>
@@ -9,51 +9,51 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    <div class="col-md-4">
-        <table>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.CompanyName, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.FullName, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.Address.StreetName, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.customer.Address.StreetNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.Address.PostalCodeNumber, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.customer.Address.Town, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.CellPhone, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.Email, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr>
-                <td>@Html.DisplayFor(model => model.customer.VATNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
-            </tr>
-            <tr></tr>
-        </table>
-    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <table>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.customer.CompanyName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.customer.FullName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.customer.Address.StreetName, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.customer.Address.StreetNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.customer.Address.PostalCodeNumber, new { htmlAttributes = new { @class = "form-control" } }) @Html.DisplayFor(model => model.customer.Address.Town, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.customer.CellPhone, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.customer.Email, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.customer.VATNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr></tr>
+            </table>
+        </div>
         <div class="col-md-4">
             @if (Model.customer.ContactName != null)
                 {
-                    <table>
-                        <tr>
-                            <th>Contact gegevens</th>
-                        </tr>
-                        <tr>
-                            <td>@Html.DisplayFor(model => model.customer.ContactName, new { htmlAttributes = new { @class = "form-control" } })</td>
-                        </tr>
-                        <tr>
-                            <td>@Html.DisplayFor(model => model.customer.ContactCellPhone, new { htmlAttributes = new { @class = "form-control" } })</td>
-                        </tr>
-                        <tr>
-                            <td>@Html.DisplayFor(model => model.customer.ContactEmail, new { htmlAttributes = new { @class = "form-control" } })</td>
-                        </tr>
-                    </table>
-                }
+                <table>
+                    <tr>
+                        <th>Contact gegevens</th>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.customer.ContactName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.customer.ContactCellPhone, new { htmlAttributes = new { @class = "form-control" } })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.customer.ContactEmail, new { htmlAttributes = new { @class = "form-control" } })</td>
+                    </tr>
+                </table>
+            }
         </div>
         <div class="col-md-4">
             <table>
@@ -71,8 +71,8 @@
                 </tr>
             </table>
         </div>
-
-        <br />
+    </div>
+    <br/>
     if (Model != null)
     {
         if (Model.quotation.QuotationDetail != null && Model.quotation.QuotationDetail.Count() != 0)
@@ -194,5 +194,9 @@
             </div>
         }
     }
-
 }
+<div style="margin-bottom: 5px;">
+    <a href="@Url.Action("Index", "Quotations")" class="btn btn-info">
+        Ga naar offertes
+    </a>
+</div>

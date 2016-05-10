@@ -4,7 +4,7 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "De Brabander";
 }
 
 <h2>Nieuwe offerte</h2>
@@ -42,7 +42,7 @@
                 Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
             </div>
             <div class="col-md-2 col-md-offset-4">
-                @Html.PagedListPager(Model.customers, page => Url.Action("Index", new { @class = "pagination pagination-sm", page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }), PagedList.PagedListRenderOptions.tomsLayout)
+                @Html.PagedListPager(Model.customers, page => Url.Action("Create", new { @class = "pagination pagination-sm", page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }), PagedList.PagedListRenderOptions.tomsLayout)
             </div>
         </div>
     </div>
@@ -161,7 +161,7 @@
         Pagina @(Model.customers.PageCount < Model.customers.PageNumber ? 0 : Model.customers.PageNumber) van de @Model.customers.PageCount
     </div>
     <div class="col-md-2 col-md-offset-10">
-        @Html.PagedListPager(Model.customers, page => Url.Action("Index", new { @class = "pagination pagination-sm", page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }), PagedList.PagedListRenderOptions.tomsLayout)
+        @Html.PagedListPager(Model.customers, page => Url.Action("Create", new { @class = "pagination pagination-sm", page, sortOrder = ViewBag.CurrentSort, currentFilterName = ViewBag.CurrentFilterName, currentFilterTown = ViewBag.CurrentFilterTown }), PagedList.PagedListRenderOptions.tomsLayout)
     </div>
 </div>
 

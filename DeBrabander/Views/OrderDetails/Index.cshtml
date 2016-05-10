@@ -12,9 +12,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Order.Annotation)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.VAT.VATPercId)
         </th>
         <th>
@@ -64,9 +61,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Order.Annotation)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.VAT.VATPercId)
         </td>
