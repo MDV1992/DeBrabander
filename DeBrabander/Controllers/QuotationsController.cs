@@ -654,6 +654,7 @@ namespace DeBrabander.Controllers
             order.TotalPrice = quot.TotalPrice;
             order.Town = quot.Town;
             order.Active = true;
+            quot.Active = false;
 
             db.Orders.Add(order);
             db.SaveChanges();
