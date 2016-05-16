@@ -12,7 +12,7 @@
 @using (Html.BeginForm())
 {
     <h3 style="color: red">@ViewBag.Error</h3>
-    <div class="col-md-12">
+    <div>
         <div class="col-md-6" style="margin-bottom: 5px;">
             @Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })
             @Html.TextBox("searchQuotationNumber", ViewBag.CurrentFilterQuotation as string, new { @class = "form-control", placeholder = "Zoek op offertenummer", @style = "margin: 3px;" })
@@ -134,7 +134,7 @@
         @Html.PagedListPager(Model.quotations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterQuotationNumber = ViewBag.CurrentFilterQuotation, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery, currentFilterNonActive = ViewBag.CurrentFilterNonActive }), PagedList.PagedListRenderOptions.tomsLayout)
     </div>
 </div>
-<div style="margin-bottom: 5px;">
+<div class="col-md-12" style="margin-bottom: 5px;">
     <a href="@Url.Action("Create", "Quotations")" class="btn btn-info">
         Nieuwe offerte aanmaken
     </a>

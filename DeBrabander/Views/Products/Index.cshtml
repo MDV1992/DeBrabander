@@ -2,16 +2,30 @@
 @model IEnumerable<DeBrabander.ViewModels.Products.ProductIndexViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "De Brabander";
 }
 
 <h2>Artikel overzicht</h2>
 
-<p>
-    @Html.ActionLink("Nieuw artikel aanmaken", "Create")
-    <a href="@Url.Action("CRAllProducts")"> Print alle Artikelen</a>
-    
-</p>
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-2 col-md-offset-4">
+            <abbr title="Print alle artikelen">
+                <a href="@Url.Action("CRAllProducts")" class="btn btn-info">
+                    <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                </a>
+            </abbr>
+        </div>
+    </div>
+    <div class="row">
+        
+    </div>
+    <div class="row">
+        @* Paing *@
+    </div>
+</div>
 @using (Html.BeginForm())
 {
     <p>
@@ -35,49 +49,25 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PriceExVAT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Reprobel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Bebat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Recupel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Auvibel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PurchasePrice)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Brand)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CategoryName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VATValue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Stock)
+            @*@Html.DisplayNameFor(model => model.VATValue)*@ BTW %
         </th>
         <th>
             @Html.DisplayNameFor(model => model.EAN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Active)
         </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr class="customer">
             <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
+                <input type="checkbox" class="select" data-customer="@Html.DisplayFor(modelItem => item.ProductId)"> @Html.DisplayFor(modelItem => item.ProductName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductCode)
@@ -89,7 +79,65 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PriceExVAT)
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VATValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EAN)
+            </td>
+            <td>
+                <abbr title="Artikel aanpassen">
+                    <a href="@Url.Action("Edit", "Products", new { id = item.ProductId })" class="btn btn-primary toggle-more-detail">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </a>
+                </abbr>
+                <abbr title="Overzicht artikel">
+                    <a href="@Url.Action("Details", "Products", new { id = item.ProductId })" class="btn btn-info toggle-more-detail">
+                        <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                    </a>
+                </abbr>
+                <abbr title="Artikel verwijderen">
+                    <a href="@Url.Action("Delete", "Products", new { id = item.ProductId })" class="btn btn-danger toggle-more-detail">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </a>
+                </abbr>
+            </td>
+        </tr>
+        <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.ProductId)">
+            <th></th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.PriceExVAT)*@ Prijs ex BTW
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PurchasePrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reprobel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bebat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recupel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Auvibel)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr style="display:none" class="rowToExpand @Html.DisplayFor(modelItem => item.ProductId)">
+            <td></td>
+            <td>
+                € @Html.DisplayFor(modelItem => item.PriceExVAT)
+            </td>
+            <td>
+                € @Html.DisplayFor(modelItem => item.PurchasePrice)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Reprobel)
@@ -103,33 +151,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Auvibel)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchasePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Brand)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VATValue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Stock)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EAN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-            <td>
-                @Html.ActionLink("Aanpassen", "Edit", new { id = item.ProductId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
-            </td>
+            <td></td>
+            <td></td>
         </tr>
     }
 
 </table>
+<div style="margin-bottom: 5px;">
+    <a href="@Url.Action("Create", "Products")" class="btn btn-info">
+        Nieuw artikel aanmaken
+    </a>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/TableRowCollapse.js"></script>

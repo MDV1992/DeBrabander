@@ -12,7 +12,7 @@
 
 @using (Html.BeginForm())
 {
-    <div class="col-md-12">
+    <div>
         <div class="col-md-6">
             @*Zoek op klant: &nbsp;*@@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })
             @*Zoek op offertenummer: &nbsp;*@@Html.TextBox("searchOrderNumber", ViewBag.CurrentFilterOrder as string, new { @class = "form-control", placeholder = "Zoek op ordernummer", @style = "margin: 3px;" })
@@ -22,11 +22,6 @@
         </div>
         <div class="col-md-2 col-md-offset-4">
             <p>
-                <abbr title="Nieuwe bestelling aanmaken">
-                    <a href="@Url.Action("Create", "Orders")" class="btn btn-info">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    </a>
-                </abbr>
                 <abbr title="Print alle kranten">
                     <a href="@Url.Action("CRAllOrders")" class="btn btn-info">
                         <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
@@ -122,4 +117,9 @@
     <div>
         @Html.PagedListPager(Model.orders, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterOrderNumber = ViewBag.CurrentFilterOrder, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery, currentFilterNonActive = ViewBag.CurrentFilterNonActive }), PagedList.PagedListRenderOptions.tomsLayout)
     </div>
+</div>
+<div class="col-md-12" style="margin-bottom: 5px;">
+    <a href="@Url.Action("Create", "Orders")" class="btn btn-info">
+        Nieuwe order aanmaken
+    </a>
 </div>
