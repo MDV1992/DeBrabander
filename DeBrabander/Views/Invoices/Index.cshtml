@@ -13,7 +13,7 @@
 @using (Html.BeginForm())
 {
     <div class="row">
-        <div class="col-md-6>
+        <div class="col-md-6">
             @Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })
             @Html.TextBox("searchInvoiceNumber", ViewBag.currentFilterInvoiceNumber as string, new { @class = "form-control", placeholder = "Zoek op factuurnummer", @style = "margin: 3px;" })
             @Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string, new { @class = "form-control", placeholder = "Zoek op werf", @style = "margin: 3px;" })
@@ -74,28 +74,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.TotalPrice)
                 </td>
-                <td>
-                    @*<abbr title="Overzicht Offerte">
-                            <a href="@Url.Action("Edit", "Quotations", new { id = item.QuotationId })" class="btn btn-info toggle-more-detail">
-                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                            </a>
-                        </abbr>
-                        <abbr title="Verwijder Offerte">
-                            <a href="@Url.Action("Delete", "Quotations", new { id = item.QuotationId })" class="btn btn-danger">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </a>
-                        </abbr>
-                        <abbr title="Artikel toevoegen">
-                            <a href="@Url.Action("AddProducts", "Quotations", new { id = item.QuotationId })" class="btn btn-success">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            </a>
-                        </abbr>
-                        <abbr title="Offerte Kopiëren">
-                            <a href="@Url.Action("CopyQuotation", "Quotations", new { id = item.QuotationId })" class="btn btn-warning">
-                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-                            </a>
-                        </abbr>*@
-                </td>
+                <td></td>
             </tr>
         }
 

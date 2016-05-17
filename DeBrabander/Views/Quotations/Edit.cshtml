@@ -199,4 +199,7 @@
     <a href="@Url.Action("Index", "Quotations")" class="btn btn-info">
         Ga naar offertes
     </a>
+    <a href="@Url.Action("CreateOrder", "Quotations", new { id = @Model.quotation.QuotationId })" class="btn btn-info">
+        Order aanmaken
+    </a>
 </div>
