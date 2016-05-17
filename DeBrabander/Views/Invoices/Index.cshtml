@@ -12,11 +12,11 @@
 
 @using (Html.BeginForm())
 {
-    <div>
-        <div class="col-md-6">
-            @*Zoek op klant: &nbsp;*@@Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })
-            @*Zoek op offertenummer: &nbsp;*@@Html.TextBox("searchInvoiceNumber", ViewBag.currentFilterInvoiceNumber as string, new { @class = "form-control", placeholder = "Zoek op factuurnummer", @style = "margin: 3px;" })
-            @*Zoek op werf: &nbsp;*@@Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string, new { @class = "form-control", placeholder = "Zoek op werf", @style = "margin: 3px;" })
+    <div class="row">
+        <div class="col-md-6>
+            @Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })
+            @Html.TextBox("searchInvoiceNumber", ViewBag.currentFilterInvoiceNumber as string, new { @class = "form-control", placeholder = "Zoek op factuurnummer", @style = "margin: 3px;" })
+            @Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string, new { @class = "form-control", placeholder = "Zoek op werf", @style = "margin: 3px;" })
             <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px" />
         </div>
         <div class="col-md-2 col-md-offset-4">
@@ -29,7 +29,7 @@
         </div>
     </div>
 }
-<div class="col-md-12">
+<div class="col-md-12 row">
     <table class="table table-striped">
         <tr>
             <th>
@@ -102,11 +102,14 @@
     </table>
 </div>
 <br />
-<div class="col-md-2 col-md-offset-10">
-    <div>
-        Pagina @(Model.invoices.PageCount < Model.invoices.PageNumber ? 0 : Model.invoices.PageNumber) van de @Model.invoices.PageCount
-    </div>
-    <div>
-        @Html.PagedListPager(Model.invoices, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterInvoiceNumber = ViewBag.CurrentFilterInvoice, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery }), PagedList.PagedListRenderOptions.tomsLayout)
+<div class="row">
+    <div class="col-md-2 col-md-offset-10">
+        <div>
+            Pagina @(Model.invoices.PageCount < Model.invoices.PageNumber ? 0 : Model.invoices.PageNumber) van de @Model.invoices.PageCount
+        </div>
+        <div>
+            @Html.PagedListPager(Model.invoices, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterInvoiceNumber = ViewBag.CurrentFilterInvoice, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery }), PagedList.PagedListRenderOptions.tomsLayout)
+        </div>
     </div>
 </div>
+

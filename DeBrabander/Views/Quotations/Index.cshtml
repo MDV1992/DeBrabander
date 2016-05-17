@@ -12,7 +12,7 @@
 @using (Html.BeginForm())
 {
     <h3 style="color: red">@ViewBag.Error</h3>
-    <div>
+    <div class="row">
         <div class="col-md-6" style="margin-bottom: 5px;">
             @Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })
             @Html.TextBox("searchQuotationNumber", ViewBag.CurrentFilterQuotation as string, new { @class = "form-control", placeholder = "Zoek op offertenummer", @style = "margin: 3px;" })
@@ -37,7 +37,7 @@
         </div>
     </div>
 }
-<div class="col-md-12">
+<div class="col-md-12 row">
     <table class="table table-striped">
         <tr>
             <th>
@@ -126,16 +126,21 @@
     </table>
 </div>
 <br />
-<div class="col-md-2 col-md-offset-10">
-    <div>
-        Pagina @(Model.quotations.PageCount < Model.quotations.PageNumber ? 0 : Model.quotations.PageNumber) van de @Model.quotations.PageCount
-    </div>
-    <div>
-        @Html.PagedListPager(Model.quotations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterQuotationNumber = ViewBag.CurrentFilterQuotation, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery, currentFilterNonActive = ViewBag.CurrentFilterNonActive }), PagedList.PagedListRenderOptions.tomsLayout)
+<div class="row">
+    <div class="col-md-2 col-md-offset-10">
+        <div>
+            Pagina @(Model.quotations.PageCount < Model.quotations.PageNumber ? 0 : Model.quotations.PageNumber) van de @Model.quotations.PageCount
+        </div>
+        <div>
+            @Html.PagedListPager(Model.quotations, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilterQuotationNumber = ViewBag.CurrentFilterQuotation, currentFilterCustomer = ViewBag.CurrentFilterCustomer, currentFilterDelivery = ViewBag.CurrentFilterDelivery, currentFilterNonActive = ViewBag.CurrentFilterNonActive }), PagedList.PagedListRenderOptions.tomsLayout)
+        </div>
     </div>
 </div>
-<div class="col-md-12" style="margin-bottom: 5px;">
-    <a href="@Url.Action("Create", "Quotations")" class="btn btn-info">
-        Nieuwe offerte aanmaken
-    </a>
+<div class="row">
+    <div class="col-md-12" style="margin-bottom: 5px;">
+        <a href="@Url.Action("Create", "Quotations")" class="btn btn-info">
+            Nieuwe offerte aanmaken
+        </a>
+    </div>
 </div>
+
