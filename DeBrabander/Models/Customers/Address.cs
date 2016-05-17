@@ -27,6 +27,8 @@ namespace DeBrabander.Models
 
         [DisplayName("Gemeente")]
         public string Town { get; set; }
+        [DisplayName("Land")]
+        public string Country { get; set; }
 
     }
 }
