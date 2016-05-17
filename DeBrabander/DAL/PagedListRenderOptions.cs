@@ -50,7 +50,7 @@ namespace PagedList
                           DisplayLinkToLastPage = PagedListDisplayMode.Always,
                           DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
                           DisplayLinkToNextPage = PagedListDisplayMode.Always,
-                          MaximumPageNumbersToDisplay = 5
+                          MaximumPageNumbersToDisplay = 4
                 };
 
             }
