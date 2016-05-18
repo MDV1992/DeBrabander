@@ -13,7 +13,7 @@
 @using (Html.BeginForm())
 {
     <div class="row">
-        <div class="col-md-6>
+        <div class="col-md-6">
             @Html.TextBox("searchCustomer", ViewBag.CurrentFilterCustomer as string, new { @class = "form-control", placeholder = "Zoek op klant", @style = "margin: 3px;" })
             @Html.TextBox("searchInvoiceNumber", ViewBag.currentFilterInvoiceNumber as string, new { @class = "form-control", placeholder = "Zoek op factuurnummer", @style = "margin: 3px;" })
             @Html.TextBox("searchDelivery", ViewBag.CurrentFilterDelivery as string, new { @class = "form-control", placeholder = "Zoek op werf", @style = "margin: 3px;" })
