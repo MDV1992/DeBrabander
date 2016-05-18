@@ -105,6 +105,11 @@
                                     <span class="glyphicon glyphicon-barcode" aria-hidden="true"></span>
                                 </a>
                             </abbr>
+                            <abbr title="Order Afdrukken">
+                                <a href="@Url.Action("CROrder", "Orders", new { id = item.OrderId })" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                                </a>
+                            </abbr>
                         </td>
                     </tr>
                 }

@@ -320,6 +320,12 @@
       <DependentUpon>MainCustomers.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\Order\SingleOrder.cs">
+      <DependentUpon>SingleOrder.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\ProductMain.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -349,6 +355,7 @@
     <Compile Include="ViewModels\Orders\OrderIndexViewModel.cs" />
     <Compile Include="ViewModels\Reports\CustomerCR\CustomerDeliveryAdressesCRViewModel.cs" />
     <Compile Include="ViewModels\Reports\OrderCR\AllOrdersCRViewModel.cs" />
+    <Compile Include="ViewModels\Reports\OrderCR\SingleOrderCRViewModel.cs" />
     <Compile Include="ViewModels\Reports\ProductCR\ProductCRViewModel.cs" />
     <Compile Include="ViewModels\Reports\CustomerCR\CustomerCRViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryCreateViewModel.cs" />
@@ -514,6 +521,10 @@
     <EmbeddedResource Include="Reports\MainCustomers.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MainCustomers.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Order\SingleOrder.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SingleOrder.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ProductMain.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
