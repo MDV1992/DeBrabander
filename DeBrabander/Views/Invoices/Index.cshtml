@@ -33,7 +33,7 @@
     <table class="table table-striped">
         <tr>
             <th>
-                @Html.ActionLink(Html.DisplayNameFor(model => model.invoice.InvoiceNumber).ToHtmlString(), "Index", new { sortOrder = ViewBag.QuotationSortParm })
+                @Html.ActionLink(Html.DisplayNameFor(model => model.invoice.InvoiceNumber).ToHtmlString(), "Index", new { sortOrder = ViewBag.InvoiceSortParm })
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.invoice.Date)

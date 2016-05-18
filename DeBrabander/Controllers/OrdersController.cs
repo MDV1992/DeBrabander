@@ -43,7 +43,7 @@ namespace DeBrabander.Controllers
             Order order = new Order();
 
             
-            ViewBag.OrderSortParm = String.IsNullOrEmpty(sortOrder) ? "order_desc" : "";
+            ViewBag.OrderSortParm = String.IsNullOrEmpty(sortOrder) ? "order_asc" : "";
             ViewBag.CustomerSortParm = sortOrder == "cust" ? "cust_desc" : "cust";
 
 
@@ -80,8 +80,8 @@ namespace DeBrabander.Controllers
 
             switch (sortOrder)
             {
-                case "order_desc":
-                    orders = orders.OrderByDescending(o => o.OrderNumber);
+                case "order_asc":
+                    orders = orders.OrderBy(o => o.OrderNumber);
                     break;
                 case "cust_desc":
                     orders = orders.OrderByDescending(o => o.LastName);
@@ -90,7 +90,7 @@ namespace DeBrabander.Controllers
                     orders = orders.OrderBy(o => o.LastName);
                     break;
                 default:
-                    orders = orders.OrderBy(o => o.OrderNumber);
+                    orders = orders.OrderByDescending(o => o.OrderNumber);
                     break;
             }
 
@@ -622,6 +622,7 @@ namespace DeBrabander.Controllers
             invoice.TotalPrice = order.TotalPrice;
             invoice.Town = order.Town;
             invoice.Active = true;
+            order.Active = false;
 
             db.Invoice.Add(invoice);
             db.SaveChanges();
@@ -635,7 +636,7 @@ namespace DeBrabander.Controllers
             invoice.InvoiceNumber = maxInvoiceNumber;
             var listInvoices = db.Invoice.ToList();
 
-            if (listInvoices.Count != 0)
+            if (listInvoices.Count > 1)
             {
                 maxInvoiceNumber = listInvoices.Max(i => i.InvoiceNumber);
                 invoice.InvoiceNumber = maxInvoiceNumber + 1;
