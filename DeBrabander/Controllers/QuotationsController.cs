@@ -604,10 +604,10 @@ namespace DeBrabander.Controllers
                 {
 
                     var qd = new QuotationDetail();
-                    qd.Quantity = item.Quantity;
-                    qd.PriceExVAT = item.PriceExVAT;
-                    qd.TotalExVat = item.TotalExVat;
-                    qd.TotalIncVat = item.TotalIncVat;
+                    qd.Quantity = 1;
+                    qd.PriceExVAT = 0;
+                    qd.TotalExVat = 0;
+                    qd.TotalIncVat = 0;
                     qd.Auvibel = item.Auvibel;
                     qd.Bebat = item.Bebat;
                     qd.Brand = item.Brand;
@@ -668,7 +668,7 @@ namespace DeBrabander.Controllers
             order.OrderNumber = maxOrderNumber;
             var listOrders = db.Orders.ToList();
 
-            if (listOrders.Count != 0)
+            if (listOrders.Count > 1)
             {
                 maxOrderNumber = listOrders.Max(o => o.OrderNumber);
                 order.OrderNumber = maxOrderNumber + 1;

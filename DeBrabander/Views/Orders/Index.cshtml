@@ -85,12 +85,12 @@
                             @Html.DisplayFor(modelItem => item.TotalPrice)
                         </td>
                         <td>
-                            <abbr title="Overzicht Offerte">
+                            <abbr title="Overzicht Order">
                                 <a href="@Url.Action("Edit", "Orders", new { id = item.OrderId })" class="btn btn-info toggle-more-detail">
                                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                                 </a>
                             </abbr>
-                            <abbr title="Verwijder Offerte">
+                            <abbr title="Verwijder Order">
                                 <a href="@Url.Action("Delete", "Orders", new { id = item.OrderId })" class="btn btn-danger">
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                 </a>

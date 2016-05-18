@@ -27,7 +27,7 @@ namespace DeBrabander.Controllers
             //ViewBag.CurrentSort = sortOrder;
 
 
-            ViewBag.QuotationSortParm = String.IsNullOrEmpty(sortOrder) ? "quot_desc" : "";
+            ViewBag.InvoiceSortParm = String.IsNullOrEmpty(sortOrder) ? "invoice_asc" : "";
             ViewBag.CustomerSortParm = sortOrder == "cust" ? "cust_desc" : "cust";
 
 
@@ -62,8 +62,8 @@ namespace DeBrabander.Controllers
 
             switch (sortOrder)
             {
-                case "quot_desc":
-                    invoices = invoices.OrderByDescending(s => s.InvoiceNumber);
+                case "invoice_asc":
+                    invoices = invoices.OrderBy(s => s.InvoiceNumber);
                     break;
                 case "cust_desc":
                     invoices = invoices.OrderByDescending(s => s.LastName);
@@ -72,7 +72,7 @@ namespace DeBrabander.Controllers
                     invoices = invoices.OrderBy(s => s.LastName);
                     break;
                 default:
-                    invoices = invoices.OrderBy(s => s.InvoiceNumber);
+                    invoices = invoices.OrderByDescending(s => s.InvoiceNumber);
                     break;
             }
 

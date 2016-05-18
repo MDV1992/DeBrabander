@@ -50,6 +50,7 @@ namespace PagedList
                           DisplayLinkToLastPage = PagedListDisplayMode.Always,
                           DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
                           DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                          DisplayEllipsesWhenNotShowingAllPageNumbers = false,
                           MaximumPageNumbersToDisplay = 4
                 };
 
