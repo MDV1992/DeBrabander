@@ -602,6 +602,114 @@ namespace DeBrabander.Controllers
             }
         }
 
+        public ActionResult CROrder(int id)
+        {
+
+            //Lijsten maken en vullen
+            List<SingleOrderCRViewModel> CRSingleOrderListVM = new List<SingleOrderCRViewModel>();
+            SingleOrderCRViewModel CRSO = new SingleOrderCRViewModel();
+
+            Order order = db.Orders.Find(id);
+            Company company = db.Companies.Find(1);
+            Customer cus = db.Customers.Find(order.CustomerId);
+
+
+            //vulling Header info
+            //company
+            CRSO.BIC = company.BIC;
+            CRSO.CompanyId = company.CompanyId;
+            CRSO.CompanyName = company.CompanyName;
+            CRSO.Country = company.Country;
+            CRSO.District = company.District;
+            CRSO.EmailCompany = company.Email;
+            CRSO.Iban = company.Iban;
+            CRSO.Mobile = company.Mobile;
+            CRSO.Phone = company.Phone;
+            CRSO.Postalcode = company.Postalcode;
+            CRSO.Street = company.Street;
+            CRSO.VatNumber = company.VatNumber;
+            CRSO.Website = company.Website;
+
+            //quotation
+            CRSO.Annotation = order.Annotation;
+            CRSO.Box = order.Box;
+            CRSO.CellPhone = order.CellPhone;
+            CRSO.CustomerId = order.CustomerId;
+            CRSO.Date = order.Date;
+            CRSO.EmailCustomer = order.Email;
+            CRSO.FirstName = order.FirstName;
+            CRSO.LastName = order.LastName;
+            CRSO.PostalCodeNumber = order.PostalCodeNumber;
+            CRSO.OrderId = order.OrderId;
+            CRSO.OrderNumber = order.OrderNumber;
+            CRSO.StreetName = order.StreetName;
+            CRSO.StreetNumber = order.StreetNumber;
+            CRSO.TotalPrice = order.TotalPrice;
+            CRSO.Town = order.Town;
+            CRSO.VATnumberCustomer = cus.VATNumber;
+
+            //customer contact info
+            CRSO.ContactCellPhone = cus.ContactCellPhone;
+            CRSO.ContactEmail = cus.ContactEmail;
+            CRSO.ContactName = cus.ContactName;
+
+            //delivery info
+            CRSO.DeliveryAddressInfo = order.customerDeliveryAddress.DeliveryAddressInfo;
+            CRSO.PostalCodeNumberTown = order.customerDeliveryAddress.PostalCodeNumber + " " + order.customerDeliveryAddress.Town;
+            CRSO.StreetNameNumberBox = order.customerDeliveryAddress.StreetName + " " + order.customerDeliveryAddress.StreetNumber + " " + order.customerDeliveryAddress.Box;
+
+            //vulling details info
+            foreach (var item in order.OrderDetail)
+            {
+                CRSO.ProductCode = item.ProductCode;
+                CRSO.PriceExVAT = item.PriceExVAT;
+                CRSO.Quantity = item.Quantity;
+                CRSO.Description = item.Description;
+                CRSO.VATValue = Convert.ToInt16(item.VAT.VATValue);
+                CRSO.Auvibel = item.Auvibel;
+                CRSO.Recupel = item.Recupel;
+                CRSO.Reprobel = item.Reprobel;
+                CRSO.Bebat = item.Bebat;
+                CRSO.ProductCode = item.ProductCode;
+                CRSO.ProductName = item.ProductName;
+                CRSingleOrderListVM.Add(CRSO);
+                SingleOrderCRViewModel empty = new SingleOrderCRViewModel();
+                CRSO = empty;
+            }
+
+
+
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/Order"), "SingleOrder.rpt"));
+            rd.SetDataSource(CRSingleOrderListVM);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                string pdfName = "Order - " + order.OrderNumber + " - " + order.FullName.ToString() + ".pdf";
+                return File(stream, "application/pdf", pdfName);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Data == null)
+                {
+                    throw;
+                }
+                else
+                {
+                    throw;
+                }
+
+            }
+        }
+
+
+
         public ActionResult CreateInvoice(int? Id)
         {
             Order order = new Order();
