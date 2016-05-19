@@ -33,8 +33,6 @@ namespace DeBrabander.Models
         public string Iban { get; set; }
         [DisplayName("BIC")]
         public string BIC { get; set; }
-        [DisplayName("Logo")]
-        public byte Logo { get; set; }
         [DisplayName("Website")]
         public string Website { get; set; }
       

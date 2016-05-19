@@ -91,7 +91,6 @@
                         @Html.ValidationMessageFor(model => model.customer.Annotation, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
                     @Html.LabelFor(model => model.customer.Type, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -99,6 +98,7 @@
                         @Html.ValidationMessageFor(model => model.customer.Type, "", new { @class = "text-danger" })
                     </div>
                 </div>
+             
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.customer.TAXLiability, htmlAttributes: new { @class = "control-label col-md-2" })

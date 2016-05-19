@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<DeBrabander.ViewModels.Categories.CategoryIndexViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Categorie overzicht";
 }
 
 <h2>Categorie overzicht</h2>
 
-<p>
-    @Html.ActionLink("Nieuwe categorie aanmaken", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -23,10 +21,12 @@
             @Html.DisplayFor(modelItem => item.CategoryName)
         </td>
         <td>
-            @Html.ActionLink("Aanpassen", "Edit", new { id=item.CategoryId }) |
-            @Html.ActionLink("Verwijderen", "Delete", new { id=item.CategoryId })
+            @Html.ActionLink("Aanpassen", "Edit", new { id=item.CategoryId })
+           
         </td>
     </tr>
 }
 
 </table>
+<a href="@Url.Action("Create", "Categories")" class="btn btn-info">Categorie aanmaken</a>
+<a href="@Url.Action("Index", "Settings")" class="btn btn-info">Sluiten</a>

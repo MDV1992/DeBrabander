@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<DeBrabander.ViewModels.VATs.VatIndexViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "BTW";
 }
 
 <h2>BTW</h2>
 
-<p>
-    @Html.ActionLink("Nieuw BTW tarief ", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -23,10 +20,11 @@
             @Html.DisplayFor(modelItem => item.VATValue)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.VATPercId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.VATPercId })
+            @Html.ActionLink("Aanpassen", "Edit", new { id=item.VATPercId })    
         </td>
     </tr>
 }
 
 </table>
+<a href="@Url.Action("Create", "VATs")" class="btn btn-info">Tarief aanmaken</a>
+<a href="@Url.Action("Index", "Settings")" class="btn btn-info">Sluiten</a>
