@@ -29,7 +29,7 @@ namespace DeBrabander.Models
         public string Country { get; set; }
         [DisplayName("BTW-nummer")]
         public string VatNumber { get; set; }
-        [DisplayName("Bankrekeningnummer")]
+        [DisplayName("Bank-rekening")]
         public string Iban { get; set; }
         [DisplayName("BIC")]
         public string BIC { get; set; }
