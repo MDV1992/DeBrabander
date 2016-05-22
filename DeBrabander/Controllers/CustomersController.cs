@@ -65,8 +65,9 @@ namespace DeBrabander.Controllers
 
             CustomerEditViewModel obj = new CustomerEditViewModel();
             obj.customer.Address = new Address();
-           
+
             //obj.customer.CustomerDeliveryAddress = new List<CustomerDeliveryAddress>();
+            obj.customer.CustomerId = int.Parse(objContext.Request.Form["customer.CustomerId"]);
             obj.customer.LastName = objContext.Request.Form["customer.LastName"];
             obj.customer.FirstName = objContext.Request.Form["customer.FirstName"];
             obj.customer.CompanyName = objContext.Request.Form["customer.CompanyName"];
@@ -283,15 +284,33 @@ namespace DeBrabander.Controllers
             if (ModelState.IsValid)
             {
                 Customer cus = new Customer();                
-                cus.Address = new Address();
-                
-                
-                cus = customer.customer;
-                
-                UpdateModel(cus, "Customer");
+                cus = db.Customers.Find(customer.customer.CustomerId);
 
-                db.Entry(cus).State = EntityState.Modified;
-                db.Entry(cus.Address).State = EntityState.Modified;
+                cus.FirstName = customer.customer.FirstName;
+                cus.LastName = customer.customer.LastName;
+                cus.CompanyName = customer.customer.CompanyName;
+                cus.Phone = customer.customer.Phone;
+                cus.CellPhone = customer.customer.CellPhone;
+                cus.Email = customer.customer.CellPhone;
+                cus.VATNumber = customer.customer.VATNumber;
+                cus.AccountNumber = customer.customer.AccountNumber;
+                cus.Annotation = customer.customer.Annotation;
+                cus.Type = customer.customer.Type;
+                cus.TAXLiability = customer.customer.TAXLiability;
+                cus.ContactName = customer.customer.ContactName;
+                cus.ContactEmail = customer.customer.ContactEmail;
+                cus.ContactCellPhone = customer.customer.ContactCellPhone;
+                cus.Address.StreetName = customer.customer.Address.StreetName;
+                cus.Address.StreetNumber = customer.customer.Address.StreetNumber;
+                cus.Address.Box = customer.customer.Address.Box;
+                cus.Address.PostalCodeNumber = customer.customer.Address.PostalCodeNumber;
+                cus.Address.Town = customer.customer.Address.Town;
+                
+                // testing
+                //cus = customer.customer;
+                //UpdateModel(cus, "Customer");
+                //db.Entry(cus).State = EntityState.Modified;
+                //db.Entry(cus.Address).State = EntityState.Modified;
                 
                 db.SaveChanges();
                 return RedirectToAction("Index");

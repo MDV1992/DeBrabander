@@ -19,6 +19,13 @@
                 <div>
                     <h3>Klant Gegevens</h3>
                 </div>
+                <div class="form-group" hidden>
+                    @Html.LabelFor(model => model.customer.CustomerId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.customer.CustomerId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.customer.CustomerId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.customer.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -153,6 +160,14 @@
                         </div>
                     </div>
 
+                </div>
+                <div class="form-group" hidden>
+                    @Html.LabelFor(model => model.customer.Address.AddressId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-1"></div>
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.customer.Address.AddressId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.customer.Address.AddressId, "", new { @class = "text-danger" })
+                    </div>
                 </div>
 
                 <div class="form-group">
