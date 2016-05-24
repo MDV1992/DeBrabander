@@ -732,7 +732,7 @@ namespace DeBrabander.Controllers
             invoice.Active = true;
             order.Active = false;
 
-            db.Invoice.Add(invoice);
+            db.Invoices.Add(invoice);
             db.SaveChanges();
 
 
@@ -742,7 +742,7 @@ namespace DeBrabander.Controllers
             //find highest order number
             int maxInvoiceNumber = 1;
             invoice.InvoiceNumber = maxInvoiceNumber;
-            var listInvoices = db.Invoice.ToList();
+            var listInvoices = db.Invoices.ToList();
 
             if (listInvoices.Count > 1)
             {

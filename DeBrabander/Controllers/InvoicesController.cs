@@ -10,6 +10,8 @@ using DeBrabander.DAL;
 using DeBrabander.Models;
 using DeBrabander.ViewModels.Invoices;
 using PagedList;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
 
 namespace DeBrabander.Controllers
 {
@@ -21,7 +23,7 @@ namespace DeBrabander.Controllers
         public ActionResult Index(string searchInvoiceNumber, string currentFilterInvoiceNumber, string searchCustomer, string currentFilterCustomer, string searchDelivery, string currentFilterDelivery, int? page, string sortOrder)
         {
             InvoiceIndexViewModel iivm = new InvoiceIndexViewModel();
-            var invoices = from i in db.Invoice select i;
+            var invoices = from i in db.Invoices select i;
             Invoice invoice = new Invoice();
 
             //ViewBag.CurrentSort = sortOrder;
@@ -94,7 +96,7 @@ namespace DeBrabander.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Invoice invoice = db.Invoice.Find(id);
+            Invoice invoice = db.Invoices.Find(id);
             if (invoice == null)
             {
                 return HttpNotFound();
@@ -117,7 +119,7 @@ namespace DeBrabander.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Invoice.Add(invoice);
+                db.Invoices.Add(invoice);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -133,7 +135,7 @@ namespace DeBrabander.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             // opzoeken van de juiste quotation
-            Invoice invoice = db.Invoice.Find(id);
+            Invoice invoice = db.Invoices.Find(id);
             // alle klantgegevens ophalen van de offerte
             var customer = db.Customers.Find(invoice.CustomerId);
             // info opzoeken van het werfadres
@@ -187,7 +189,7 @@ namespace DeBrabander.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Invoice invoice = db.Invoice.Find(id);
+            Invoice invoice = db.Invoices.Find(id);
             if (invoice == null)
             {
                 return HttpNotFound();
@@ -200,11 +202,119 @@ namespace DeBrabander.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Invoice invoice = db.Invoice.Find(id);
-            db.Invoice.Remove(invoice);
+            Invoice invoice = db.Invoices.Find(id);
+            db.Invoices.Remove(invoice);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult CRInvoice(int id)
+        {
+
+            //Lijsten maken en vullen
+            List<SingleInvoiceCRViewModel> CRSingleInvoiceListVM = new List<SingleInvoiceCRViewModel>();
+            SingleInvoiceCRViewModel CRSO = new SingleInvoiceCRViewModel();
+
+            Invoice invoice = db.Invoices.Find(id);
+            Company company = db.Companies.Find(1);
+            Customer cus = db.Customers.Find(invoice.CustomerId);
+
+
+            //vulling Header info
+            //company
+            CRSO.BIC = company.BIC;
+            CRSO.CompanyId = company.CompanyId;
+            CRSO.CompanyName = company.CompanyName;
+            CRSO.Country = company.Country;
+            CRSO.District = company.District;
+            CRSO.EmailCompany = company.Email;
+            CRSO.Iban = company.Iban;
+            CRSO.Mobile = company.Mobile;
+            CRSO.Phone = company.Phone;
+            CRSO.Postalcode = company.Postalcode;
+            CRSO.Street = company.Street;
+            CRSO.VatNumber = company.VatNumber;
+            CRSO.Website = company.Website;
+
+            //quotation
+            CRSO.Annotation = invoice.Annotation;
+            CRSO.Box = invoice.Box;
+            CRSO.CellPhone = invoice.CellPhone;
+            CRSO.CustomerId = invoice.CustomerId;
+            CRSO.Date = invoice.Date;
+            CRSO.EmailCustomer = invoice.Email;
+            CRSO.FirstName = invoice.FirstName;
+            CRSO.LastName = invoice.LastName;
+            CRSO.PostalCodeNumber = invoice.PostalCodeNumber;
+            CRSO.InvoiceID = invoice.InvoiceId;
+            CRSO.InvoiceNumber = invoice.InvoiceNumber;
+            CRSO.StreetName = invoice.StreetName;
+            CRSO.StreetNumber = invoice.StreetNumber;
+            CRSO.TotalPrice = invoice.TotalPrice;
+            CRSO.Town = invoice.Town;
+            CRSO.VATnumberCustomer = cus.VATNumber;
+
+            //customer contact info
+            CRSO.ContactCellPhone = cus.ContactCellPhone;
+            CRSO.ContactEmail = cus.ContactEmail;
+            CRSO.ContactName = cus.ContactName;
+
+            //delivery info
+            CRSO.DeliveryAddressInfo = invoice.customerDeliveryAddress.DeliveryAddressInfo;
+            CRSO.PostalCodeNumberTown = invoice.customerDeliveryAddress.PostalCodeNumber + " " + invoice.customerDeliveryAddress.Town;
+            CRSO.StreetNameNumberBox = invoice.customerDeliveryAddress.StreetName + " " + invoice.customerDeliveryAddress.StreetNumber + " " + invoice.customerDeliveryAddress.Box;
+
+            //vulling details info
+            foreach (var item in invoice.InvoiceDetail)
+            {
+                CRSO.ProductCode = item.ProductCode;
+                CRSO.PriceExVAT = item.PriceExVAT;
+                CRSO.Quantity = item.Quantity;
+                CRSO.Description = item.Description;
+                CRSO.VATValue = Convert.ToInt16(item.VAT.VATValue);
+                CRSO.Auvibel = item.Auvibel;
+                CRSO.Recupel = item.Recupel;
+                CRSO.Reprobel = item.Reprobel;
+                CRSO.Bebat = item.Bebat;
+                CRSO.ProductCode = item.ProductCode;
+                CRSO.ProductName = item.ProductName;
+                CRSingleInvoiceListVM.Add(CRSO);
+                SingleInvoiceCRViewModel empty = new SingleInvoiceCRViewModel();
+                CRSO = empty;
+            }
+
+
+
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/Invoice"), "SingleInvoice.rpt"));
+            rd.SetDataSource(CRSingleInvoiceListVM);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                string pdfName = "Order - " + invoice.InvoiceNumber + " - " + invoice.FullName.ToString() + ".pdf";
+                return File(stream, "application/pdf", pdfName);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Data == null)
+                {
+                    throw;
+                }
+                else
+                {
+                    throw;
+                }
+
+            }
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

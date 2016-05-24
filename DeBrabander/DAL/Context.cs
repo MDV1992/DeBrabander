@@ -40,7 +40,7 @@ namespace DeBrabander.DAL
         public DbSet<QuotationDetail> QuotationDetails { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
-        public DbSet<Invoice> Invoice { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
         public DbSet<InvoiceDetail> InvoiceDetails { get; set; }
 
         public DbSet<CustomerDeliveryAddress> CustomerDeliveryAddresses { get; set; }

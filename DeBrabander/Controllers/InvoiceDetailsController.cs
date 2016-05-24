@@ -40,7 +40,7 @@ namespace DeBrabander.Controllers
         // GET: InvoiceDetails/Create
         public ActionResult Create()
         {
-            ViewBag.InvoiceId = new SelectList(db.Invoice, "InvoiceId", "Annotation");
+            ViewBag.InvoiceId = new SelectList(db.Invoices, "InvoiceId", "Annotation");
             ViewBag.VATPercId = new SelectList(db.VATs, "VATPercId", "VATPercId");
             return View();
         }
@@ -59,7 +59,7 @@ namespace DeBrabander.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.InvoiceId = new SelectList(db.Invoice, "InvoiceId", "Annotation", invoiceDetail.InvoiceId);
+            ViewBag.InvoiceId = new SelectList(db.Invoices, "InvoiceId", "Annotation", invoiceDetail.InvoiceId);
             ViewBag.VATPercId = new SelectList(db.VATs, "VATPercId", "VATPercId", invoiceDetail.VATPercId);
             return View(invoiceDetail);
         }
@@ -76,7 +76,7 @@ namespace DeBrabander.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.InvoiceId = new SelectList(db.Invoice, "InvoiceId", "Annotation", invoiceDetail.InvoiceId);
+            ViewBag.InvoiceId = new SelectList(db.Invoices, "InvoiceId", "Annotation", invoiceDetail.InvoiceId);
             ViewBag.VATPercId = new SelectList(db.VATs, "VATPercId", "VATPercId", invoiceDetail.VATPercId);
             return View(invoiceDetail);
         }
@@ -94,7 +94,7 @@ namespace DeBrabander.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.InvoiceId = new SelectList(db.Invoice, "InvoiceId", "Annotation", invoiceDetail.InvoiceId);
+            ViewBag.InvoiceId = new SelectList(db.Invoices, "InvoiceId", "Annotation", invoiceDetail.InvoiceId);
             ViewBag.VATPercId = new SelectList(db.VATs, "VATPercId", "VATPercId", invoiceDetail.VATPercId);
             return View(invoiceDetail);
         }
