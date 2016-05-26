@@ -194,6 +194,7 @@
     <Content Include="ClassDiagram1.cd" />
     <Content Include="FAQ\Creatie_nieuwe_klant.mht" />
     <Content Include="FAQ\Creatie_nieuw_artikel.mht" />
+    <Content Include="FAQ\Creatie_offerte_order_factuur.mht" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Media\dakwerken.jpg" />
     <Content Include="Scripts\bootstrap.js" />
