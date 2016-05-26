@@ -297,7 +297,7 @@ namespace DeBrabander.Controllers
             {
                 Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
                 stream.Seek(0, SeekOrigin.Begin);
-                string pdfName = "Order - " + invoice.InvoiceNumber + " - " + invoice.FullName.ToString() + ".pdf";
+                string pdfName = "Factuur - " + invoice.InvoiceNumber + " - " + invoice.FullName.ToString() + ".pdf";
                 return File(stream, "application/pdf", pdfName);
             }
             catch (Exception ex)

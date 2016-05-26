@@ -146,7 +146,7 @@ namespace DeBrabander.Controllers
                 prod.VATPercId = product.VATPercId;
                 prod.Stock = product.Stock;
                 prod.EAN = product.EAN;
-                prod.Active = product.Active;
+                prod.Active = true;
 
                 db.Products.Add(prod);
                 db.SaveChanges();

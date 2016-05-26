@@ -192,6 +192,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="ClassDiagram1.cd" />
+    <Content Include="FAQ\Creatie_nieuwe_klant.mht" />
+    <Content Include="FAQ\Creatie_nieuw_artikel.mht" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Media\dakwerken.jpg" />
     <Content Include="Scripts\bootstrap.js" />
@@ -467,6 +469,7 @@
     <Content Include="Views\OrderDetails\Edit.cshtml" />
     <Content Include="Views\OrderDetails\Index.cshtml" />
     <Content Include="Views\Orders\AddProducts.cshtml" />
+    <Content Include="Views\FAQ\FAQ.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

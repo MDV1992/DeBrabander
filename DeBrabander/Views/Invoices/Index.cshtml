@@ -74,6 +74,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.TotalPrice)
                 </td>
+                <td>
+                    <abbr title="Factuur Afdrukken">
+                        <a href="@Url.Action("CRInvoice", "Invoices", new { id = item.InvoiceId })" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                        </a>
+                    </abbr>
+                </td>
                 <td></td>
             </tr>
         }
