@@ -345,11 +345,20 @@ namespace DeBrabander.Controllers
         }
 
         // GET: Customers/AddDeliveryAddress/5
-        public ActionResult AddDeliveryAddress(int? id, int? page, string sortOrder, string searchStringTown, string searchStringPostal, string currentFilterTown, string currentFilterPostal)
+        public ActionResult AddDeliveryAddress(int? id, int? page, string sortOrder, string searchStringTown, string searchStringPostal, string currentFilterTown, string currentFilterPostal, string returnUrl)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (returnUrl == null)
+            {
+                ViewBag.returnUrl = Request.UrlReferrer;
+            }
+            else
+            {
+                ViewBag.returnUrl = returnUrl;
             }
 
             ViewBag.CurrentSort = sortOrder;
@@ -426,7 +435,7 @@ namespace DeBrabander.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.returnUrl = Request.UrlReferrer;
+            
             return View("AddDeliveryAddress",cavm);
         }
 
