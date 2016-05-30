@@ -67,6 +67,7 @@ namespace DeBrabander.Controllers
         // GET: OrderDetails/Edit/5
         public ActionResult Edit(int? id)
         {
+           
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -78,6 +79,7 @@ namespace DeBrabander.Controllers
             }
             ViewBag.OrderId = new SelectList(db.Orders, "OrderId", "Annotation", orderDetail.OrderId);
             ViewBag.VAT = new SelectList(db.VATs, "VATPercId", "VATValue");
+            ViewBag.returnUrl = Request.UrlReferrer;
             return View(orderDetail);
         }
 
@@ -86,17 +88,26 @@ namespace DeBrabander.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrderDetailId,Quantity,OrderId,ProductId,ProductName,ProductCode,Description,PriceExVAT,Reprobel,Bebat,Recupel,Auvibel,Brand,CategoryId,VATPercId,TotalExVat,TotalIncVat")] OrderDetail orderDetail)
+        public ActionResult Edit([Bind(Include = "OrderDetailId,Quantity,OrderId,ProductId,ProductName,ProductCode,Description,PriceExVAT,Reprobel,Bebat,Recupel,Auvibel,Brand,CategoryId,VATPercId,TotalExVat,TotalIncVat")] OrderDetail orderDetail, string returnUrl)
         {
+            Product prod = new Product();
+            prod = db.Products.Find(orderDetail.ProductId);
+            VAT tempod = db.VATs.Find(orderDetail.VATPercId);
+
+            orderDetail.ProductName = prod.ProductName;
+            orderDetail.TotalExVat = (orderDetail.PriceExVAT + orderDetail.Auvibel + orderDetail.Bebat + orderDetail.Recupel + orderDetail.Reprobel) * orderDetail.Quantity;
+            orderDetail.TotalIncVat = orderDetail.TotalExVat * (1 + (tempod.VATValue / 100));
+
+
             if (ModelState.IsValid)
             {
                 db.Entry(orderDetail).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Redirect(returnUrl);
             }
             ViewBag.OrderId = new SelectList(db.Orders, "OrderId", "Annotation", orderDetail.OrderId);
             ViewBag.VATPercId = new SelectList(db.VATs, "VATPercId", "VATPercId", orderDetail.VATPercId);
-            return View(orderDetail);
+            return Redirect(returnUrl);
         }
 
         // GET: OrderDetails/Delete/5

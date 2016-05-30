@@ -148,11 +148,12 @@
 
         </table>
     </div>
-    <div class= "col-md-12">
-        <div class="form-group"
-            <h3>Offerte info : @Html.TextBox("QuotationInfo")</h3>
-            <input type="submit" value="Opslaan" name="Create" class="btn btn-default" formmethod="post" />
-            <input type="submit" value="Artikel toevoegen" name="AddProducts" class="btn btn-default" formmethod="post" />
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.TextBox("QuotationInfo", "", new { @class = "form-control", placeholder = "Offerte info", @style = "margin: 3px;" })
+            <input type="submit" value="Opslaan" name="Create" class="btn btn-info" formmethod="post" />
+            <input type="submit" value="Artikel toevoegen" name="AddProducts" class="btn btn-info" formmethod="post" />
+        </div>
     </div>
 
 

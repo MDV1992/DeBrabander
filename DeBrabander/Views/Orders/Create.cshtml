@@ -139,7 +139,7 @@
         </table>
     </div>
     <div class="col-md-12">
-        <h3>Order info : @Html.TextBox("OrderInfo")</h3>
+        @Html.TextBox("OrderInfo", "", new { @class = "form-control", placeholder = "Order info", @style = "margin: 3px;" })
         <input type="submit" value="Opslaan" name="CreateOrder" class="btn btn-info" formmethod="post" />
         <input type="submit" value="Artikel toevoegen" name="AddProductsOrder" class="btn btn-info" formmethod="post" />
     </div>

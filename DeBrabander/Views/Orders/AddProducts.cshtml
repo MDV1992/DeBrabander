@@ -4,7 +4,8 @@
 @{
     ViewBag.Title = "De Brabander";
 }
-
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Site.css" rel="stylesheet" />
 <h2>Artikelen toevoegen op order van @Model.order.FullName</h2>
 
 @using (Html.BeginForm())
@@ -14,12 +15,11 @@
     <div>
         @using (Html.BeginForm("AddProducts", "Orders", FormMethod.Get, new { id = Model.order.OrderId }))
         {
-            <b>Zoeken op:</b>
             <p>
-                Product Naam / Product Code: @Html.TextBox("searchString", ViewBag.CurrentFilterSearchString as string)
-                Categorie: @Html.DropDownList("CategoryID", (SelectList)ViewBag.CategoryID, "", new { @class = "btn btn-default dropdown-toggle" })
+                @Html.TextBox("searchString", ViewBag.CurrentFilterSearchString as string, new { @class = "form-control", placeholder = "Zoeken op productnaam/code", @style = "margin: 3px;" })
+                @Html.DropDownList("CategoryID", (SelectList)ViewBag.CategoryID, "Categorie", new { @class = "btn btn-default dropdown-toggle" })
                 @Html.TextBox("id", Model.order.OrderId, new { @class = "hidden" })
-                <input type="submit" value="Zoek" />
+                <input type="submit" value="Zoek" class="btn btn-default" style="margin: 3px" />
             </p>
         }
     </div>
@@ -93,9 +93,14 @@
         }
     </table>
 }
-Page @(Model.products.PageCount < Model.products.PageNumber ? 0 : Model.products.PageNumber) of @Model.products.PageCount
-@Html.PagedListPager(Model.products, page => Url.Action("AddProducts", new { page, currentFilterSearchString = ViewBag.CurrentFilterSearchString, currentFilterCategoryId = ViewBag.CurrentFilterCategoryId }))
-
+<div class="row">
+    <div class="col-md-2 col-md-offset-10">
+        Pagina @(Model.products.PageCount < Model.products.PageNumber ? 0 : Model.products.PageNumber) van de @Model.products.PageCount
+    </div>
+    <div class="col-md-2 col-md-offset-10">
+        @Html.PagedListPager(Model.products, page => Url.Action("AddProducts", new { @class = "pagination pagination-sm", page, currentFilterSearchString = ViewBag.CurrentFilterSearchString, currentFilterCategoryId = ViewBag.CurrentFilterCategoryId }), PagedList.PagedListRenderOptions.tomsLayout)
+    </div>
+</div>
 <div>
     <table align="center"></table>
 </div>
